@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "label": "Deterministic synthetic boundary examples",
+  "is_synthetic": true,
+  "source_url": "https://github.com/ho2006/IncentiveScope",
+  "coverage_start": "2023-09-20T00:00:00Z",
+  "coverage_end": "2024-05-29T00:00:00Z",
+  "complete": true,
+  "history_complete": false,
+  "row_count": 23,
+  "sha256": "d9263b14cf27032cc82b062c670c02297515430cbd18a3bec85d990bbedf2452",
+  "notes": [
+    "All accounts, orders and amounts are synthetic. These are software checks, not GMX observations.",
+    "The constructed universe includes non-returners, late entry, closing-only return, liquidation and an old limit order."
+  ]
+}

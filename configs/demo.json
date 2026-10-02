@@ -1,0 +1,11 @@
+{
+  "name": "Synthetic STIP-style example / not GMX research findings",
+  "chain_id": 42161,
+  "is_synthetic": true,
+  "boundary_status": "synthetic",
+  "start": "2023-11-15T00:00:00Z",
+  "end": "2024-03-29T00:00:00Z",
+  "overlaps": [
+    {"name": "Illustrative overlapping campaign", "start": "2024-03-27T00:00:00Z", "end": "2024-04-10T00:00:00Z", "source_url": "https://github.com/ho2006/IncentiveScope"}
+  ]
+}

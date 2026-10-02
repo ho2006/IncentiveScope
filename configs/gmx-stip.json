@@ -1,0 +1,17 @@
+{
+  "name": "GMX V2 / Arbitrum STIP trading rebates (provisional boundaries)",
+  "chain_id": 42161,
+  "is_synthetic": false,
+  "boundary_status": "provisional",
+  "start": "2023-11-15T00:00:00Z",
+  "end": "2024-03-29T00:00:00Z",
+  "coverage_start": "2023-09-20T00:00:00Z",
+  "coverage_end": "2024-05-29T00:00:00Z",
+  "page_size": 500,
+  "endpoint": "https://gmx.squids.live/gmx-synthetics-arbitrum:prod/api/graphql",
+  "boundary_notes": "Official sources disagree on trading start (Nov 15/16). Overall March 29 end is not a verified final earning-epoch cutoff. Do not publish final retention without verification.",
+  "overlaps": [
+    {"name": "GMX trading competition", "start": "2024-03-13T00:00:00Z", "end": "2024-03-27T00:00:00Z", "source_url": "https://gmxio.substack.com/p/the-gmx-eip4844-trading-competition"},
+    {"name": "Binance Wallet GMX tasks", "start": "2024-03-27T00:00:00Z", "end": "2024-04-10T00:00:00Z", "source_url": "https://www.binance.com/en/support/announcement/detail/55199366818140f4afd4bc56000d92f2"}
+  ]
+}

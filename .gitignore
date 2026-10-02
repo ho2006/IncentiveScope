@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.env.*
+data/raw/
+reports/live/
+*.duckdb
+*.duckdb.wal
+.coverage
+build/
+dist/
+*.tmp

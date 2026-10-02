@@ -1,0 +1,11 @@
+query Executions($start: Int!, $end: Int!, $after: String!, $limit: Int!) {
+  tradeActions(
+    where: {timestamp_gte: $start, timestamp_lt: $end, id_gt: $after,
+            eventName_eq: "OrderExecuted", orderType_in: [2, 3, 4, 5, 6, 7]}
+    orderBy: id_ASC
+    limit: $limit
+  ) {
+    id eventName orderKey orderType account marketAddress sizeDeltaUsd
+    timestamp transactionHash
+  }
+}
