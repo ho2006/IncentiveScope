@@ -32,7 +32,7 @@ python -m venv .venv
 & .\.venv\Scripts\python.exe checks.py
 ```
 
-The only core dependency is DuckDB, pinned in `pyproject.toml`. GitHub Actions runs on Windows with `pwsh` and Python 3.11. Checks cover fixed denominators, window edges, liquidations, old orders, incomplete input, duplicate events, exact fees/rewards, partition publication, missing ADL classification and published-artifact reconciliation.
+The only core dependency is DuckDB, pinned in `pyproject.toml`. GitHub Actions runs on Windows with `pwsh` and Python 3.11. The 24 checks cover fixed denominators, window edges, liquidations, old orders, incomplete input, duplicate events, exact fees/rewards, partition publication, missing ADL classification, Dune SQL fixtures/export validation and published-artifact reconciliation.
 
 ## Exactly recompute the frozen real case
 
@@ -64,7 +64,7 @@ History uses ID keyset pagination, finite retries, terminal empty pages and immu
 
 The reward importer validates all 19 allocation epochs and companion batch totals at an immutable Git revision. [Public epoch evidence](data/evidence/reward-allocations/epoch_summary.csv) totals exactly **4,984,768.849960484548991571 ARB**, across 16,528 recipient addresses. These are published allocations, not verified payment transfers. Receiver overrides prevent a complete original-trader join; no program-wide spend is divided by the retained opening cohort.
 
-[Dune SQL companions](docs/dune.md) use pinned official Spellbook definitions for event-grain and retention cross-checks. They are ready for review/execution after catalog and coverage validation, but no Dune result or published dashboard is claimed.
+[Dune SQL companions](docs/dune.md) use pinned official Spellbook definitions for event-grain and retention cross-checks. The daily audit covers 252 explicit UTC dates, checks both matching directions and exposes duplicates and join multiplication. `scripts/reconcile_dune.py` compares complete exports and execution provenance with the frozen case. The signed-in browser attempt currently has disabled Run/Create controls; [the attempt record](data/evidence/dune/execution-status.json) contains no execution ID. No Dune result or source agreement is claimed. The dashboard displays this status and the exact metric windows.
 
 ## Definitions and interpretation
 

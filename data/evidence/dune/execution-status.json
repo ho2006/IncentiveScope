@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "not_executed",
+  "attempted_at": "2026-10-03T09:08:17.584683Z",
+  "reason": "browser_run_disabled",
+  "query_id": null,
+  "execution_id": null,
+  "probe_sql_path": "sql/dune_gmx_schema_probe.sql",
+  "probe_sql_sha256": "26bc66581cfc657d607b2e6c1951fe3339f140d5365df1eb1759531956e44a6e",
+  "editor_url": "https://dune.com/queries",
+  "probe_prepared_in_editor": true,
+  "run_button_disabled": true,
+  "create_button_disabled": true,
+  "comparison_status": "not_available",
+  "message": "Dune SQL is prepared but not executed: the browser session had disabled Run/Create controls on a view-only plan. No query/execution ID or cross-source agreement is claimed. Local independent Python recounts remain available.",
+  "access_evidence_url": "https://dune.com/pricing",
+  "access_evidence": "The viewed pricing page lists view/copy access for Free and query execution for Analyst. No subscription or payment action was performed."
+}

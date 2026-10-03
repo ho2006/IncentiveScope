@@ -200,6 +200,11 @@ def analyze(config: dict, input_path: Path, manifest_path: Path, output_dir: Pat
                                "sha256": manifest["sha256"]},
                    "campaign": {"name": config["name"], "start": iso(start), "end": iso(end),
                                 "post_anchor": iso(anchor), "overlaps": config.get("overlaps", [])},
+                   "measurement_windows": {field: {"start": iso(anchor + timedelta(days=lo)),
+                                                   "end_exclusive": iso(anchor + timedelta(days=hi))}
+                                           for field, lo, hi in (("r30", 23, 30), ("cumulative30", 0, 30),
+                                                                 ("sustained30", 23, 30), ("open_or_decrease30", 23, 30),
+                                                                 ("voluntary30", 23, 30), ("strict_r30", 23, 30), ("r60", 53, 60))},
                    "summary": summary, "cohorts": cohorts, "weekly": weekly, "heatmap": heatmap,
                    "segments": segments, "robustness": robustness, "activity": activity,
                    "cost": None, "quality": quality}

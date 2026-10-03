@@ -38,6 +38,36 @@
       }
     ]
   },
+  "measurement_windows": {
+    "r30": {
+      "start": "2024-04-19T00:00:00Z",
+      "end_exclusive": "2024-04-26T00:00:00Z"
+    },
+    "cumulative30": {
+      "start": "2024-03-27T00:00:00Z",
+      "end_exclusive": "2024-04-26T00:00:00Z"
+    },
+    "sustained30": {
+      "start": "2024-04-19T00:00:00Z",
+      "end_exclusive": "2024-04-26T00:00:00Z"
+    },
+    "open_or_decrease30": {
+      "start": "2024-04-19T00:00:00Z",
+      "end_exclusive": "2024-04-26T00:00:00Z"
+    },
+    "voluntary30": {
+      "start": "2024-04-19T00:00:00Z",
+      "end_exclusive": "2024-04-26T00:00:00Z"
+    },
+    "strict_r30": {
+      "start": "2024-04-19T00:00:00Z",
+      "end_exclusive": "2024-04-26T00:00:00Z"
+    },
+    "r60": {
+      "start": "2024-05-19T00:00:00Z",
+      "end_exclusive": "2024-05-26T00:00:00Z"
+    }
+  },
   "summary": {
     "cohort_size": 22145,
     "r30": {
@@ -1457,5 +1487,12 @@
       "label": "Dune companion: source-reviewed, not executed",
       "url": "https://github.com/ho2006/IncentiveScope/blob/main/docs/dune.md"
     }
-  ]
+  ],
+  "cross_source": {
+    "status": "not_executed",
+    "message": "Dune SQL is prepared but not executed: the browser session had disabled Run/Create controls on a view-only plan. No query/execution ID or cross-source agreement is claimed. Local independent Python recounts remain available.",
+    "attempted_at": "2026-10-03T09:08:17.584683Z",
+    "query_id": null,
+    "execution_id": null
+  }
 }

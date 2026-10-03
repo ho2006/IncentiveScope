@@ -34,3 +34,11 @@ The GitHub repository contains the source-backed outputs. GitHub Pages is config
 - Address histories are truncated, prior incentive exposure is documented and post windows overlap other campaigns. The case makes descriptive claims with no treatment-control or causal attribution.
 
 These deferred validations are disclosed evidence limits. They do not invalidate the delivered, reproducible opening-based historical case.
+
+## Dune follow-up, October 3, 2026
+
+The Chrome connection reached a signed-in Dune editor and prepared the one-day schema probe. Run and Create remained disabled on the view-only plan after its trial ended. The [attempt record](../data/evidence/dune/execution-status.json) keeps query/execution IDs null; no Dune execution or independent source agreement has been obtained.
+
+The revised daily SQL emits 252 dates, checks event matching in both directions, counts raw duplicates and join multiplication, and separates uniquely identified swaps. Retention exports five unambiguous metric rows and checks creation keys across all source history before the cutoff. A new provenance-bound CSV reconciler detects missing days, invalid grain, incorrect hashes and metric differences while withholding strict retention when creation evidence is incomplete. Synthetic checks cannot produce a real validation flag.
+
+All **24 checks passed** after these changes. DuckDB fixtures validate SQL logic, not the Dune compiler or deployed datasets. Regenerated real artifacts retain the 22,145-account cohort and R30 numerator 954, and now display exact UTC measurement windows and the pending cross-source status. The frozen v0.2.0 input release remains the reproduction source.

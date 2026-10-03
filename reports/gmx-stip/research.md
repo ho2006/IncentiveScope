@@ -100,6 +100,10 @@ Entry-week and observed-history groups reveal exposure differences. Top-1% exclu
 
 For synthetic data, these are pipeline checks only. For real exploratory data, conclusions remain conditional on earning-boundary verification. For verified historical data, assess sustained participation alongside concentration and fee coverage; observed changes alone do not justify changing incentive budgets. No causal ROI is estimated.
 
+## Cross-source validation
+
+Dune SQL is prepared but not executed: the browser session had disabled Run/Create controls on a view-only plan. No query/execution ID or cross-source agreement is claimed. Local independent Python recounts remain available.
+
 ## Evidence
 
 - [Verified earning boundaries](https://github.com/ho2006/IncentiveScope/blob/main/docs/boundary-evidence.md)

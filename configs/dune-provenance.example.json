@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "is_synthetic": false,
+  "coverage_start": "2023-09-20T00:00:00Z",
+  "coverage_end": "2024-05-29T00:00:00Z",
+  "campaign_start": "2023-11-15T00:00:01Z",
+  "campaign_end": "2024-03-27T00:00:00Z",
+  "daily_audit": {
+    "query_id": null,
+    "execution_id": null,
+    "executed_at": null,
+    "complete": false,
+    "csv_sha256": null,
+    "sql_sha256": null
+  },
+  "retention": {
+    "query_id": null,
+    "execution_id": null,
+    "executed_at": null,
+    "complete": false,
+    "csv_sha256": null,
+    "sql_sha256": null
+  }
+}

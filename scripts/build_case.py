@@ -50,6 +50,12 @@ def main():
         ("Historical quality and independent recount", "docs/data-quality.md"),
         ("Official reward allocations and attribution limits", "docs/reward-data.md"),
         ("Dune companion: source-reviewed, not executed", "docs/dune.md"))]
+    status_path = ROOT / "data/evidence/dune/execution-status.json"
+    if status_path.exists():
+        status = json.loads(status_path.read_text(encoding="utf-8"))
+        result["cross_source"] = {"status": status["status"], "message": status["message"],
+                                  "attempted_at": status["attempted_at"], "query_id": status["query_id"],
+                                  "execution_id": status["execution_id"]}
     write_json(output / "results.json", result)
     render(result, output)
     note = (output / "research.md").read_text(encoding="utf-8")

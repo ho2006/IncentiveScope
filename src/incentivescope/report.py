@@ -107,7 +107,9 @@ def render(results: dict, output_dir: Path) -> None:
     cards = ""
     for name, label in (("r30", "Day 24–30 return"), ("cumulative30", "Any return in first 30 days"), ("sustained30", "Two-day participation")):
         value = summary[name]
-        cards += f'<article class="stat"><p>{label}</p><strong>{percent(value["rate"])}</strong><small>{value["n"]:,} / {value["N"]:,} addresses</small></article>'
+        window = results.get("measurement_windows", {}).get(name)
+        dates = f'<br><small>[{escaped(window["start"][:10])}, {escaped(window["end_exclusive"][:10])}) UTC</small>' if window else ""
+        cards += f'<article class="stat"><p>{label}</p><strong>{percent(value["rate"])}</strong><small>{value["n"]:,} / {value["N"]:,} addresses</small>{dates}</article>'
     rows = "".join(f'<tr data-kind="{escaped(row["kind"])}"><td>{escaped(row["entry_week"])}</td><td>{escaped(row["kind"])}</td>'
                    f'<td>{row["size"]}</td><td>{row["r30_n"]}</td><td>{percent(row["r30_rate"])}</td></tr>' for row in results["cohorts"])
     options = '<option value="all">All observed-history groups</option>' + "".join(
@@ -124,6 +126,7 @@ def render(results: dict, output_dir: Path) -> None:
     findings = "".join(f"<li>{escaped(text)}</li>" for text in results.get("findings", []))
     evidence = "".join(f"<li>{link(row['url'], row['label'])}</li>" for row in results.get("evidence_links", []))
     rewards = results.get("reward_allocations")
+    comparison_note = results.get("cross_source", {}).get("message", "Independent source agreement has not been established for this result.")
     reward_note = (f"{rewards['epoch_count']} official epochs: {escaped(rewards['total_amount_arb'])} ARB allocated to "
                    f"{rewards['unique_recipients']:,} recipient addresses. Allocation files are not payment receipts; "
                    "receiver overrides prevent full trader-level attribution. Cost per retained account remains unavailable.") if rewards else "Reward cost: unavailable until address-level earning-epoch allocations can be reconciled."
@@ -159,6 +162,7 @@ footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line)}detail
 <section class="panel"><h2>Concentration sensitivity</h2><table><caption>Ranking uses campaign-period volume; ceiling rounding excludes at least one address when N is small.</caption><thead><tr><th>Population</th><th>R30 n/N</th><th>R30</th></tr></thead><tbody>$CONCENTRATION$</tbody></table></section>
 <section class="panel"><h2>Equal-window participation intensity</h2><p>$MATURE$ mature addresses, with 30 complete UTC days in each window. Zero-activity addresses remain in the denominator.</p><table><caption>Opening/increase only; net position fees after trader discount, before external rewards. Missing fees are N/A.</caption><thead><tr><th>Window</th><th>Active address-days</th><th>Activity share</th><th>Net position fees (USD)</th></tr></thead><tbody>$INTENSITY$</tbody></table><p>Post/pre activity ratio: $ACTIVITYRATIO$ · Fee ratio: $FEERATIO$</p></section>
 <section class="panel method"><h2>Evidence and interpretation</h2><p>Account attribution uses the protocol account, not the keeper execution sender. Cancelled orders, zero-size collateral changes, liquidations and ADL do not count as new opening or increase.</p>
+<h3>Cross-source validation</h3><p>$COMPARISON$</p>
 <p>The cohort is fixed over <code>[start, end)</code>. R30 uses <code>[first complete post day + 23d, +30d)</code>. Every percentage displays its numerator and denominator. Address counts are not people, and differences do not establish causal impact.</p>
 <details><summary>Coverage, missing fields and limitations</summary><ul>$NOTES$</ul><p>Input SHA-256: <code>$CHECKSUM$</code></p></details>
 <ul>$EVIDENCE$</ul>
@@ -176,7 +180,7 @@ const select=document.getElementById('cohort-filter');select.addEventListener('c
                     "CONCENTRATION": concentration, "MATURE": str(activity["eligibleN"]), "INTENSITY": intensity,
                     "ACTIVITYRATIO": number(activity["activity_ratio"]), "FEERATIO": number(activity["fee_ratio"]),
                     "FINDINGS": findings or "<li>This labelled example demonstrates metric definitions and data checks.</li>",
-                    "REWARDS": reward_note, "EVIDENCE": evidence,
+                    "REWARDS": reward_note, "EVIDENCE": evidence, "COMPARISON": escaped(comparison_note),
                     "NOTES": limitations, "CHECKSUM": escaped(data["sha256"]), "DATA": payload}
     import re
     page = re.sub(r"\$([A-Z0-9]+)\$", lambda match: replacements[match.group(1)], page)
@@ -200,6 +204,7 @@ const select=document.getElementById('cohort-filter');select.addEventListener('c
                    "- Reward cost is withheld without reconciled address-level allocations. Fees are withheld when missing; no funding or gas is imputed as a position fee.",
                    "", "## Operating implications",
                    "For synthetic data, these are pipeline checks only. For real exploratory data, conclusions remain conditional on earning-boundary verification. For verified historical data, assess sustained participation alongside concentration and fee coverage; observed changes alone do not justify changing incentive budgets. No causal ROI is estimated.",
+                   "## Cross-source validation", comparison_note,
                    "## Evidence", *[f"- [{row['label']}]({row['url']})" for row in results.get("evidence_links", [])],
                    "", "## Reproduction", "See the repository README for the exact analyze command. results.json, wallet_cohorts.csv and wallet_daily.csv are generated from one frozen input and its checksum manifest."]
     atomic_text(output_dir / "research.md", "\n\n".join(paragraphs) + "\n")

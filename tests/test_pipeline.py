@@ -106,6 +106,8 @@ class PipelineCheck(unittest.TestCase):
         self.config["end"] = "2024-03-29T20:00:00+08:00"
         result = self.run_analysis()
         self.assertEqual(result["campaign"]["post_anchor"], "2024-03-30T00:00:00Z")
+        self.assertEqual(result["measurement_windows"]["r30"], {
+            "start": "2024-04-22T00:00:00Z", "end_exclusive": "2024-04-29T00:00:00Z"})
         # Moving the anchor one day admits the return at the original day-30 boundary.
         self.assertEqual(result["summary"]["r30"]["n"], 4)
 
@@ -119,10 +121,15 @@ class PipelineCheck(unittest.TestCase):
     def test_report_is_portable_and_escapes_untrusted_text(self):
         result = self.run_analysis()
         result["campaign"]["name"] = '</script><script>alert("bad")</script>'
+        result["cross_source"] = {"status": "not_executed", "message": '<script>alert("source")</script>'}
         render(result, self.output / "report")
         page_text = (self.output / "report/index.html").read_text(encoding="utf-8")
         self.assertIn("SYNTHETIC DEMONSTRATION", page_text)
         self.assertNotIn('<script>alert("bad")', page_text)
+        self.assertNotIn('<script>alert("source")', page_text)
+        self.assertIn("&lt;script&gt;alert", page_text)
+        self.assertIn("Cross-source validation", page_text)
+        self.assertIn("[2024-04-21, 2024-04-28) UTC", page_text)
         self.assertIn("\\u003c/script>", page_text)
         self.assertNotIn("$R60$", page_text)
         self.assertEqual(len(list((self.output / "report/figures").glob("*.svg"))), 5)
