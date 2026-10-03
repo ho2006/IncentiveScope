@@ -14,6 +14,7 @@ from urllib.request import Request, urlopen
 from .common import FIELDS, instant, iso, write_json
 
 ENDPOINT = "https://gmx.squids.live/gmx-synthetics-arbitrum:prod/api/graphql"
+NORMALIZATION_VERSION = 2
 CREATIONS = """query Creations($keys: [String!]!, $after: String!, $limit: Int!) {
   tradeActions(where: {orderKey_in: $keys, eventName_eq: "OrderCreated", id_gt: $after},
                orderBy: id_ASC, limit: $limit) { id orderKey account timestamp }
@@ -72,6 +73,20 @@ def usd(raw: str | None) -> str:
         return format(number / Decimal(10 ** 30), "f")
 
 
+def fee_usd(row: dict) -> str:
+    values = [row.get(field) for field in ("positionFeeAmount", "traderDiscountAmount", "collateralTokenPriceMin")]
+    if any(value is None for value in values):
+        return ""
+    if any(not isinstance(value, str) or not value.isascii() or not value.isdigit() for value in values):
+        raise ValueError("Expected nonnegative integer fee, discount and collateral price")
+    fee, discount, price = map(int, values)
+    if discount > fee or price <= 0:
+        raise ValueError("Discount exceeds fee or collateral price is not positive")
+    with localcontext() as context:
+        context.prec = 180
+        return format(Decimal((fee - discount) * price) / Decimal(10 ** 30), "f")
+
+
 def normalize(row: dict, creations: dict, start: int, end: int) -> dict:
     if row["eventName"] != "OrderExecuted" or not start <= row["timestamp"] < end:
         raise ValueError("Unexpected event or timestamp from upstream")
@@ -91,7 +106,7 @@ def normalize(row: dict, creations: dict, start: int, end: int) -> dict:
     return dict(zip(FIELDS, (
         "42161", row["transactionHash"].lower(), index, row["account"].lower(),
         row["orderKey"].lower(), (row["marketAddress"] or "").lower(),
-        iso(datetime.fromtimestamp(row["timestamp"], timezone.utc)), action, "true", size, "",
+        iso(datetime.fromtimestamp(row["timestamp"], timezone.utc)), action, "true", size, fee_usd(row),
         iso(datetime.fromtimestamp(created["timestamp"], timezone.utc)) if created else "",
     )))
 
@@ -143,15 +158,18 @@ def fetch(config: dict, output_dir: Path, max_pages: int | None = None) -> dict:
             variables["after"] = rows[-1]["id"]
             print(f"Fetched execution page {pages}: {count} rows", flush=True)
     temporary.replace(target)
-    manifest = {"schema_version": 1, "label": "GMX V2 indexed perpetual execution events",
+    manifest = {"schema_version": 1, "normalization_version": NORMALIZATION_VERSION,
+                "label": "GMX V2 indexed perpetual execution events",
                 "is_synthetic": False, "source_url": endpoint,
                 "coverage_start": iso(begin), "coverage_end": iso(end), "complete": complete,
                 "row_count": count, "sha256": hashlib.sha256(target.read_bytes()).hexdigest(),
                 "history_complete": False, "execution_pages": pages,
+                "decrease_classification_verified": False,
                 "extracted_at": iso(datetime.now(timezone.utc)),
                 "notes": ["Indexed data, not an independent replay of historical deployed contracts.",
-                          "Order types 2–7 only; type 7 is excluded from voluntary participation (liquidation/ADL).",
-                          "USD sizeDeltaUsd is scaled by 10^30. Token-denominated fee fields are not converted.",
+                          "Order types 2–7 only; type 7 liquidations are excluded from opening/increase. ADL may appear as type 4; this surface has no secondaryOrderType, so voluntary-decrease classification is unverified.",
+                          "USD sizeDeltaUsd is scaled by 10^30.",
+                          "Net position fee USD=(positionFeeAmount-traderDiscountAmount)*collateralTokenPriceMin/10^30; missing fields stay unknown. Excludes external rebates, borrowing, funding, UI fees and gas.",
                           "Missing OrderCreated records remain unknown, never treated as post-campaign creations.",
                           "Raw response caches are immutable snapshots for this request; use a new directory to refresh."]}
     write_json(output_dir / "manifest.json", manifest)

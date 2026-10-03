@@ -1,0 +1,240 @@
+{
+  "verified_at_utc": "2026-10-03T08:32:39.2733706Z",
+  "historical_commit": "ed306a37f1fab314a59c8f4595da18802599db6a",
+  "import_commit": "a85ea3491c19c93bb4b5a002d9b358fb769b7849",
+  "historical_tree_url": "https://api.github.com/repos/gmx-io/gmx-synthetics/git/trees/ed306a37f1fab314a59c8f4595da18802599db6a?recursive=1",
+  "import_tree_url": "https://api.github.com/repos/gmx-io/gmx-synthetics/git/trees/a85ea3491c19c93bb4b5a002d9b358fb769b7849?recursive=1",
+  "both_trees_complete": true,
+  "compared_files": 38,
+  "unchanged_files": 38,
+  "files": [
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-11-15/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "a399a040d8267749eff63f885c39afe77d1341ea",
+      "import_blob_sha": "a399a040d8267749eff63f885c39afe77d1341ea",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-11-15/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "9733ed8b24e2b4f9b0be68124920ace600f36c3b",
+      "import_blob_sha": "9733ed8b24e2b4f9b0be68124920ace600f36c3b",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-11-22/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "92dcad25b56239343c18f253d00631ffea0b3fc0",
+      "import_blob_sha": "92dcad25b56239343c18f253d00631ffea0b3fc0",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-11-22/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "8d59cf712bfedc57a57d9e75966ff5bfcfcd655c",
+      "import_blob_sha": "8d59cf712bfedc57a57d9e75966ff5bfcfcd655c",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-11-29/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "62cfcb75d94743dcc3b4452ef0abf775dff9cb7e",
+      "import_blob_sha": "62cfcb75d94743dcc3b4452ef0abf775dff9cb7e",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-11-29/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "757cf089e3ab87b4e225b5be1d20b8a87af7462a",
+      "import_blob_sha": "757cf089e3ab87b4e225b5be1d20b8a87af7462a",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-12-06/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "a96ed94d39504afbfa7ed3d663720afde9ef7cea",
+      "import_blob_sha": "a96ed94d39504afbfa7ed3d663720afde9ef7cea",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-12-06/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "1fc33fca550db9bbb5f40fe67cc13f931311c61f",
+      "import_blob_sha": "1fc33fca550db9bbb5f40fe67cc13f931311c61f",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-12-13/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "7e6856ffccf984184383442a0c3433a98f25e3d5",
+      "import_blob_sha": "7e6856ffccf984184383442a0c3433a98f25e3d5",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-12-13/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "e0702d895a543ffb4d3241e3ada1f0a8a9a0ae8f",
+      "import_blob_sha": "e0702d895a543ffb4d3241e3ada1f0a8a9a0ae8f",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-12-20/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "bb74df4d92f6a3ee55610946f06c6846f4fde891",
+      "import_blob_sha": "bb74df4d92f6a3ee55610946f06c6846f4fde891",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-12-20/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "7bcc637795ad9bc5242968a6f8c83a71c0e82c18",
+      "import_blob_sha": "7bcc637795ad9bc5242968a6f8c83a71c0e82c18",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-12-27/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "bfd4bbdfaaeb6c707b68ce95ece2fba6f564e9b6",
+      "import_blob_sha": "bfd4bbdfaaeb6c707b68ce95ece2fba6f564e9b6",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2023-12-27/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "cbe32d6f7dab348ffa304e45776db7adcda1cb37",
+      "import_blob_sha": "cbe32d6f7dab348ffa304e45776db7adcda1cb37",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-01-03/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "5724cf0c0b023a2fb0b6a4dd98da2c1c1a66c95b",
+      "import_blob_sha": "5724cf0c0b023a2fb0b6a4dd98da2c1c1a66c95b",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-01-03/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "98a2c34e57ad01520b3bc0f589b4dbc94ee73b14",
+      "import_blob_sha": "98a2c34e57ad01520b3bc0f589b4dbc94ee73b14",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-01-10/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "cc31916ed2ec86a065b4bb32a600a20561e55e1f",
+      "import_blob_sha": "cc31916ed2ec86a065b4bb32a600a20561e55e1f",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-01-10/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "ca232e4faf8297c466925a5e9a3d6983cc4826de",
+      "import_blob_sha": "ca232e4faf8297c466925a5e9a3d6983cc4826de",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-01-17/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "bd99fb4f27ed859ff454b7e8c54354e0d5231ace",
+      "import_blob_sha": "bd99fb4f27ed859ff454b7e8c54354e0d5231ace",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-01-17/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "6cd76fecab827c35bf0dbc1c72e5732957a0a4f2",
+      "import_blob_sha": "6cd76fecab827c35bf0dbc1c72e5732957a0a4f2",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-01-24/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "1ccde6edc4a85dbb024956a5d8d37f265078a677",
+      "import_blob_sha": "1ccde6edc4a85dbb024956a5d8d37f265078a677",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-01-24/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "9a7b3315d56a48a398ef9c886911873bab877c6c",
+      "import_blob_sha": "9a7b3315d56a48a398ef9c886911873bab877c6c",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-01-31/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "7de746f1b242cf7cee54ffe6a28e04b84da960de",
+      "import_blob_sha": "7de746f1b242cf7cee54ffe6a28e04b84da960de",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-01-31/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "ce57282191c7bbee0df0144a6fe307adcf3e1685",
+      "import_blob_sha": "ce57282191c7bbee0df0144a6fe307adcf3e1685",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-02-07/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "fa0356278c61922ac60d924e8fccbab0ed1e326a",
+      "import_blob_sha": "fa0356278c61922ac60d924e8fccbab0ed1e326a",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-02-07/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "e8f8b5c8255c03cc469dd77785ea7f8bbdc247c3",
+      "import_blob_sha": "e8f8b5c8255c03cc469dd77785ea7f8bbdc247c3",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-02-14/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "b589f3d147b7381d0eeae0546600953deeac910e",
+      "import_blob_sha": "b589f3d147b7381d0eeae0546600953deeac910e",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-02-14/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "5cea6d2cfa07a2e11e150486dc1b13cac7c300ab",
+      "import_blob_sha": "5cea6d2cfa07a2e11e150486dc1b13cac7c300ab",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-02-21/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "7f10308d8a1c05cea82402495cc58d2ec7dbd1d2",
+      "import_blob_sha": "7f10308d8a1c05cea82402495cc58d2ec7dbd1d2",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-02-21/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "b6c04f1234b1defdc7335c28c21e1606e62d9184",
+      "import_blob_sha": "b6c04f1234b1defdc7335c28c21e1606e62d9184",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-02-28/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "b1456e944934043e855f5ccbbf9cf8773bbb092a",
+      "import_blob_sha": "b1456e944934043e855f5ccbbf9cf8773bbb092a",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-02-28/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "d0018e87d36112da2c5f33119f8d75544f817271",
+      "import_blob_sha": "d0018e87d36112da2c5f33119f8d75544f817271",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-03-06/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "10ed652d742ba4bf78ab6210ece4c2335ac61cc7",
+      "import_blob_sha": "10ed652d742ba4bf78ab6210ece4c2335ac61cc7",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-03-06/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "2496ef2dd257366651b85442ab2e22edab41633d",
+      "import_blob_sha": "2496ef2dd257366651b85442ab2e22edab41633d",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-03-13/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "dac60e9e6d15f815b010f0b123514d48fd2a919f",
+      "import_blob_sha": "dac60e9e6d15f815b010f0b123514d48fd2a919f",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-03-13/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "058ad676f7753efdb4db0b17c60e4bc0681a0bab",
+      "import_blob_sha": "058ad676f7753efdb4db0b17c60e4bc0681a0bab",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-03-20/stipTradingIncentives_distribution.json",
+      "historical_blob_sha": "df59050cc7ff0c7d95806e0a4707d492f7c70dbd",
+      "import_blob_sha": "df59050cc7ff0c7d95806e0a4707d492f7c70dbd",
+      "unchanged": true
+    },
+    {
+      "path": "scripts/incentives/distributions/epoch_2024-03-20/stipTradingIncentives_transactionData.json",
+      "historical_blob_sha": "dfecf5dd69e27bc69404e99897cc5abf3e723697",
+      "import_blob_sha": "dfecf5dd69e27bc69404e99897cc5abf3e723697",
+      "unchanged": true
+    }
+  ]
+}

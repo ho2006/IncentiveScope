@@ -1,0 +1,35 @@
+{
+  "source_repository": "duneanalytics/spellbook",
+  "source_commit": "5f54fcf41b34b199c4c4ed1775059ab2d273f466",
+  "verified_at_utc": "2026-10-03T08:34:12.5934604Z",
+  "schema_status": "source_definitions_verified",
+  "query_execution_status": "not_executed",
+  "query_publication_status": "not_published",
+  "deployment_and_history_status": "not_verified",
+  "sources": [
+    {
+      "path": "dbt_subprojects/hourly_spellbook/models/_project/gmx/event/arbitrum/gmx_v2_arbitrum_position_increase.sql",
+      "url": "https://raw.githubusercontent.com/duneanalytics/spellbook/5f54fcf41b34b199c4c4ed1775059ab2d273f466/dbt_subprojects/hourly_spellbook/models/_project/gmx/event/arbitrum/gmx_v2_arbitrum_position_increase.sql",
+      "git_blob_sha": "e1316aa579e2048e46a8ddff122aceea8c671eed",
+      "sha256": "c0b8c45bf570131e6fffb61ea919ffd285ae08a0c3e008e5798bda1d4673fd1e"
+    },
+    {
+      "path": "dbt_subprojects/hourly_spellbook/models/_project/gmx/event/arbitrum/gmx_v2_arbitrum_position_decrease.sql",
+      "url": "https://raw.githubusercontent.com/duneanalytics/spellbook/5f54fcf41b34b199c4c4ed1775059ab2d273f466/dbt_subprojects/hourly_spellbook/models/_project/gmx/event/arbitrum/gmx_v2_arbitrum_position_decrease.sql",
+      "git_blob_sha": "9b1afe01896c81c29faab8da993c7361f94ec058",
+      "sha256": "7f59d37a189a7b3df023f2d89d08a82ddd894c21a69eac83f8cb2e41dabf0f9e"
+    },
+    {
+      "path": "dbt_subprojects/hourly_spellbook/models/_project/gmx/event/arbitrum/gmx_v2_arbitrum_order_executed.sql",
+      "url": "https://raw.githubusercontent.com/duneanalytics/spellbook/5f54fcf41b34b199c4c4ed1775059ab2d273f466/dbt_subprojects/hourly_spellbook/models/_project/gmx/event/arbitrum/gmx_v2_arbitrum_order_executed.sql",
+      "git_blob_sha": "76b22ccfeabbe6085a4a47dcec477e2307139cde",
+      "sha256": "fc2991ed1d6d270d055b97f21a05fa785b70a7cfa159bd85d74676f55562a2bb"
+    },
+    {
+      "path": "dbt_subprojects/hourly_spellbook/models/_project/gmx/event/arbitrum/gmx_v2_arbitrum_order_created.sql",
+      "url": "https://raw.githubusercontent.com/duneanalytics/spellbook/5f54fcf41b34b199c4c4ed1775059ab2d273f466/dbt_subprojects/hourly_spellbook/models/_project/gmx/event/arbitrum/gmx_v2_arbitrum_order_created.sql",
+      "git_blob_sha": "4f6aab341ea6feecfd838d268b4a0dc30dd1e2d7",
+      "sha256": "94bf41927d08bc9fe4301e4c8497d9eaf057823a852995ba7da95419a875a82f"
+    }
+  ]
+}

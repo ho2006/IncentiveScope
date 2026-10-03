@@ -1,0 +1,324 @@
+{
+  "schema_version": 1,
+  "label": "GMX STIP trading reward recipient allocations",
+  "is_synthetic": false,
+  "complete": true,
+  "source_commit": "a85ea3491c19c93bb4b5a002d9b358fb769b7849",
+  "source_tree_sha256": "59dcd2d82b4a7f459b6ae5449c04a846a89ebbec0f8b34a1257b5dcdae2eb5c3",
+  "extracted_at": "2026-10-03T03:31:11.309723Z",
+  "token": "0x912ce59144191c1204e64559fe8253a0e49e6548",
+  "token_symbol": "ARB",
+  "decimals": 18,
+  "chain_id": 42161,
+  "distribution_type_id": 1003,
+  "epoch_count": 19,
+  "epoch_start": "2023-11-15",
+  "last_epoch_start": "2024-03-20",
+  "epoch_end_exclusive": "2024-03-27",
+  "recipient_epoch_rows": 46855,
+  "unique_recipients": 16528,
+  "total_amount_raw": "4984768849960484548991571",
+  "total_amount_arb": "4984768.849960484548991571",
+  "epochs_with_recorded_overrides": 0,
+  "grain": "reward recipient address x source epoch",
+  "payment_status": "not_verified_onchain",
+  "trading_account_attribution": "not_reconstructable_from_recipient_amounts_alone",
+  "forum_reconciliation": {
+    "source_url": "https://forum.arbitrum.foundation/t/leveraging-the-stip-grants-program-to-grow-the-gmx-and-arbitrum-defi-ecosystem/23100",
+    "reported_total_arb": "4984768.84",
+    "exact_minus_reported_total_arb": "0.009960484548991571",
+    "reported_last_epoch_arb": "224976.96",
+    "reported_last_epoch_recipients": 2612,
+    "exact_minus_reported_last_epoch_arb": "-0.002792971253261943",
+    "last_epoch_recipient_count_matches": true
+  },
+  "files": [
+    {
+      "file": "recipient_rewards.csv",
+      "row_count": 46855,
+      "sha256": "ac38cc5e5142a0db4716468a8cbba755ae93d1736091ea2c1b8b96964d3948b0"
+    },
+    {
+      "file": "epoch_summary.csv",
+      "row_count": 19,
+      "sha256": "60d56b9ec33c23ea0a3f49e824123b675e94968104c55d74aa39e42ebfe54a18"
+    }
+  ],
+  "sources": [
+    {
+      "epoch_start": "2023-11-15",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-11-15/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "a399a040d8267749eff63f885c39afe77d1341ea",
+        "sha256": "b5564b2548c5a60b99592c5274387efa91eedc430035629771b8ca8954fa0929"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-11-15/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "9733ed8b24e2b4f9b0be68124920ace600f36c3b",
+        "sha256": "7fbdf4fa613627ebb6ecdff9552b090f85840e85bab884b9ff4a2acd95aae58b"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2023-11-22",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-11-22/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "92dcad25b56239343c18f253d00631ffea0b3fc0",
+        "sha256": "d73330bf68acffe72a09d5c60a8e2bc7c60e6b9e8e09e7f4a5dc8c4d51f299da"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-11-22/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "8d59cf712bfedc57a57d9e75966ff5bfcfcd655c",
+        "sha256": "31b665df7409f0576131886814ba2ed321bbc9d7d6012004589e0edf7ccb920b"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2023-11-29",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-11-29/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "62cfcb75d94743dcc3b4452ef0abf775dff9cb7e",
+        "sha256": "0e00c7aadcbac272ba036a55f91bf3090a73ee7fa8f98c32359e3f5e995e1736"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-11-29/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "757cf089e3ab87b4e225b5be1d20b8a87af7462a",
+        "sha256": "5c0437cd1ebea255251adcd05cced2599fd52a02275a6944e04e0d7c6b16b393"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2023-12-06",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-12-06/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "a96ed94d39504afbfa7ed3d663720afde9ef7cea",
+        "sha256": "cee2baa4da84336b382325cdbeb179a5e68a5951434d25b17b8ae387a371db4c"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-12-06/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "1fc33fca550db9bbb5f40fe67cc13f931311c61f",
+        "sha256": "70768cf3e539bbbb8dd479cede8d6945e0158f1bb2b07cbb20afc8bedca75fe2"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2023-12-13",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-12-13/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "7e6856ffccf984184383442a0c3433a98f25e3d5",
+        "sha256": "49968d8794555fe95cd3f3de08bad0b0659c10c975aca5eae40b535d2f1a6b6e"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-12-13/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "e0702d895a543ffb4d3241e3ada1f0a8a9a0ae8f",
+        "sha256": "dcf28cae1fa5c1bf613ea0f7b971ea56c4ab7aeb5adb97aad2b40dd5001da53e"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2023-12-20",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-12-20/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "bb74df4d92f6a3ee55610946f06c6846f4fde891",
+        "sha256": "5f8c9e31f00649a8ceeceb61dc4c8a765643a5165aa92a7f9965a6254286c3b5"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-12-20/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "7bcc637795ad9bc5242968a6f8c83a71c0e82c18",
+        "sha256": "21ad423b6c90a4e5277783c36499099ab01fee52d3155b419117bbac53ff77ff"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2023-12-27",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-12-27/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "bfd4bbdfaaeb6c707b68ce95ece2fba6f564e9b6",
+        "sha256": "464a2d504260f67ca16d6d2f43210e15cb29e93a72be885b3577b3726e5c16a5"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2023-12-27/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "cbe32d6f7dab348ffa304e45776db7adcda1cb37",
+        "sha256": "1232ba5125b636ea7bb7013718c8c4c0abf05b28a567a7171d0bb4a4f3b9fbfa"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2024-01-03",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-01-03/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "5724cf0c0b023a2fb0b6a4dd98da2c1c1a66c95b",
+        "sha256": "176e25561a32ba853631f8c00fe3009a80dfd52cfac449ffbef49f7adcb514f9"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-01-03/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "98a2c34e57ad01520b3bc0f589b4dbc94ee73b14",
+        "sha256": "bb418655c13d2ee4d6008b9f6eb5e1cc7d684a774ffc869be5bf112c32025254"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2024-01-10",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-01-10/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "cc31916ed2ec86a065b4bb32a600a20561e55e1f",
+        "sha256": "0f800dc8b08fc09c775fedc457e5f1202a8c62b26ee96fc21afb0cb234725426"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-01-10/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "ca232e4faf8297c466925a5e9a3d6983cc4826de",
+        "sha256": "3bff59f8e29a3eec4768de90635ac7edbce7a2ca04ea6006c8a06d133ed51866"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2024-01-17",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-01-17/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "bd99fb4f27ed859ff454b7e8c54354e0d5231ace",
+        "sha256": "ae4315ed9e55905f82a73c577c27e9e8a9bf64e7efada2fab485fe0cd84602e8"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-01-17/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "6cd76fecab827c35bf0dbc1c72e5732957a0a4f2",
+        "sha256": "9ea8306d3d3d48aa11d03d5e4a0d654a978256f821dedd10393110cfd4accafc"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2024-01-24",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-01-24/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "1ccde6edc4a85dbb024956a5d8d37f265078a677",
+        "sha256": "b16f54e89bdea9a966315310b435c176cfce4d568ddb403803055ecf0403aa8f"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-01-24/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "9a7b3315d56a48a398ef9c886911873bab877c6c",
+        "sha256": "1ef9079d1c26c1bb9c2fb42ed0a7a147a42341165627f85078fca4a4ad62ee08"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2024-01-31",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-01-31/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "7de746f1b242cf7cee54ffe6a28e04b84da960de",
+        "sha256": "87b43932e024ae7dd50b0ffef0c815e43cfe8580df85b72d5c8cb89d5aae1c02"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-01-31/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "ce57282191c7bbee0df0144a6fe307adcf3e1685",
+        "sha256": "adc39f082c4516a2af4c3fc65e622f3f7afd16352fdfad0ec694ffc76c6e9fcf"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2024-02-07",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-02-07/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "fa0356278c61922ac60d924e8fccbab0ed1e326a",
+        "sha256": "d8e0b20631da563c0e95fde4c966c51f04f8d084fb13b77ac169de884ae32860"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-02-07/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "e8f8b5c8255c03cc469dd77785ea7f8bbdc247c3",
+        "sha256": "4cc5423b52950c5f69ffc00dd43caa3168ed0091fe6bd54e4d3f44e657b875c6"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2024-02-14",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-02-14/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "b589f3d147b7381d0eeae0546600953deeac910e",
+        "sha256": "adb188174b6f159badff8167f639d2a6ce7cc6e9d7bccb986f9813fb91a2029e"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-02-14/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "5cea6d2cfa07a2e11e150486dc1b13cac7c300ab",
+        "sha256": "d93522690a7469f93c8ad512c89a5063747bbbb5c6ad046265404371b95871ce"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2024-02-21",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-02-21/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "7f10308d8a1c05cea82402495cc58d2ec7dbd1d2",
+        "sha256": "cbde7556308748573e6c23be8b15888e5c41cb9dff55d3dd4803780f6cb8459f"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-02-21/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "b6c04f1234b1defdc7335c28c21e1606e62d9184",
+        "sha256": "47621faae9215f84a11c7cdeb81c30d9bb999c327b2fe8315a9ca39559c01cf1"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2024-02-28",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-02-28/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "b1456e944934043e855f5ccbbf9cf8773bbb092a",
+        "sha256": "87f86df3bc9d0f80f042f4e87b53dbd6aa75ef21a70934d30ffb61d22368f55c"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-02-28/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "d0018e87d36112da2c5f33119f8d75544f817271",
+        "sha256": "9cb9352bb7ad88b1559f1f74eacfef8c9976b8e526b31bc6124351ddfbec17d0"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2024-03-06",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-03-06/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "10ed652d742ba4bf78ab6210ece4c2335ac61cc7",
+        "sha256": "059424c39d80ac40b755a19627a31e262aa7891a23a65eec01bd05aa2ce408ba"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-03-06/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "2496ef2dd257366651b85442ab2e22edab41633d",
+        "sha256": "f8fc8c1ecdaa2148f157beaef439d3fe9e1d7ce812bf0cd5281b2960d26fc790"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2024-03-13",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-03-13/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "dac60e9e6d15f815b010f0b123514d48fd2a919f",
+        "sha256": "c3fd29a108819c6a709bf74d0bebc266656c52dc16d21105f2627580a4e87fa4"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-03-13/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "058ad676f7753efdb4db0b17c60e4bc0681a0bab",
+        "sha256": "19b51df3f71d92a8599ee55a04d9a0da6ad849b375c2253e33e7d576aaff9241"
+      },
+      "applied_overrides": null
+    },
+    {
+      "epoch_start": "2024-03-20",
+      "distribution": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-03-20/stipTradingIncentives_distribution.json",
+        "git_blob_sha": "df59050cc7ff0c7d95806e0a4707d492f7c70dbd",
+        "sha256": "7b4222af928809487e02c8af2d38232d7b1f791e5097f05667b38041f5d60f14"
+      },
+      "transaction_data": {
+        "url": "https://raw.githubusercontent.com/gmx-io/gmx-synthetics/a85ea3491c19c93bb4b5a002d9b358fb769b7849/scripts/incentives/distributions/epoch_2024-03-20/stipTradingIncentives_transactionData.json",
+        "git_blob_sha": "dfecf5dd69e27bc69404e99897cc5abf3e723697",
+        "sha256": "52c817b3ea56d6d485f92ad81d0011b4704d2bd44f2aa06471b91c8056c30477"
+      },
+      "applied_overrides": null
+    }
+  ],
+  "notes": [
+    "Amounts are exact allocations in the published official JSON, not verified paid transfers.",
+    "Each epoch sum matches transactionData.totalAmount; calldata is not proof of on-chain execution.",
+    "Receiver overrides can merge multiple trading accounts into one recipient; do not join recipients to trading accounts as proven identities.",
+    "Absent appliedOverrides means unknown, not evidence that no overrides occurred. Even recorded mappings omit per-origin amounts after merging.",
+    "Epoch labels and seven-day intervals describe allocation files; campaign eligibility boundaries require separate source verification.",
+    "No USD valuation, acquisition cost, causal ROI or reward per retained trading account is inferred.",
+    "Official final-report totals are rounded to two decimals; exact JSON amounts are retained."
+  ]
+}

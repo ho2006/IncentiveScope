@@ -7,5 +7,6 @@ query Executions($start: Int!, $end: Int!, $after: String!, $limit: Int!) {
   ) {
     id eventName orderKey orderType account marketAddress sizeDeltaUsd
     timestamp transactionHash
+    positionFeeAmount collateralTokenPriceMin traderDiscountAmount
   }
 }

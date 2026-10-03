@@ -8,7 +8,7 @@ from unittest.mock import patch
 
 from incentivescope.analyze import analyze
 from incentivescope.common import FIELDS, instant
-from incentivescope.fetch import normalize, page, usd
+from incentivescope.fetch import fee_usd, normalize, page, usd
 from incentivescope.report import render
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -133,6 +133,15 @@ class PipelineCheck(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "boundaries"):
             self.run_analysis(is_synthetic=False)
 
+    def test_unknown_adl_classification_withholds_voluntary_only(self):
+        self.config.update(is_synthetic=False, boundary_status="verified")
+        result = self.run_analysis(is_synthetic=False)
+        self.assertIsNone(result["summary"]["voluntary30"])
+        self.assertEqual(result["summary"]["open_or_decrease30"]["n"], 4)
+        self.assertEqual(result["summary"]["r30"]["n"], 3)
+        with (self.output / "report/wallet_cohorts.csv").open(newline="") as stream:
+            self.assertTrue(all(row["voluntary30"] == "" for row in csv.DictReader(stream)))
+
     def test_gmx_scale_attribution_and_page_cursor(self):
         self.assertEqual(usd("1000000000000000000000000000001"), "1.000000000000000000000000000001")
         tx = "0x" + "1" * 64
@@ -147,6 +156,14 @@ class PipelineCheck(unittest.TestCase):
         with patch("incentivescope.fetch.graphql", return_value=bad):
             with self.assertRaisesRegex(ValueError, "Pagination"):
                 page("q", {"after": "same"}, self.output, "https://gmx.squids.live")
+
+    def test_fee_uses_token_adjusted_price_and_subtracts_discount_once(self):
+        fields = {"positionFeeAmount": "50579168", "traderDiscountAmount": "2528958",
+                  "collateralTokenPriceMin": "1000112610000000000000000"}
+        self.assertEqual(fee_usd(fields), "48.0556209341481")
+        self.assertEqual(fee_usd({**fields, "traderDiscountAmount": None}), "")
+        with self.assertRaisesRegex(ValueError, "Discount"):
+            fee_usd({**fields, "traderDiscountAmount": "50579169"})
 
 
 if __name__ == "__main__":

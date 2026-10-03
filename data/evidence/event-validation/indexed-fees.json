@@ -1,0 +1,41 @@
+{
+  "data": {
+    "tradeActions": [
+      {
+        "id": "0x0041e15909edfabfbf7a2cf9b9429bc336f792d241ef212502a35c80b4f6b89f:65",
+        "collateralTokenPriceMin": "999909360000000000000000",
+        "collateralTokenPriceMax": "999996860000000000000000",
+        "positionFeeAmount": "18831",
+        "traderDiscountAmount": "0"
+      },
+      {
+        "id": "0x00462251c947bab60533869ccb0de0f16d23b8923d928a2a33b03dd6547ccc0b:33",
+        "collateralTokenPriceMin": "1000075800000000000000000",
+        "collateralTokenPriceMax": "1000137200000000000000000",
+        "positionFeeAmount": "22690",
+        "traderDiscountAmount": "0"
+      },
+      {
+        "id": "0x01ab6175c06f7eafd9cb153e3ea3372db2a15bffbf7b1774e963ec4ee5a7a428:77",
+        "collateralTokenPriceMin": "1000112610000000000000000",
+        "collateralTokenPriceMax": "1000212640000000000000000",
+        "positionFeeAmount": "50579168",
+        "traderDiscountAmount": "2528958"
+      },
+      {
+        "id": "0x01fe78b2969bd456f8824e6a39e7500d7e9438f0a7bbd8dc7fc717864d7dcb12:79",
+        "collateralTokenPriceMin": "1000021900000000000000000",
+        "collateralTokenPriceMax": "1000075720000000000000000",
+        "positionFeeAmount": "507074",
+        "traderDiscountAmount": "0"
+      },
+      {
+        "id": "0x0258a629532039d2cd8ee064363906b84942a434e56113aa459bd10edbb8e0b6:42",
+        "collateralTokenPriceMin": "999959400000000000000000",
+        "collateralTokenPriceMax": "1000012100000000000000000",
+        "positionFeeAmount": "355552",
+        "traderDiscountAmount": "0"
+      }
+    ]
+  }
+}

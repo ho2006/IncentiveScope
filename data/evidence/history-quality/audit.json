@@ -1,0 +1,217 @@
+{
+  "actions": {
+    "collateral": 34989,
+    "decrease": 336912,
+    "increase": 480267,
+    "liquidation": 54939
+  },
+  "analyzer_comparisons": {
+    "cumulative30": true,
+    "open_or_decrease30": true,
+    "r30": true,
+    "r60": true,
+    "strict_r30": true,
+    "sustained30": true,
+    "voluntary30": true
+  },
+  "anomalous_partition": {
+    "daily_order_types": {
+      "2023-09-27": {
+        "2": 13309,
+        "3": 232,
+        "4": 8956,
+        "5": 99,
+        "6": 70,
+        "7": 939
+      },
+      "2023-09-28": {
+        "2": 11939,
+        "3": 197,
+        "4": 8984,
+        "5": 102,
+        "6": 91,
+        "7": 428
+      },
+      "2023-09-29": {
+        "2": 13821,
+        "3": 160,
+        "4": 10356,
+        "5": 59,
+        "6": 93,
+        "7": 232
+      },
+      "2023-09-30": {
+        "2": 18881,
+        "3": 213,
+        "4": 14940,
+        "5": 85,
+        "6": 61,
+        "7": 226
+      },
+      "2023-10-01": {
+        "2": 18443,
+        "3": 197,
+        "4": 15330,
+        "5": 153,
+        "6": 101,
+        "7": 613
+      },
+      "2023-10-02": {
+        "2": 3712,
+        "3": 180,
+        "4": 3825,
+        "5": 66,
+        "6": 126,
+        "7": 401
+      },
+      "2023-10-03": {
+        "2": 1985,
+        "3": 79,
+        "4": 2143,
+        "5": 26,
+        "6": 53,
+        "7": 125
+      }
+    },
+    "end": "2023-10-04",
+    "increase_size_usd_floor_percentiles": {
+      "0.1": "2.2961512",
+      "0.5": "6.657323880845462536",
+      "0.9": "158.4588545888"
+    },
+    "later_campaign_cohort_accounts": 1584,
+    "order_types": {
+      "2": 82090,
+      "3": 1258,
+      "4": 64534,
+      "5": 590,
+      "6": 595,
+      "7": 2964
+    },
+    "positive_increase_count": 83119,
+    "row_count": 152031,
+    "single_event_accounts": 13964,
+    "start": "2023-09-27",
+    "top_accounts_by_event_count": [
+      [
+        "0x7cbfe5c2219bac8f00b3a4d6220cea26e4f8e14d",
+        178
+      ],
+      [
+        "0x46fcb04b7cafef59d2ce09d79d32ad4a0afa9e61",
+        133
+      ],
+      [
+        "0x8a544ab75107efd541c9072a0efebb87cc4292f3",
+        133
+      ],
+      [
+        "0xfbbc907df3df816bef2328d4d671043a3125f9f7",
+        113
+      ],
+      [
+        "0x1c33618db07923fef3ecc792e2c37962fc488d53",
+        94
+      ],
+      [
+        "0x26b121dede18092b28a84cca0a1c432c9d22fa91",
+        93
+      ],
+      [
+        "0x6416d46fa8f6139988e7d7f10314e073b1b1f07e",
+        86
+      ],
+      [
+        "0xb38302e27bae8932536a84ab362c3d1013420cb4",
+        84
+      ],
+      [
+        "0x20437fb99dee29c9a4786b02bf1a3afc445fd86b",
+        72
+      ],
+      [
+        "0xebe6a2a29e5056fcda972b09b0f07e40d545bf60",
+        72
+      ]
+    ],
+    "top_one_percent_accounts": 756,
+    "top_one_percent_events": 10127,
+    "two_event_accounts": 57247,
+    "unique_accounts": 75525
+  },
+  "counts": {
+    "created_after_execution": 0,
+    "created_missing": 6932,
+    "duplicate_keys": 0,
+    "fee_missing": 0,
+    "increase_created_missing": 0,
+    "increase_fee_missing": 0,
+    "increases": 480267,
+    "out_of_coverage": 0,
+    "rows": 907107,
+    "unsuccessful": 0,
+    "zero_size": 34989
+  },
+  "coverage_end": "2024-05-29T00:00:00Z",
+  "coverage_start": "2023-09-20T00:00:00Z",
+  "csv_sha256": "76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3",
+  "daily_count": 252,
+  "history_groups": {
+    "first_observed_in_campaign": {
+      "N": 18129,
+      "r30_n": 608
+    },
+    "observed_existing": {
+      "N": 4016,
+      "r30_n": 346
+    }
+  },
+  "missing_creation_by_action": {
+    "collateral": 6932,
+    "decrease": 0,
+    "increase": 0,
+    "liquidation": 0
+  },
+  "missing_fee_by_action": {
+    "collateral": 0,
+    "decrease": 0,
+    "increase": 0,
+    "liquidation": 0
+  },
+  "partition_count": 36,
+  "summary": {
+    "cohort_size": 22145,
+    "cumulative30": {
+      "N": 22145,
+      "n": 2997
+    },
+    "open_or_decrease30": {
+      "N": 22145,
+      "n": 1101
+    },
+    "r30": {
+      "N": 22145,
+      "n": 954
+    },
+    "r60": {
+      "N": 22145,
+      "n": 1126
+    },
+    "strict_r30": {
+      "N": 22145,
+      "n": 954
+    },
+    "sustained30": {
+      "N": 22145,
+      "n": 473
+    },
+    "voluntary30": null
+  },
+  "unique_accounts": 123985,
+  "zero_size_by_action": {
+    "collateral": 34989,
+    "decrease": 0,
+    "increase": 0,
+    "liquidation": 0
+  }
+}

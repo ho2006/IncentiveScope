@@ -1,24 +1,23 @@
-# GMX V2 / Arbitrum STIP: evidence and unresolved boundaries
+# GMX V2 / Arbitrum STIP: campaign context
 
-This is a historical descriptive case. No actual retention estimates are claimed in the included synthetic dashboard.
+The real historical case isolates first-round trading-rebate distribution type **1003**. Its archived earning interval is after **2023-11-15 midnight UTC** through **2024-03-27 midnight UTC**, exclusive end. The integer-second half-open configuration starts at `00:00:01` because the contemporaneous indexer tests a strict greater-than launch timestamp. [Boundary code, final epoch and report reconciliation](boundary-evidence.md) establish this decision; March 29 is the overall program's administrative end.
 
-| Evidence | What it establishes | Remaining check |
+| Exposure | Primary source | Relevance |
 | --- | --- | --- |
-| [GMX STIP Addendum](https://forum.arbitrum.foundation/t/gmx-stip-addendum/23484) | Overall program November 8, 2023–March 29, 2024; trading start recorded as November 15 | Exact first/final trading-rebate earning epochs |
-| [GMX final report](https://forum.arbitrum.foundation/t/leveraging-the-stip-grants-program-to-grow-the-gmx-and-arbitrum-defi-ecosystem/23100) | Trading-rebate mechanism and epoch-level category spending; different stated trading start | Reconcile the November 15/16 discrepancy; match earning and payment intervals |
-| [GMX weekly updates](https://forum.arbitrum.foundation/t/gmx-bi-weekly-update-17-11-2023/19626) | Periodic reward distribution and adjustments | Verify the final earning cutoff, not just a grant deadline |
-| [Trading competition](https://gmxio.substack.com/p/the-gmx-eip4844-trading-competition) | Additional competition around March 13–27, 2024 | Possible exposure differences between entry cohorts |
-| [Binance Wallet campaign](https://www.binance.com/en/support/announcement/detail/55199366818140f4afd4bc56000d92f2) | March 27–April 9, 2024 tasks include GMX V2 leverage trading | Later participation is not an entirely incentive-free phase |
-| [STIP-B update](https://forum.arbitrum.foundation/t/gmx-stip-b-bi-weekly-update/25219) | Later incentive round starts June 26, 2024 | Follow-up must not silently cross later programs |
+| Original STIP trading rebates | [GMX addendum](https://forum.arbitrum.foundation/t/gmx-stip-addendum/23484), [final report](https://forum.arbitrum.foundation/t/leveraging-the-stip-grants-program-to-grow-the-gmx-and-arbitrum-defi-ecosystem/23100), archived generation code | Earning epochs and reward mechanism, distinct from payment |
+| Earlier Odyssey tasks, September 2023 | [Arbitrum announcement](https://blog.arbitrum.io/arbitrum-odyssey-reignited/), [organizer quest](https://app.galxe.com/quest/arbitrum/GCsqgUtsTX) | Earlier observed addresses may have prior incentive exposure; September activity surge is contextual, not an untreated baseline |
+| GMX competition, March 13–27, 2024 | [GMX announcement](https://gmxio.substack.com/p/the-gmx-eip4844-trading-competition) | Overlaps the final earning weeks |
+| Binance Wallet tasks, March 27–April 9, 2024 | [Binance announcement](https://www.binance.com/en/support/announcement/detail/55199366818140f4afd4bc56000d92f2) | Overlaps the first two post weeks, represented with April 10 exclusive UTC date boundary |
+| STIP Bridge, from June 26, 2024 | [GMX update](https://forum.arbitrum.foundation/t/gmx-stip-b-bi-weekly-update/25219) | Starts outside this study's May 29 exclusive extraction end |
 
-`configs/gmx-stip.json` deliberately uses provisional illustrative UTC boundaries. Final retention is blocked by default; `--exploratory` explicitly labels conditional exploration. The overall March 29 end does **not** establish midnight, end-of-day, or a final trading earning cutoff.
+## Evidence and limits
 
-## Data semantics
+The [907,107-row indexed extract](../data/evidence/history-manifest.json) spans September 20, 2023 through May 29, 2024. [Daily quality and independent recount](data-quality.md) distinguish local extraction coverage from upstream population completeness. [Five chain receipts](event-validation.md) validate selected account, event, size and fee fields. They do not certify every historical row or deployed decoder.
 
-The [official GMX GraphQL documentation](https://docs.gmx.io/docs/api/graphql/) identifies the Arbitrum Subsquid endpoint. A live schema and March 2024 request confirmed TradeAction fields including `account`, `orderKey`, `orderType`, `eventName`, `timestamp`, `transactionHash` and `sizeDeltaUsd`. Live smoke receipts, when generated, record extraction scope and checksums; a successful day does not prove complete historical coverage.
+The source selects successful `OrderExecuted` perpetual types 2–7. Protocol accounts are used instead of keeper senders. Creation is separately looked up by order key. Net position-fee fields are converted under the historical contract's token-adjusted collateral-price convention; external rebates and other fee classes are excluded. This fee is not protocol revenue.
 
-The adapter filters **OrderExecuted**, not OrderCreated or OrderUpdated. It queries created actions by order key to distinguish older limit orders. Historical fees expressed in collateral-token units are not converted without token metadata and a validated historical pricing convention.
+Historical ADL can use market-decrease type 4, and the indexed surface omits the secondary ADL marker. Opening-only retention is unaffected, but the report withholds voluntary30 and labels the broader opening-or-decrease comparison. First-observed history uses positive increases or indexed decreases and may include forced decreases. Addresses are not people, and observed addresses are not necessarily rebate recipients.
 
-[GMX order source](https://github.com/gmx-io/gmx-synthetics/blob/main/contracts/order/Order.sol) defines the order types; [position event source](https://github.com/gmx-io/gmx-synthetics/blob/main/contracts/position/PositionEventUtils.sol) demonstrates protocol-account attribution. Current source is a discovery aid, not proof of the exact historical deployed ABI. This adapter consumes indexed historical semantics; an independent deployed-version/log replay remains a research validation gate.
+[Official allocations](reward-data.md) total 19 epochs. Recipient substitution can merge original accounts, so trader-level reward costs remain unavailable. Neither reward payment dates nor high frequency, small orders or a threshold-matching transaction establish acquisition, Sybil status or campaign participation for a particular person.
 
-Addresses are not people. An address using the protocol during the earning window is not automatically a confirmed reward recipient. Claim or payment dates cannot substitute for earning dates. Neither a high-frequency address nor one transaction matching a campaign threshold establishes bot, Sybil or task participation.
+The report is a descriptive historical comparison. Other incentives and market conditions can affect its post windows; a documented earning cutoff does not supply a causal counterfactual.

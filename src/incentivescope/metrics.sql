@@ -2,14 +2,14 @@
 CREATE TEMP VIEW actions AS
 SELECT *,
        success AND action = 'increase' AND size_delta_usd > 0 AS is_increase,
-       success AND action IN ('increase', 'decrease') AND size_delta_usd > 0 AS is_voluntary
+       success AND action IN ('increase', 'decrease') AND size_delta_usd > 0 AS is_open_or_decrease
 FROM trades;
 
 -- Keep the denominator fixed, including addresses that never return.
 CREATE TEMP TABLE cohort AS
 WITH first_seen AS (
     SELECT account, min(timestamp) AS first_trade
-    FROM actions WHERE is_voluntary GROUP BY account
+    FROM actions WHERE is_open_or_decrease GROUP BY account
 ), entered AS (
     SELECT account, min(timestamp) AS first_qualifying,
            sum(size_delta_usd) AS campaign_volume_usd
@@ -29,7 +29,9 @@ SELECT c.*,
        count(DISTINCT a.timestamp::DATE) FILTER (
            WHERE a.is_increase AND a.timestamp >= p.anchor + INTERVAL '23 days'
            AND a.timestamp < p.anchor + INTERVAL '30 days') >= 2 AS sustained30,
-       count(*) FILTER (WHERE a.is_voluntary AND a.timestamp >= p.anchor + INTERVAL '23 days'
+       count(*) FILTER (WHERE a.is_open_or_decrease AND a.timestamp >= p.anchor + INTERVAL '23 days'
+                        AND a.timestamp < p.anchor + INTERVAL '30 days') > 0 AS open_or_decrease30,
+       count(*) FILTER (WHERE a.is_open_or_decrease AND a.timestamp >= p.anchor + INTERVAL '23 days'
                         AND a.timestamp < p.anchor + INTERVAL '30 days') > 0 AS voluntary30,
        count(*) FILTER (WHERE a.is_increase AND a.timestamp >= p.anchor + INTERVAL '23 days'
                         AND a.timestamp < p.anchor + INTERVAL '30 days'
@@ -45,7 +47,7 @@ GROUP BY ALL;
 CREATE TEMP TABLE wallet_daily AS
 SELECT account, timestamp::DATE AS day,
        count(*) FILTER (WHERE is_increase) AS increases,
-       count(*) FILTER (WHERE is_voluntary) AS voluntary_trades,
+       count(*) FILTER (WHERE is_open_or_decrease) AS open_or_decrease_trades,
        sum(position_fee_usd) FILTER (WHERE is_increase) AS position_fee_usd,
        count(*) FILTER (WHERE is_increase AND position_fee_usd IS NULL) AS missing_fees
 FROM actions GROUP BY account, day;

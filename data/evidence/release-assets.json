@@ -1,0 +1,24 @@
+{
+  "release": "v0.2.0",
+  "source_csv_sha256": "76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3",
+  "files": [
+    {
+      "filename": "trades.csv.gz",
+      "bytes": 124335778,
+      "sha256": "1017f198b7a93a96f9abe5c165d183969bdf879e7858b37e12d1485cf669bbe3",
+      "url": "https://github.com/ho2006/IncentiveScope/releases/download/v0.2.0/trades.csv.gz"
+    },
+    {
+      "filename": "manifest.json",
+      "bytes": 10120,
+      "sha256": "a0ee998e84798554d53ec8e0f3253d87a11b224dc04dfac3eb45bf4ded9513c7",
+      "url": "https://github.com/ho2006/IncentiveScope/releases/download/v0.2.0/manifest.json"
+    },
+    {
+      "filename": "SHA256SUMS.txt",
+      "bytes": 162,
+      "sha256": "0019fef5da4ceffcd87dc8a90df160dada35566741dde1d04df7b454188055ca",
+      "url": "https://github.com/ho2006/IncentiveScope/releases/download/v0.2.0/SHA256SUMS.txt"
+    }
+  ]
+}

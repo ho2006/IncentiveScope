@@ -1,0 +1,278 @@
+{
+  "schema_version": 1,
+  "normalization_version": 2,
+  "label": "GMX V2 indexed perpetual execution events",
+  "is_synthetic": false,
+  "source_url": "https://gmx.squids.live/gmx-synthetics-arbitrum:prod/api/graphql",
+  "coverage_start": "2023-09-20T00:00:00Z",
+  "coverage_end": "2024-05-29T00:00:00Z",
+  "complete": true,
+  "row_count": 907107,
+  "sha256": "76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3",
+  "history_complete": false,
+  "execution_pages": 927,
+  "extracted_at": "2026-10-03T08:27:14.902115Z",
+  "notes": [
+    "Indexed data, not an independent replay of historical deployed contracts.",
+    "Order types 2–7 only; type 7 liquidations are excluded from opening/increase. ADL may appear as type 4; this surface has no secondaryOrderType, so voluntary-decrease classification is unverified.",
+    "USD sizeDeltaUsd is scaled by 10^30.",
+    "Net position fee USD=(positionFeeAmount-traderDiscountAmount)*collateralTokenPriceMin/10^30; missing fields stay unknown. Excludes external rebates, borrowing, funding, UI fees and gas.",
+    "Missing OrderCreated records remain unknown, never treated as post-campaign creations.",
+    "Raw response caches are immutable snapshots for this request; use a new directory to refresh."
+  ],
+  "partitions": [
+    {
+      "path": "2023-09-20",
+      "sha256": "d682dee4df5f44767b0db0bb44d31d61d841f97b1c31068c9de292992d758f24",
+      "coverage_start": "2023-09-20T00:00:00Z",
+      "coverage_end": "2023-09-27T00:00:00Z",
+      "row_count": 11041
+    },
+    {
+      "path": "2023-09-27",
+      "sha256": "35b0a9ba170bc9d88d316a7a5c8ebc96d8bb4f6d2f629e8562fd6f4a233af83a",
+      "coverage_start": "2023-09-27T00:00:00Z",
+      "coverage_end": "2023-10-04T00:00:00Z",
+      "row_count": 152031
+    },
+    {
+      "path": "2023-10-04",
+      "sha256": "3ece7b220f9239951812b628b926f288f49a9fc65d57688affd6e2e752c4d054",
+      "coverage_start": "2023-10-04T00:00:00Z",
+      "coverage_end": "2023-10-11T00:00:00Z",
+      "row_count": 13154
+    },
+    {
+      "path": "2023-10-11",
+      "sha256": "4c9d29c1746d466fc570aa88ef23f47778a71562133f9d8552ea605389fefb12",
+      "coverage_start": "2023-10-11T00:00:00Z",
+      "coverage_end": "2023-10-18T00:00:00Z",
+      "row_count": 9568
+    },
+    {
+      "path": "2023-10-18",
+      "sha256": "424359a0bd4825f661df1957010b3b956b0abe47285f8e23536818094253ccb1",
+      "coverage_start": "2023-10-18T00:00:00Z",
+      "coverage_end": "2023-10-25T00:00:00Z",
+      "row_count": 19347
+    },
+    {
+      "path": "2023-10-25",
+      "sha256": "cc448feb029d905427e445abb4fc8431e86d8731d3dfd9a7e6724ca00e0c4298",
+      "coverage_start": "2023-10-25T00:00:00Z",
+      "coverage_end": "2023-11-01T00:00:00Z",
+      "row_count": 13387
+    },
+    {
+      "path": "2023-11-01",
+      "sha256": "e59236833412aea27ee1b6449aae4d7109f3f1c10aed972916afd3dc5abfe8cb",
+      "coverage_start": "2023-11-01T00:00:00Z",
+      "coverage_end": "2023-11-08T00:00:00Z",
+      "row_count": 17402
+    },
+    {
+      "path": "2023-11-08",
+      "sha256": "40d002d2106d76bda59cf62fdb8bf520433a843ea84071ef40440eff2a5b9931",
+      "coverage_start": "2023-11-08T00:00:00Z",
+      "coverage_end": "2023-11-15T00:00:00Z",
+      "row_count": 23231
+    },
+    {
+      "path": "2023-11-15",
+      "sha256": "5fac75201552c04be64b62cccdfc1ca247b52b2e2e4f1ea85febd769429475e8",
+      "coverage_start": "2023-11-15T00:00:00Z",
+      "coverage_end": "2023-11-22T00:00:00Z",
+      "row_count": 16455
+    },
+    {
+      "path": "2023-11-22",
+      "sha256": "a6d86cf1e9d3e973155020ea3d08d102fa34737048b876070dedb78fe824d293",
+      "coverage_start": "2023-11-22T00:00:00Z",
+      "coverage_end": "2023-11-29T00:00:00Z",
+      "row_count": 13885
+    },
+    {
+      "path": "2023-11-29",
+      "sha256": "ad4317136a864f2d8046eabc57426809cde819a2a91f5e431ba363bb18b52c84",
+      "coverage_start": "2023-11-29T00:00:00Z",
+      "coverage_end": "2023-12-06T00:00:00Z",
+      "row_count": 19961
+    },
+    {
+      "path": "2023-12-06",
+      "sha256": "7f9c8260d0ea991672a2427b4d8d8a74dd64c9d06ccdd6fbce8359ceb852837a",
+      "coverage_start": "2023-12-06T00:00:00Z",
+      "coverage_end": "2023-12-13T00:00:00Z",
+      "row_count": 23432
+    },
+    {
+      "path": "2023-12-13",
+      "sha256": "c3f8aa95e78df54abd63a40fffc77aef1ae119a7291ecae759b2f46d5b5c7c3c",
+      "coverage_start": "2023-12-13T00:00:00Z",
+      "coverage_end": "2023-12-20T00:00:00Z",
+      "row_count": 16369
+    },
+    {
+      "path": "2023-12-20",
+      "sha256": "4e604bf1defb3629db79b26e70ca62677ee4e7f126789370f139f9bd9f2d6441",
+      "coverage_start": "2023-12-20T00:00:00Z",
+      "coverage_end": "2023-12-27T00:00:00Z",
+      "row_count": 18849
+    },
+    {
+      "path": "2023-12-27",
+      "sha256": "98b3f81586ae77796a48b748d4a9eb68fd5f78a98d7febebbabfc3c81bc1ba00",
+      "coverage_start": "2023-12-27T00:00:00Z",
+      "coverage_end": "2024-01-03T00:00:00Z",
+      "row_count": 16155
+    },
+    {
+      "path": "2024-01-03",
+      "sha256": "2d120f9f598b03b2bc056dfd0df87e9b79491cfe15feb442121ab30b48a31608",
+      "coverage_start": "2024-01-03T00:00:00Z",
+      "coverage_end": "2024-01-10T00:00:00Z",
+      "row_count": 24198
+    },
+    {
+      "path": "2024-01-10",
+      "sha256": "9ef37e2476ee9c23eab310f435b0b229fbc26aa25223f42148e564a16cb4b2ee",
+      "coverage_start": "2024-01-10T00:00:00Z",
+      "coverage_end": "2024-01-17T00:00:00Z",
+      "row_count": 29110
+    },
+    {
+      "path": "2024-01-17",
+      "sha256": "ce81991ef9f1d729cdc2bde50339195b1bdef125a133aa64545dfb6f3515b070",
+      "coverage_start": "2024-01-17T00:00:00Z",
+      "coverage_end": "2024-01-24T00:00:00Z",
+      "row_count": 21983
+    },
+    {
+      "path": "2024-01-24",
+      "sha256": "50f7be496918de759e1ce248c9ce50856f8bd6c7469d37f716d39621d576545c",
+      "coverage_start": "2024-01-24T00:00:00Z",
+      "coverage_end": "2024-01-31T00:00:00Z",
+      "row_count": 17703
+    },
+    {
+      "path": "2024-01-31",
+      "sha256": "c1ec75aa7e1f2afab4bd752cee7ea1a901921ee7b638f992c6f137aab3cd6030",
+      "coverage_start": "2024-01-31T00:00:00Z",
+      "coverage_end": "2024-02-07T00:00:00Z",
+      "row_count": 16318
+    },
+    {
+      "path": "2024-02-07",
+      "sha256": "9c673916e318bc190a6d35dad1513245ee78c1e9cd7a4662d4c344c329383e5c",
+      "coverage_start": "2024-02-07T00:00:00Z",
+      "coverage_end": "2024-02-14T00:00:00Z",
+      "row_count": 19382
+    },
+    {
+      "path": "2024-02-14",
+      "sha256": "60c1a8963c2e9efbae6e7c0a1d7e187a3e81a1bf1f12904e00dc9e66f2ad8cc8",
+      "coverage_start": "2024-02-14T00:00:00Z",
+      "coverage_end": "2024-02-21T00:00:00Z",
+      "row_count": 19979
+    },
+    {
+      "path": "2024-02-21",
+      "sha256": "4c2c8fb08145a573c7955d4479d618320f73c879d3e5a0e716f745a414b153a5",
+      "coverage_start": "2024-02-21T00:00:00Z",
+      "coverage_end": "2024-02-28T00:00:00Z",
+      "row_count": 19225
+    },
+    {
+      "path": "2024-02-28",
+      "sha256": "cd10065d8f60336787977ac3424385b77b886aa4303c920a7e618d3bb55603fc",
+      "coverage_start": "2024-02-28T00:00:00Z",
+      "coverage_end": "2024-03-06T00:00:00Z",
+      "row_count": 27693
+    },
+    {
+      "path": "2024-03-06",
+      "sha256": "2d5e4a426affaf6cb7d654bdb98f439d4572baaf06b7832475e165fff864918f",
+      "coverage_start": "2024-03-06T00:00:00Z",
+      "coverage_end": "2024-03-13T00:00:00Z",
+      "row_count": 20132
+    },
+    {
+      "path": "2024-03-13",
+      "sha256": "7cc47b0f10b6a4da8e8fe84959500eeb1fb63352ac41ad21ff22830e30f33b2f",
+      "coverage_start": "2024-03-13T00:00:00Z",
+      "coverage_end": "2024-03-20T00:00:00Z",
+      "row_count": 30482
+    },
+    {
+      "path": "2024-03-20",
+      "sha256": "111eed93f93f0d2c4492677c8cc4671c65cd2bbc7f5dcf63eef94a4ded101956",
+      "coverage_start": "2024-03-20T00:00:00Z",
+      "coverage_end": "2024-03-27T00:00:00Z",
+      "row_count": 31221
+    },
+    {
+      "path": "2024-03-27",
+      "sha256": "190557bc6882b0e84421acd1074c55e2f3f3437be98293e0970d254e016a9825",
+      "coverage_start": "2024-03-27T00:00:00Z",
+      "coverage_end": "2024-04-03T00:00:00Z",
+      "row_count": 42712
+    },
+    {
+      "path": "2024-04-03",
+      "sha256": "d3aeba842694276908bdfcfe4a1fa8f571194af50aebe385133c06b184e8e9af",
+      "coverage_start": "2024-04-03T00:00:00Z",
+      "coverage_end": "2024-04-10T00:00:00Z",
+      "row_count": 30678
+    },
+    {
+      "path": "2024-04-10",
+      "sha256": "1218eedb84e8a3b302aeae2f1cda483bdafbe3b215e3c1d77545655f4ceb0192",
+      "coverage_start": "2024-04-10T00:00:00Z",
+      "coverage_end": "2024-04-17T00:00:00Z",
+      "row_count": 35501
+    },
+    {
+      "path": "2024-04-17",
+      "sha256": "e7eaf56dd539d8b9c478f5f36fbef20f44aff5f746a685410cbcf5f095b867fe",
+      "coverage_start": "2024-04-17T00:00:00Z",
+      "coverage_end": "2024-04-24T00:00:00Z",
+      "row_count": 27188
+    },
+    {
+      "path": "2024-04-24",
+      "sha256": "5a6e7cb6d25830df2eeb69fbc3a7cc20235e0bb69e58d8cc6cddb9b71d532796",
+      "coverage_start": "2024-04-24T00:00:00Z",
+      "coverage_end": "2024-05-01T00:00:00Z",
+      "row_count": 24424
+    },
+    {
+      "path": "2024-05-01",
+      "sha256": "e49cba20a353e32c181c79b1f17459a481c9f471360a897480990a1211917af9",
+      "coverage_start": "2024-05-01T00:00:00Z",
+      "coverage_end": "2024-05-08T00:00:00Z",
+      "row_count": 22380
+    },
+    {
+      "path": "2024-05-08",
+      "sha256": "9892ba9ada04147992bb0c96e4e1f711811385b8b8db258c0a204241d770efdd",
+      "coverage_start": "2024-05-08T00:00:00Z",
+      "coverage_end": "2024-05-15T00:00:00Z",
+      "row_count": 17842
+    },
+    {
+      "path": "2024-05-15",
+      "sha256": "da952561b41194c981626248b75ba01f0d790ef76dc0e463dfa1858579cd8c66",
+      "coverage_start": "2024-05-15T00:00:00Z",
+      "coverage_end": "2024-05-22T00:00:00Z",
+      "row_count": 22503
+    },
+    {
+      "path": "2024-05-22",
+      "sha256": "0f606a8cbbe71d58e37978deed8635965f3b78ac184d19101ecb166d8a9d2503",
+      "coverage_start": "2024-05-22T00:00:00Z",
+      "coverage_end": "2024-05-29T00:00:00Z",
+      "row_count": 22186
+    }
+  ],
+  "decrease_classification_verified": false
+}

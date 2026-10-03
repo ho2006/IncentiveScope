@@ -2,11 +2,25 @@
 
 **After the rebates: who keeps trading?**
 
-A reproducible SQL/Python pipeline for studying DeFi incentive programs through fixed-cohort repeat participation. First case: GMX V2 perpetual trading on Arbitrum.
+A reproducible SQL/Python study of GMX V2 perpetual trading on Arbitrum after the first STIP trading-rebate program.
 
-**Status: working v0.1 pipeline. The included dashboard is synthetic, not GMX research findings.** Real 2024 indexed executions can be fetched without a wallet or API key. The precise STIP earning boundaries, full historical coverage and address-level reward allocations must be verified before publishing final results.
+- **4.31% R30:** 954 of 22,145 campaign accounts reopened/increased during post days 24–30; cumulative30 was 13.53% and sustained two-day R30 was 2.14%.
+- **Observed history matters:** R30 was 3.35% for first-observed campaign addresses and 8.62% for previously observed addresses. These are bounded address-history groups, not newly acquired people or a causal control group.
+- **The result survives a volume sensitivity:** excluding the largest 1% by campaign opening size gives 4.12% R30. Mature-account post/pre activity intensity was 0.559 and net opening-fee intensity was 0.337.
 
-## Run the complete offline example
+![Real activity-definition sensitivity](reports/gmx-stip/figures/robustness.svg)
+
+[Interactive research dashboard](https://ho2006.github.io/IncentiveScope/) · [English research report](reports/gmx-stip/research.md) · [Saved real-data notebook](notebooks/gmx-stip.ipynb) · [Metric JSON](reports/gmx-stip/results.json) · [Frozen input release](https://github.com/ho2006/IncentiveScope/releases/tag/v0.2.0)
+
+**Status: v0.2 real historical case.** The frozen indexed extract contains 907,107 executions across 36 contiguous partitions, from September 20, 2023 through May 29, 2024 (UTC, exclusive end). Local checks and an independent standard-library recount passed. Five March receipts validate selected account/type/size/fee fields; upstream completeness is not independently proven. Dune SQL is source-reviewed but **not executed**. Voluntary30 and trader-level reward unit costs are withheld.
+
+## Inspect without credentials
+
+Clone the repo and open `reports/gmx-stip/index.html`, or use the dashboard link above. The HTML, five SVGs, metric JSON, address cohort CSV and address-day CSV work offline. The history filter affects only the cohort table. No wallet, Dune login, API key or JavaScript dependency is required.
+
+A separate [six-address synthetic example](reports/demo/research.md) tests edge cases; its numbers are not GMX findings.
+
+## Set up and check
 
 Use **PowerShell 7** and Python 3.11 or newer:
 
@@ -16,78 +30,75 @@ Set-Location IncentiveScope
 python -m venv .venv
 & .\.venv\Scripts\python.exe -m pip install -e .
 & .\.venv\Scripts\python.exe checks.py
-& .\.venv\Scripts\python.exe -m incentivescope analyze --config configs/demo.json --input data/sample/trades.csv --manifest data/sample/manifest.json --output reports/demo
-Start-Process .\reports\demo\index.html
 ```
 
-The example deliberately includes non-returners, late entry, a closing-only return, a liquidation, and a limit order created before the campaign ended. Its six cohort addresses and 50% R30 are software checks, **not estimates of actual GMX retention**.
+The only core dependency is DuckDB, pinned in `pyproject.toml`. GitHub Actions runs on Windows with `pwsh` and Python 3.11. Checks cover fixed denominators, window edges, liquidations, old orders, incomplete input, duplicate events, exact fees/rewards, partition publication, missing ADL classification and published-artifact reconciliation.
 
-![Synthetic definition sensitivity](reports/demo/figures/robustness.svg)
+## Exactly recompute the frozen real case
 
-Browse [the generated research note](reports/demo/research.md), [metric JSON](reports/demo/results.json), or the downloadable `reports/demo/index.html` dashboard. The HTML works offline without a server, JavaScript dependencies or external assets. A native filter explores observed-history groups; chart denominators remain fixed.
-
-## Fetch real GMX executions
-
-Start with one historical day to check coverage and volume:
+Download `trades.csv.gz` and `manifest.json` from the [v0.2.0 release](https://github.com/ho2006/IncentiveScope/releases/tag/v0.2.0) into `data/raw/gmx-stip`. `SHA256SUMS.txt` records the release assets. The decompressed CSV must have SHA-256 `76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3`; analysis verifies it automatically.
 
 ```powershell
-& .\.venv\Scripts\python.exe -m incentivescope fetch --config configs/gmx-stip.json --start 2024-03-29T00:00:00Z --end 2024-03-30T00:00:00Z --output data/raw/smoke
+New-Item -ItemType Directory -Force data/raw/gmx-stip | Out-Null
+Invoke-WebRequest https://github.com/ho2006/IncentiveScope/releases/download/v0.2.0/trades.csv.gz -OutFile data/raw/gmx-stip/trades.csv.gz
+Invoke-WebRequest https://github.com/ho2006/IncentiveScope/releases/download/v0.2.0/manifest.json -OutFile data/raw/gmx-stip/manifest.json
+& .\.venv\Scripts\python.exe -c 'import gzip,shutil; from pathlib import Path; p=Path("data/raw/gmx-stip"); f=gzip.open(p/"trades.csv.gz","rb"); o=(p/"trades.csv").open("wb"); shutil.copyfileobj(f,o); o.close(); f.close()'
+& .\.venv\Scripts\python.exe scripts/build_case.py
+Start-Process .\reports\gmx-stip\index.html
 ```
 
-For a bounded probe add `--max-pages 1`. A capped extraction is marked incomplete until the adapter sees a terminal empty page. Analyze refuses incomplete extractions and insufficient post-campaign coverage. A one-day extraction is a source check, not enough data for retention.
+`build_case.py` validates the input, runs the shared SQL, checks the public epoch ledger, and generates findings, tables, figures and the English report from the same `results.json`. The release provides normalized events and provenance; original query-response caches remain local. Source corrections can change a later refetch, so a fresh API snapshot is a different reproduction level.
 
-After checking the scope, fetch the configured historical interval:
+## Refetch from public sources
+
+The [official GMX GraphQL API](https://docs.gmx.io/docs/api/graphql/) and pinned official reward artifacts require no wallet or API key:
 
 ```powershell
-& .\.venv\Scripts\python.exe -m incentivescope fetch --config configs/gmx-stip.json --output data/raw/gmx-stip
-& .\.venv\Scripts\python.exe -m incentivescope analyze --config configs/gmx-stip.json --input data/raw/gmx-stip/trades.csv --manifest data/raw/gmx-stip/manifest.json --output reports/live --exploratory
+& .\.venv\Scripts\python.exe scripts/fetch_history.py --config configs/gmx-stip.json --output data/raw/gmx-stip --workers 3
+& .\.venv\Scripts\python.exe scripts/fetch_rewards.py --output data/raw/rewards
+& .\.venv\Scripts\python.exe scripts/build_case.py
+& .\.venv\Scripts\python.exe scripts/audit_history.py
 ```
 
-`--exploratory` is necessary while `configs/gmx-stip.json` has provisional earning boundaries. Every real exploratory report displays that warning. Do not change the status to verified merely to remove the warning: document the final earning epoch and reconcile the source conflict first.
+History uses ID keyset pagination, finite retries, terminal empty pages and immutable request caches. Interrupted partitions resume from cache; a capped or incomplete extraction fails analysis. Use a new directory if requesting a fresh snapshot; compare its checksum before replacing the frozen case. The independent audit also inspects the anomalous September partition's raw caches, so it requires a full fetch rather than only the release CSV.
 
-Acquisition uses the [GMX official Subsquid GraphQL surface](https://docs.gmx.io/docs/api/graphql/), unique-ID keyset pagination, finite retries and immutable request caches. Re-running the same extraction reuses its raw cache; use a new output directory for a fresh source snapshot. Interrupted runs reuse completed response pages. Raw data and live reports are Git-ignored.
+The reward importer validates all 19 allocation epochs and companion batch totals at an immutable Git revision. [Public epoch evidence](data/evidence/reward-allocations/epoch_summary.csv) totals exactly **4,984,768.849960484548991571 ARB**, across 16,528 recipient addresses. These are published allocations, not verified payment transfers. Receiver overrides prevent a complete original-trader join; no program-wide spend is divided by the retained opening cohort.
 
-Only successful `OrderExecuted` perpetual types 2–7 are normalized. Protocol `account` owns the activity, not the execution sender. Type 7 (liquidation/ADL) does not count as voluntary participation. USD size is converted from the protocol's 30-decimal raw integer; token-denominated fees remain **missing** rather than being treated as USD. Order creation is looked up separately; missing creation records stay unknown.
+[Dune SQL companions](docs/dune.md) use pinned official Spellbook definitions for event-grain and retention cross-checks. They are ready for review/execution after catalog and coverage validation, but no Dune result or published dashboard is claimed.
 
-## What is measured
+## Definitions and interpretation
 
-| Measure | Fixed-cohort definition |
+The earning interval is `[2023-11-15T00:00:01Z, 2024-03-27T00:00:00Z)`. The historical indexer has a strict launch guard; the last earning epoch ends March 27, distinct from the March 29 administrative deadline. See [the boundary evidence](docs/boundary-evidence.md).
+
+| Measure | Window and definition |
 | --- | --- |
-| R30 | At least one successful positive-size opening/increase during post days 24–30 |
-| Cumulative30 | At least one such execution during the first 30 complete post days |
-| Sustained30 | Opening/increase on at least two distinct UTC days in the R30 window |
-| Voluntary30 | Opening/increase or ordinary voluntary decrease during the R30 window |
-| Strict R30 | R30 with an order created after earning ended; withheld if relevant timestamps are missing |
-| R60 | Return during days 54–60; withheld without complete follow-up |
+| Fixed cohort | Successful positive-size opening/increase during the earning window; all nonreturners retained |
+| R30 | At least one opening/increase in `[2024-04-19, 2024-04-26)` UTC |
+| Cumulative30 | At least one in `[2024-03-27, 2024-04-26)` UTC |
+| Sustained30 | At least two distinct opening/increase UTC dates in the R30 window |
+| Strict R30 | R30 with an order created at/after earning end; withheld if relevant creation times are missing |
+| R60 | At least one in `[2024-05-19, 2024-05-26)` UTC |
+| Open-or-decrease30 | Broader candidate measure; may include forced ADL decreases |
+| Voluntary30 | Withheld for this source because the secondary ADL marker is unavailable |
 
-The earning interval is `[S,E)`. If E is not midnight, follow-up begins at the next complete UTC day. All non-returning addresses remain in the denominator. First-observed addresses are not claimed to be new people or newly acquired users. Volume, collateral and LP TVL are not treated as interchangeable retention measures.
+Protocol `account` owns the activity; keeper `tx.from` does not. Zero-size collateral actions and type-7 liquidations do not count as opening participation. ADL may be a type-4 market decrease. Net position fee USD is `(positionFeeAmount - traderDiscountAmount) * collateralTokenPriceMin / 10^30`, after trader discount and before external rebates. It excludes decrease fees in the opening analysis, funding, borrowing, UI fees and gas, and is not protocol revenue.
 
-Three sensitivity cuts are included: entry week/history, top-1% campaign-volume exclusion, and alternative activity definitions. Mature addresses use equal 30-day pre/post intensity windows. Reward unit costs stay unavailable without reconciled address-level earning-epoch allocations. These are historical observational comparisons, not causal CAC or ROI.
+Mature-account intensity uses the same 17,390 addresses and 30 UTC days before/after the end, including inactive days. Three sensitivity cuts cover entry/history, pre-end volume concentration and activity definitions. First-observed history is left-truncated and can include forced decreases. The early post window overlaps Binance Wallet tasks; an earlier Odyssey campaign affects prehistory. These are historical observational findings, not causal CAC, ROI or verified human-user retention.
 
-## Reproduction and evidence
-
-Every input has explicit synthetic status, coverage, completion, row count and SHA-256. Missing or partial data fails closed. The pipeline exports one shared `results.json`, address cohorts, address-day data, five SVG figures and an HTML/Markdown research note. Amount strings are preserved in CSV; ranking uses floating-point USD size, and supplied USD position fees use 12 decimal places.
-
-`checks.py` runs standard-library checks for windows, fixed denominators, old orders, liquidation exclusions, missing fields, invalid amounts, incomplete coverage, duplicate events, pagination, provenance and HTML escaping. GitHub Actions uses PowerShell on Windows.
-
-Source and campaign caveats: [campaign notes](docs/campaign.md). Complete original design: [project plan](docs/PLAN.md).
-
-The one-day [live source check](docs/live-smoke.json) recorded 5,902 normalized execution rows and 1,705 protocol accounts, with complete pagination for that query. This is an acquisition check, not a retention estimate or an independent proof of indexer completeness.
+[Campaign context](docs/campaign.md) · [Five receipt checks](docs/event-validation.md) · [Daily quality and independent recount](docs/data-quality.md) · [Reward attribution](docs/reward-data.md) · [Original plan and completion record](docs/PLAN.md) · [Three-minute interview demo](docs/interview.md)
 
 ## Notebook companion
 
-[research.ipynb](notebooks/research.ipynb) reruns the synthetic analysis using the same SQL and report functions, preserves the input checksum, and contains saved SVG outputs. It adds no separate metric implementation. Optional notebook tooling is separate from the core DuckDB dependency:
+[The real notebook](notebooks/gmx-stip.ipynb) displays the committed snapshot and all five figures by default, with saved outputs. Opt into a full raw recomputation with the environment flag after downloading the input. Both modes are explicitly labelled; notebook packages are optional:
 
 ```powershell
 & .\.venv\Scripts\python.exe -m pip install -e '.[notebook]'
-& .\.venv\Scripts\python.exe scripts/execute_notebook.py
+& .\.venv\Scripts\python.exe scripts/execute_notebook.py notebooks/gmx-stip.ipynb
+$env:INCENTIVESCOPE_RERUN_RAW = '1'
+& .\.venv\Scripts\python.exe scripts/execute_notebook.py notebooks/gmx-stip.ipynb
+Remove-Item Env:INCENTIVESCOPE_RERUN_RAW
 ```
 
-## Next research gates
+## License
 
-1. Reconcile the first and final trading-rebate earning epochs, distinct from payment days.
-2. Acquire the complete cohort/follow-up range; independently check account attribution and representative days.
-3. Reconcile reward allocations and obtain independently specified fee data before adding cost/fee findings.
-4. Write evidence-based English conclusions from the verified real snapshot.
-
-Code and the deliberately synthetic examples are MIT licensed. GMX indexed data and referenced materials retain their source terms; no ownership over third-party data is claimed.
+Project code and synthetic examples are MIT licensed. GMX indexed data, official distribution artifacts and referenced materials retain their original terms and provenance; no ownership over third-party data is claimed. The release redistributes a normalized historical extract with its source manifest.

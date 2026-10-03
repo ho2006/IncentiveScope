@@ -16,6 +16,10 @@ Input SHA-256: `d9263b14cf27032cc82b062c670c02297515430cbd18a3bec85d990bbedf2452
 
 
 
+## Findings
+
+Reward cost: unavailable until address-level earning-epoch allocations can be reconciled.
+
 ## Results
 
 Fixed campaign cohort: **6 addresses**.
@@ -25,6 +29,8 @@ Fixed campaign cohort: **6 addresses**.
 - cumulative30: 66.7% (4/6 addresses).
 
 - sustained30: 16.7% (1/6 addresses).
+
+- open_or_decrease30: 66.7% (4/6 addresses).
 
 - voluntary30: 66.7% (4/6 addresses).
 
@@ -48,7 +54,7 @@ Mature equal-window cohort: 5 addresses. Post/pre activity ratio: N/A; position-
 
 The campaign cohort includes accounts with a successful positive-size opening/increase during the configured earning window. It includes accounts that never return. R30 counts at least one such execution during post days 24–30. Cumulative30 counts a return anywhere within the first 30 complete days. Sustained30 requires two distinct UTC activity dates in the R30 window.
 
-Strict return additionally requires an order created after earning ended; it is withheld when creation timestamps are missing for qualifying R30 events. Liquidation/ADL, collateral-only changes and cancelled orders are excluded. Ordinary voluntary decreases appear only in the broader metric.
+Strict return additionally requires an order created after earning ended; it is withheld when creation timestamps are missing for qualifying R30 events. Liquidations, collateral-only changes and cancelled orders are excluded from opening-only metrics. Open-or-decrease30 is a broader candidate measure. Voluntary30 is withheld when ADL decreases cannot be independently separated.
 
 Entry-week and observed-history groups reveal exposure differences. Top-1% exclusion ranks on campaign-period size only, with a ceiling rule and account tie-break. These are sensitivity checks, not a randomized control group.
 
@@ -70,7 +76,9 @@ Entry-week and observed-history groups reveal exposure differences. Top-1% exclu
 
 ## Operating implications
 
-For synthetic data, these are pipeline checks only. For real exploratory data, conclusions remain conditional on earning-boundary verification. Evaluate repeat participation alongside concentration and fee coverage before changing incentive budgets; no causal ROI is estimated.
+For synthetic data, these are pipeline checks only. For real exploratory data, conclusions remain conditional on earning-boundary verification. For verified historical data, assess sustained participation alongside concentration and fee coverage; observed changes alone do not justify changing incentive budgets. No causal ROI is estimated.
+
+## Evidence
 
 
 

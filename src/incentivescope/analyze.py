@@ -35,7 +35,7 @@ def validate(path: Path, manifest: dict, chain_id: int) -> dict:
     if begin >= end:
         raise ValueError("Invalid coverage interval")
     # ponytail: event keys stay in RAM; use a DuckDB uniqueness query if extracts exceed memory.
-    seen, accounts, count, increases, known_orders = set(), set(), 0, 0, 0
+    seen, accounts, count, increases, known_orders, known_fees = set(), set(), 0, 0, 0, 0
     with path.open(encoding="utf-8", newline="") as stream:
         reader = csv.DictReader(stream)
         if not reader.fieldnames or set(FIELDS) - set(reader.fieldnames):
@@ -75,10 +75,14 @@ def validate(path: Path, manifest: dict, chain_id: int) -> dict:
             if row["success"] == "true" and row["action"] == "increase" and size > 0:
                 increases += 1
                 known_orders += created is not None
+                known_fees += fee is not None
     if count != manifest.get("row_count"):
         raise ValueError("Manifest row count differs from CSV")
     return {"row_count": count, "unique_accounts": len(accounts),
-            "order_created_coverage": known_orders / increases if increases else None, "notes": []}
+            "qualifying_increases": increases, "known_order_creations": known_orders,
+            "known_position_fees": known_fees,
+            "order_created_coverage": known_orders / increases if increases else None,
+            "position_fee_coverage": known_fees / increases if increases else None, "notes": []}
 
 
 def analyze(config: dict, input_path: Path, manifest_path: Path, output_dir: Path,
@@ -114,6 +118,9 @@ def analyze(config: dict, input_path: Path, manifest_path: Path, output_dir: Pat
         db.execute("CREATE TABLE parameters AS SELECT ?::TIMESTAMP AS start_time, ?::TIMESTAMP AS end_time, ?::TIMESTAMP AS anchor",
                    [value.replace(tzinfo=None) for value in (start, end, anchor)])
         db.execute(Path(__file__).with_name("metrics.sql").read_text(encoding="utf-8"))
+        decreases_verified = synthetic or manifest.get("decrease_classification_verified") is True
+        if not decreases_verified:
+            db.execute("UPDATE outcomes SET voluntary30 = NULL")
         columns = [item[0] for item in db.execute("SELECT * FROM outcomes ORDER BY account").description]
         wallets = [dict(zip(columns, row)) for row in db.fetchall()]
         for row in wallets:
@@ -121,8 +128,9 @@ def analyze(config: dict, input_path: Path, manifest_path: Path, output_dir: Pat
                 row[field] = row[field].replace(tzinfo=timezone.utc)
         size = len(wallets)
         summary = {"cohort_size": size}
-        for field in ("r30", "cumulative30", "sustained30", "voluntary30", "strict_r30", "r60"):
+        for field in ("r30", "cumulative30", "sustained30", "open_or_decrease30", "voluntary30", "strict_r30", "r60"):
             available = not (field == "r60" and coverage_end < anchor + timedelta(days=60))
+            available &= not (field == "voluntary30" and not decreases_verified)
             available &= not (field == "strict_r30" and any(row["strict_missing"] for row in wallets))
             summary[field] = proportion(sum(bool(row[field]) for row in wallets), size) if available else None
         kind_label = "new_v2" if manifest.get("history_complete") is True else "first_observed_in_campaign"
@@ -181,6 +189,8 @@ def analyze(config: dict, input_path: Path, manifest_path: Path, output_dir: Pat
             quality["notes"].append("First-observed labels use this extraction window, not complete protocol history.")
         if summary["strict_r30"] is None:
             quality["notes"].append("Strict new-order return is unavailable: order creation timestamps are missing.")
+        if not decreases_verified:
+            quality["notes"].append("Voluntary30 is withheld: this indexer does not expose secondary order type; ADL can be a market decrease. Open-or-decrease30 and first-observed history may include ADL decreases. Opening-only retention is unaffected.")
         quality["notes"].append("Amounts are preserved in source CSV; volume ranking uses floating point, fees use 12 decimal places.")
         results = {"schema_version": 1,
                    "dataset": {"label": manifest.get("label", "GMX indexed execution events"), "is_synthetic": synthetic,

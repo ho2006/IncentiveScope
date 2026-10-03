@@ -44,6 +44,11 @@
       "N": 6,
       "rate": 0.16666666666666666
     },
+    "open_or_decrease30": {
+      "n": 4,
+      "N": 6,
+      "rate": 0.6666666666666666
+    },
     "voluntary30": {
       "n": 4,
       "N": 6,
@@ -436,6 +441,12 @@
       "rate": 0.16666666666666666
     },
     {
+      "label": "open_or_decrease30",
+      "n": 4,
+      "N": 6,
+      "rate": 0.6666666666666666
+    },
+    {
       "label": "voluntary30",
       "n": 4,
       "N": 6,
@@ -469,7 +480,11 @@
   "quality": {
     "row_count": 23,
     "unique_accounts": 9,
+    "qualifying_increases": 18,
+    "known_order_creations": 18,
+    "known_position_fees": 18,
     "order_created_coverage": 1.0,
+    "position_fee_coverage": 1.0,
     "notes": [
       "First-observed labels use this extraction window, not complete protocol history.",
       "Amounts are preserved in source CSV; volume ranking uses floating point, fees use 12 decimal places."
