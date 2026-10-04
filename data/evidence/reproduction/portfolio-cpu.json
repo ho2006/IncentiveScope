@@ -1,0 +1,437 @@
+{
+  "schema_version": 1,
+  "passed": true,
+  "checked_at": "2026-10-04T10:11:07.863786Z",
+  "input_sha256": "76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3",
+  "tested_commit": "a7c87dec0c18d36ef19e5b001a3c0bcddd8753cc",
+  "reference_model_commit": "6a75f1f358ed16d3b81b3c2090aeabc735646c09",
+  "reference_root": "C:\\dev\\hope\\rehearsals\\incentivescope-portfolio-20261004",
+  "candidate_root": "C:\\dev\\hope\\rehearsals\\incentivescope-portfolio-20261004\\reports\\live\\reproduction",
+  "scope": "Full frozen-input CPU analytical replay; rendered prose/figures are not byte comparisons. This checks reproducibility, not independent full-chain completeness or causal identification.",
+  "comparison_policy": {
+    "core_float_tolerance": 1e-12,
+    "tolerance_rule": "math.isclose with equal relative and absolute tolerances; core JSON floats and campaign_volume_usd/position_fee_usd CSV fields only",
+    "ml": "Exact analytical JSON, preprocessing, CSV fields and checkpoint bytes",
+    "excluded_ml_fields": [
+      "provenance.code_commit",
+      "provenance.executed_at",
+      "provenance.platform",
+      "provenance.tracked_worktree_dirty",
+      "artifacts"
+    ],
+    "excluded_artifacts_reason": "Hashes of data/weights are checked directly; figures and rendered reports are presentation outputs.",
+    "maximum_difference_examples_per_check": 20
+  },
+  "reference_environment": {
+    "executed_at": "2026-10-04T07:00:46.322975Z",
+    "input_sha256": "76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3",
+    "manifest_sha256": "a0ee998e84798554d53ec8e0f3253d87a11b224dc04dfac3eb45bf4ded9513c7",
+    "config_sha256": "497b7920111b8e0f735ac46f451563124274682b44a3b40bf33ef6b2f4fb8ad5",
+    "config": {
+      "schema_version": 1,
+      "name": "GMX STIP: opening-return prediction across the earning cutoff",
+      "chain_id": 42161,
+      "is_synthetic": false,
+      "boundary_status": "verified",
+      "campaign_start": "2023-11-15T00:00:01Z",
+      "campaign_end": "2024-03-27T00:00:00Z",
+      "train_as_of": [
+        "2023-11-22T00:00:00Z",
+        "2023-12-06T00:00:00Z",
+        "2023-12-20T00:00:00Z",
+        "2024-01-03T00:00:00Z",
+        "2024-01-17T00:00:00Z"
+      ],
+      "validation_as_of": "2024-02-21T00:00:00Z",
+      "test_as_of": "2024-03-27T00:00:00Z",
+      "expected_counts": [
+        {
+          "as_of": "2023-11-22T00:00:00Z",
+          "n": 2197,
+          "positive": 560
+        },
+        {
+          "as_of": "2023-12-06T00:00:00Z",
+          "n": 4457,
+          "positive": 907
+        },
+        {
+          "as_of": "2023-12-20T00:00:00Z",
+          "n": 6255,
+          "positive": 997
+        },
+        {
+          "as_of": "2024-01-03T00:00:00Z",
+          "n": 8095,
+          "positive": 830
+        },
+        {
+          "as_of": "2024-01-17T00:00:00Z",
+          "n": 11363,
+          "positive": 1221
+        },
+        {
+          "as_of": "2024-02-21T00:00:00Z",
+          "n": 16634,
+          "positive": 1598
+        },
+        {
+          "as_of": "2024-03-27T00:00:00Z",
+          "n": 22145,
+          "positive": 954
+        }
+      ]
+    },
+    "code_commit": "6a75f1f358ed16d3b81b3c2090aeabc735646c09",
+    "tracked_worktree_dirty": false,
+    "source_sha256": {
+      "ml.py": "770a589ea5097be75d92ec762484ac7c019d5f8dec1018e53d99ce1d0ba90c4e",
+      "ml_data.py": "cf93965266ef04f46cde9a613de065a9494f7bbeeabd2b02b90e1a016f231bfd",
+      "ml_models.py": "9aa9a6dacc9e475bf87d7d88106bbce1e78df9ffa1d9bee617be48c1a79654aa",
+      "ml_report.py": "6de6fed7cc782b3f04b262769b1da2c664dd43f131a9b3ff6f478d690fb764a6"
+    },
+    "python": "3.14.4",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "versions": {
+      "incentivescope": "0.3.0",
+      "duckdb": "1.5.6",
+      "torch": "2.14.1+cpu",
+      "numpy": "2.5.3",
+      "scikit-learn": "1.9.1",
+      "matplotlib": "3.11.2"
+    },
+    "device": "cpu",
+    "reproduction_scope": "Same frozen input, code, CPU environment and seeds; cross-platform or CPU/GPU bitwise equivalence is not promised."
+  },
+  "tested_environment": {
+    "executed_at": "2026-10-04T10:10:57.164503Z",
+    "input_sha256": "76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3",
+    "manifest_sha256": "a0ee998e84798554d53ec8e0f3253d87a11b224dc04dfac3eb45bf4ded9513c7",
+    "config_sha256": "497b7920111b8e0f735ac46f451563124274682b44a3b40bf33ef6b2f4fb8ad5",
+    "config": {
+      "schema_version": 1,
+      "name": "GMX STIP: opening-return prediction across the earning cutoff",
+      "chain_id": 42161,
+      "is_synthetic": false,
+      "boundary_status": "verified",
+      "campaign_start": "2023-11-15T00:00:01Z",
+      "campaign_end": "2024-03-27T00:00:00Z",
+      "train_as_of": [
+        "2023-11-22T00:00:00Z",
+        "2023-12-06T00:00:00Z",
+        "2023-12-20T00:00:00Z",
+        "2024-01-03T00:00:00Z",
+        "2024-01-17T00:00:00Z"
+      ],
+      "validation_as_of": "2024-02-21T00:00:00Z",
+      "test_as_of": "2024-03-27T00:00:00Z",
+      "expected_counts": [
+        {
+          "as_of": "2023-11-22T00:00:00Z",
+          "n": 2197,
+          "positive": 560
+        },
+        {
+          "as_of": "2023-12-06T00:00:00Z",
+          "n": 4457,
+          "positive": 907
+        },
+        {
+          "as_of": "2023-12-20T00:00:00Z",
+          "n": 6255,
+          "positive": 997
+        },
+        {
+          "as_of": "2024-01-03T00:00:00Z",
+          "n": 8095,
+          "positive": 830
+        },
+        {
+          "as_of": "2024-01-17T00:00:00Z",
+          "n": 11363,
+          "positive": 1221
+        },
+        {
+          "as_of": "2024-02-21T00:00:00Z",
+          "n": 16634,
+          "positive": 1598
+        },
+        {
+          "as_of": "2024-03-27T00:00:00Z",
+          "n": 22145,
+          "positive": 954
+        }
+      ]
+    },
+    "code_commit": "a7c87dec0c18d36ef19e5b001a3c0bcddd8753cc",
+    "tracked_worktree_dirty": false,
+    "source_sha256": {
+      "ml.py": "770a589ea5097be75d92ec762484ac7c019d5f8dec1018e53d99ce1d0ba90c4e",
+      "ml_data.py": "cf93965266ef04f46cde9a613de065a9494f7bbeeabd2b02b90e1a016f231bfd",
+      "ml_models.py": "9aa9a6dacc9e475bf87d7d88106bbce1e78df9ffa1d9bee617be48c1a79654aa",
+      "ml_report.py": "6de6fed7cc782b3f04b262769b1da2c664dd43f131a9b3ff6f478d690fb764a6"
+    },
+    "python": "3.14.4",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "versions": {
+      "incentivescope": "0.3.0",
+      "duckdb": "1.5.6",
+      "torch": "2.14.1+cpu",
+      "numpy": "2.5.3",
+      "scikit-learn": "1.9.1",
+      "matplotlib": "3.11.2"
+    },
+    "device": "cpu",
+    "reproduction_scope": "Same frozen input, code, CPU environment and seeds; cross-platform or CPU/GPU bitwise equivalence is not promised."
+  },
+  "verifier": {
+    "sha256": "d17948f109770f4a08434309ea7ba71b10b996814d8b308f7f911974342f0675",
+    "python": "3.14.4",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "checks": [
+    {
+      "difference_count": 0,
+      "differences": [],
+      "accepted_float_drift_count": 0,
+      "accepted_float_drift": [],
+      "name": "core_all_analytical_fields",
+      "passed": true
+    },
+    {
+      "difference_count": 0,
+      "differences": [],
+      "accepted_float_drift_count": 0,
+      "accepted_float_drift": [],
+      "name": "ml_all_analytical_fields_and_environment",
+      "passed": true
+    },
+    {
+      "difference_count": 0,
+      "differences": [],
+      "accepted_float_drift_count": 0,
+      "accepted_float_drift": [],
+      "name": "preprocessing",
+      "passed": true
+    },
+    {
+      "rows": 22145,
+      "difference_count": 0,
+      "differences": [],
+      "accepted_float_drift_count": 548,
+      "accepted_float_drift": [
+        {
+          "row": 75,
+          "field": "campaign_volume_usd",
+          "reference": "1133020.4943605685",
+          "candidate": "1133020.4943605687"
+        },
+        {
+          "row": 80,
+          "field": "campaign_volume_usd",
+          "reference": "2302343.3397946456",
+          "candidate": "2302343.339794646"
+        },
+        {
+          "row": 140,
+          "field": "campaign_volume_usd",
+          "reference": "87453.97645777023",
+          "candidate": "87453.97645777024"
+        },
+        {
+          "row": 160,
+          "field": "campaign_volume_usd",
+          "reference": "188892.1684110204",
+          "candidate": "188892.16841102042"
+        },
+        {
+          "row": 183,
+          "field": "campaign_volume_usd",
+          "reference": "69159.96888086281",
+          "candidate": "69159.9688808628"
+        },
+        {
+          "row": 312,
+          "field": "campaign_volume_usd",
+          "reference": "36620.5818924087",
+          "candidate": "36620.58189240871"
+        },
+        {
+          "row": 320,
+          "field": "campaign_volume_usd",
+          "reference": "225649.63663184032",
+          "candidate": "225649.63663184035"
+        },
+        {
+          "row": 337,
+          "field": "campaign_volume_usd",
+          "reference": "210963.93650721552",
+          "candidate": "210963.9365072155"
+        },
+        {
+          "row": 443,
+          "field": "campaign_volume_usd",
+          "reference": "763727.5323428662",
+          "candidate": "763727.5323428661"
+        },
+        {
+          "row": 518,
+          "field": "campaign_volume_usd",
+          "reference": "39065.9855557214",
+          "candidate": "39065.98555572141"
+        },
+        {
+          "row": 546,
+          "field": "campaign_volume_usd",
+          "reference": "386588.49462392065",
+          "candidate": "386588.4946239206"
+        },
+        {
+          "row": 588,
+          "field": "campaign_volume_usd",
+          "reference": "22159.57581237222",
+          "candidate": "22159.575812372223"
+        },
+        {
+          "row": 600,
+          "field": "campaign_volume_usd",
+          "reference": "82544.56883924629",
+          "candidate": "82544.5688392463"
+        },
+        {
+          "row": 632,
+          "field": "campaign_volume_usd",
+          "reference": "4996609.963227779",
+          "candidate": "4996609.96322778"
+        },
+        {
+          "row": 644,
+          "field": "campaign_volume_usd",
+          "reference": "1161523.4024120257",
+          "candidate": "1161523.402412026"
+        },
+        {
+          "row": 669,
+          "field": "campaign_volume_usd",
+          "reference": "1039906.3462426529",
+          "candidate": "1039906.3462426527"
+        },
+        {
+          "row": 715,
+          "field": "campaign_volume_usd",
+          "reference": "1681.151119057619",
+          "candidate": "1681.1511190576193"
+        },
+        {
+          "row": 726,
+          "field": "campaign_volume_usd",
+          "reference": "87928583.44027525",
+          "candidate": "87928583.44027527"
+        },
+        {
+          "row": 739,
+          "field": "campaign_volume_usd",
+          "reference": "1250238.6447735168",
+          "candidate": "1250238.644773517"
+        },
+        {
+          "row": 753,
+          "field": "campaign_volume_usd",
+          "reference": "1194593.6247587074",
+          "candidate": "1194593.6247587076"
+        }
+      ],
+      "name": "wallet_cohorts.csv",
+      "passed": true,
+      "reference_sha256": "d35fa491c39b7f8e32ed1ac38372db5863b3ba5e4abe96701197f8c628d6b556",
+      "candidate_sha256": "a049cb4d3c54a741c65812bac058b01bf486355e78e5bec6670b62fa622733f3"
+    },
+    {
+      "rows": 324448,
+      "difference_count": 0,
+      "differences": [],
+      "accepted_float_drift_count": 0,
+      "accepted_float_drift": [],
+      "name": "wallet_daily.csv",
+      "passed": true,
+      "reference_sha256": "b575bdf0640632bf5dec440260f282ea900ceff31b3d722091a923a0cf8bf352",
+      "candidate_sha256": "b575bdf0640632bf5dec440260f282ea900ceff31b3d722091a923a0cf8bf352"
+    },
+    {
+      "rows": 71146,
+      "difference_count": 0,
+      "differences": [],
+      "accepted_float_drift_count": 0,
+      "accepted_float_drift": [],
+      "name": "features.csv.gz",
+      "passed": true,
+      "reference_sha256": "8ad877e138156e7e2279ca89e17d0a00b32094cc9ce67a2e91b8e9d833c9e743",
+      "candidate_sha256": "8ad877e138156e7e2279ca89e17d0a00b32094cc9ce67a2e91b8e9d833c9e743"
+    },
+    {
+      "rows": 155015,
+      "difference_count": 0,
+      "differences": [],
+      "accepted_float_drift_count": 0,
+      "accepted_float_drift": [],
+      "name": "predictions.csv.gz",
+      "passed": true,
+      "reference_sha256": "ad4bbef9c1a528e1466f3e0a105dfa7b0392d23ee3816aecfa7877721a3cf8ad",
+      "candidate_sha256": "ad4bbef9c1a528e1466f3e0a105dfa7b0392d23ee3816aecfa7877721a3cf8ad"
+    },
+    {
+      "rows": 123,
+      "difference_count": 0,
+      "differences": [],
+      "accepted_float_drift_count": 0,
+      "accepted_float_drift": [],
+      "name": "training_curve.csv",
+      "passed": true,
+      "reference_sha256": "cb890bc5eb3fc9ce3f72c4b02a1f4ece7d8ac318b8d5ba61d890b300c21f5c0e",
+      "candidate_sha256": "cb890bc5eb3fc9ce3f72c4b02a1f4ece7d8ac318b8d5ba61d890b300c21f5c0e"
+    },
+    {
+      "difference_count": 0,
+      "differences": [],
+      "name": "mlp-seed-17.pt",
+      "passed": true,
+      "reference_sha256": "427e6ea75ec3009a180edf4c9b9b288346d8e651c97629394e7c6aa229d3c3ff",
+      "candidate_sha256": "427e6ea75ec3009a180edf4c9b9b288346d8e651c97629394e7c6aa229d3c3ff"
+    },
+    {
+      "difference_count": 0,
+      "differences": [],
+      "name": "mlp-seed-42.pt",
+      "passed": true,
+      "reference_sha256": "50b23d21fa63d05be6e8436c50f4e6da07c469baea4535ad95e6510447896236",
+      "candidate_sha256": "50b23d21fa63d05be6e8436c50f4e6da07c469baea4535ad95e6510447896236"
+    },
+    {
+      "difference_count": 0,
+      "differences": [],
+      "name": "mlp-seed-73.pt",
+      "passed": true,
+      "reference_sha256": "d09509571116673c25267e90168e0161cc81379eb94822000b6b7fd0ea8bfdf5",
+      "candidate_sha256": "d09509571116673c25267e90168e0161cc81379eb94822000b6b7fd0ea8bfdf5"
+    },
+    {
+      "difference_count": 0,
+      "differences": [],
+      "hashes": {
+        "downloaded_input": "76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3",
+        "published_core": "76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3",
+        "regenerated_core": "76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3",
+        "published_ml": "76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3",
+        "regenerated_ml": "76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3"
+      },
+      "name": "input_checksum",
+      "passed": true
+    },
+    {
+      "difference_count": 0,
+      "differences": [],
+      "name": "clean_tested_worktree",
+      "passed": true
+    }
+  ]
+}

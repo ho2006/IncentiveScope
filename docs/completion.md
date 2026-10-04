@@ -1,4 +1,27 @@
-# v0.2 completion record
+# IncentiveScope completion record
+
+## v0.3 portfolio and prediction delivery — October 4, 2026
+
+The application-ready package combines the historical GMX STIP case with a PyTorch participation-prediction experiment. Start with the [English report](https://ho2006.github.io/IncentiveScope/portfolio/), [six-page PDF](https://ho2006.github.io/IncentiveScope/portfolio/research.pdf), [application copy](application.md) and [three/five-minute demonstration](interview.md). The [v0.3.0 release](https://github.com/ho2006/IncentiveScope/releases/tag/v0.3.0) packages the report, tested wheel and reproduction receipts. The separate v0.2.0 release remains the frozen raw-input source.
+
+Delivered prediction research uses 17 pre-cutoff features, five earlier training cutoffs, a later validation cutoff and one final post-rebate holdout. A training-only scaler, fixed seeds 17/42/73, validation-only selection/early stopping and saved checkpoints make the experiment inspectable. The primary seed is 42: test AP **0.3387**, below logistic regression **0.3412** and histogram gradient boosting **0.3403**. Its top 2,215 scores capture 565 of 954 returns. Reliability, validation permutation importance and seen/unseen training-address results are published with the full metrics; no neural-model superiority or incentive-causal claim is made.
+
+The integrated English report joins the research question, event definitions, validation, descriptive results, temporal model comparison and limitations. Its HTML and PDF are backed by a [source/output manifest](../reports/gmx-stip/portfolio/manifest.json). All six PDF pages were rendered and visually inspected; the browser report was checked at desktop and mobile widths. README now provides reviewer, technical, reproduction and interview entry points.
+
+### Actual full CPU reproduction rehearsal
+
+The [session receipt](../data/evidence/reproduction/portfolio-session.json) and [comparison receipt](../data/evidence/reproduction/portfolio-cpu.json) record a successful independent-clone exercise at **`a7c87dec0c18d36ef19e5b001a3c0bcddd8753cc`**, completed **2026-10-04 10:11:07 UTC**. It used PowerShell **7.6.5**, Python **3.14.4**, DuckDB **1.5.6** and PyTorch **2.14.1+cpu**; all **39 checks passed**. The separately created environment installed a built wheel and verified a `site-packages` import, then downloaded and checked the public frozen release input. The final model run recorded a clean tracked worktree.
+
+- Core analytical JSON matched exactly: **22,145 addresses / 954 R30 positives**. All **324,448** daily-export rows matched exactly.
+- The **22,145-row** core cohort export had **548** accepted floating USD-field differences under the explicit `1e-12` relative/absolute policy, with no other differences. Counts and labels require exact equality.
+- All **71,146 feature rows**, **155,015 prediction rows**, preprocessing parameters and **123 training-curve rows** matched exactly. Their corresponding saved data hashes and all **three PyTorch checkpoint hashes** matched.
+- Both notebook copies executed in saved-result inspection mode, following the separate raw CLI rebuild and full CPU retraining. Their execution is not presented as notebook retraining.
+
+Earlier attempts caught Windows Git newline conversion of frozen evidence. `.gitattributes` now preserves hashed bytes, and checks cover the reward ledger, sample input, Dune probe and CUDA probe sources. The final successful attempt reused its own environment after these repairs; installation may use download caches. The 51.375-second training stage is a local recorded timing, not a cold-start or cross-machine benchmark. No expected analytical result was changed to obtain a pass.
+
+The optional RTX 5060 Ti probe separately checks synthetic CUDA training and checkpoint reloads. It is not a full-dataset GPU benchmark. Dune execution remains unavailable; reward allocations are not payment verification, and the study still has no causal control group or complete historical chain/indexer audit.
+
+## v0.2 historical case delivery — October 3, 2026
 
 Recorded October 3, 2026. This is a historical 2023–2024 study, not current GMX monitoring.
 

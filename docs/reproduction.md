@@ -99,4 +99,19 @@ PDF export embeds Windows Segoe UI fonts and uses existing SVG/PNG evidence. Aft
 
 ## Recorded rehearsal
 
-The actual outcome is recorded after the exercise in [the completion record](completion.md). Read the committed session/comparison receipts; do not infer completion from this runbook's commands.
+On **October 4, 2026**, the independent-clone rehearsal passed at commit [`a7c87de`](https://github.com/ho2006/IncentiveScope/commit/a7c87dec0c18d36ef19e5b001a3c0bcddd8753cc). The [executed session](../data/evidence/reproduction/portfolio-session.json) and [analytical comparison](../data/evidence/reproduction/portfolio-cpu.json) are the unedited receipts. The final model run recorded a clean tracked worktree.
+
+The exercise created its own Python environment, installed a built `0.3.0` wheel, downloaded the public input release and passed **39 checks**. The successful final attempt reused that environment after earlier attempts exposed Windows checkout line-ending problems. Frozen evidence is now protected by `.gitattributes` and hash checks; no expectation or recorded model score was changed to pass. This is not a cold-cache timing result.
+
+| Rebuilt output | Actual comparison |
+| --- | --- |
+| Core analytical JSON | Exact; cohort 22,145 and R30 numerator 954 |
+| Core daily export | All 324,448 rows exact |
+| Core cohort export | 22,145 rows; 548 floating USD-field differences within `1e-12`; no other differences |
+| ML analytical JSON / environment | Exact matching fields; Python 3.14.4, PyTorch 2.14.1+cpu |
+| Features / predictions | 71,146 / 155,015 rows; exact fields and compressed file hashes |
+| Preprocessing / training curve | Exact; 123 epoch rows |
+| PyTorch checkpoints | All three seeds' SHA-256 hashes exact |
+| Notebooks | Both copied notebooks executed successfully in saved-result inspection mode |
+
+The final session's CPU training took 51.375 seconds on this machine; its seven stages ran from 10:09:29 to 10:11:07 UTC. These are recorded local timings with reused downloads/dependencies, not a portable performance claim. The published model reference was produced at `6a75f1f`; its four ML source-file hashes match the tested commit. See [the completion record](completion.md) for the delivered scope and remaining evidence limits.

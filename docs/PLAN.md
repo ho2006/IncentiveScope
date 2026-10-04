@@ -8,7 +8,7 @@
 
 英文案例题目：**After the Rebates: Trader Retention on GMX V2 Following Arbitrum STIP**。
 
-本文件保留 2026-10-02 的原始实施规划；下列建议与估算不是实际用时记录。2026-10-03 已完成真实历史案例、冻结输入、独立复算、五张图、英文报告与 notebook。最新结果和执行状态以 README 与 docs/completion.md 为准。Dune 查询尚未执行；自愿减仓口径和逐交易账户奖励成本按证据条件保留为空。
+本文件保留 2026-10-02 的原始实施规划；下列建议与估算不是实际用时记录。2026-10-04 已完成真实历史案例、PyTorch 严格时间回测、整合英文报告与六页 PDF、投递文案、3/5 分钟演示，以及通过 39 项检查的独立克隆 CPU 复现演练。实际结果见 [README](../README.md)、[完成记录](completion.md) 与 [演练收据](../data/evidence/reproduction/portfolio-cpu.json)。Dune 查询尚未执行；自愿减仓口径和逐交易账户奖励成本按证据条件保留为空。
 
 **1. 项目要证明什么**
 

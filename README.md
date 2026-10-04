@@ -13,8 +13,10 @@ An open-source research portfolio connecting on-chain event interpretation, SQL/
 | Read the complete English research story | [Web report](https://ho2006.github.io/IncentiveScope/portfolio/) · [PDF](https://ho2006.github.io/IncentiveScope/portfolio/research.pdf) · [Markdown source](docs/portfolio-report.md) |
 | Explore definitions, cohorts and sensitivity | [Participation dashboard](https://ho2006.github.io/IncentiveScope/) |
 | Review the PyTorch experiment and baselines | [Prediction dashboard](https://ho2006.github.io/IncentiveScope/ml/) · [ML notebook](notebooks/retention-ml.ipynb) |
-| Reproduce from frozen data | [PowerShell 7 runbook](docs/reproduction.md) · [Input release](https://github.com/ho2006/IncentiveScope/releases/tag/v0.2.0) |
+| Reproduce from frozen data | [PowerShell 7 runbook](docs/reproduction.md) · [Passed CPU replay](data/evidence/reproduction/portfolio-cpu.json) · [Input release](https://github.com/ho2006/IncentiveScope/releases/tag/v0.2.0) |
 | Present or include the project in an application | [3-minute / 5-minute demo](docs/interview.md) · [English application copy](docs/application.md) |
+
+Download the [v0.3.0 portfolio package](https://github.com/ho2006/IncentiveScope/releases/tag/v0.3.0) for the English PDF, tested wheel and replay receipts. See [the changelog](CHANGELOG.md) for delivered scope.
 
 The reports and figures work without credentials. Offline, open `reports/gmx-stip/portfolio/index.html`, `reports/gmx-stip/index.html` or `reports/gmx-stip/ml/index.html` from a clone. The descriptive notebook is [here](notebooks/gmx-stip.ipynb); saved notebooks inspect committed results by default and provide explicit recomputation modes.
 
@@ -68,6 +70,8 @@ For the full frozen-input rebuild, independent ML environment, notebook executio
 ```
 
 The rehearsal downloads about 124 MB of compressed historical input plus Python dependencies; generated outputs remain under ignored `reports/live/reproduction`. It installs a built wheel, retrains on CPU and compares the analytical outputs with the published references. Download caches may be reused. The [runbook](docs/reproduction.md) explains manual steps, the recorded outcome and comparison tolerances. Core-only environments skip optional ML model/report checks; CI runs a separate CPU ML job before publishing Pages.
+
+**Recorded replay, October 4, 2026:** all **39 checks passed** in an independent clone. The core cohort remained 22,145 accounts / 954 R30 returns; 71,146 feature rows, 155,015 prediction rows, preprocessing, training curves and all three PyTorch checkpoint hashes matched exactly. The core address export had 548 floating USD-field differences accepted within the stated `1e-12` tolerance. See the [session](data/evidence/reproduction/portfolio-session.json) and [comparison](data/evidence/reproduction/portfolio-cpu.json) receipts. This validates the frozen-input CPU experiment.
 
 ## Research boundaries
 

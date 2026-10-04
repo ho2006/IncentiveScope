@@ -65,7 +65,9 @@ Explain that the later frozen indexer extract enables an event-time backtest. Hi
 
 > The frozen normalized CSV is identified by SHA-256. The CPU dependency lock, feature order, preprocessing parameters, source hashes and experiment seeds travel with the result. The publication audit independently recalculates metrics from exported predictions and verifies artifact hashes. The training code restores the best validation checkpoint and checks saved-weight replay. The core environment remains usable without PyTorch; a separate CPU ML CI job gates publication alongside the core checks.
 
-Describe the actual recorded rehearsal outcome shown in the receipt, including any remaining differences. Full training can be demonstrated separately from the timed presentation.
+> I also rehearsed the complete frozen-input pipeline in an independent clone with an installed wheel. All 39 checks passed; the 71,146 feature rows, 155,015 prediction rows and all three model checkpoint hashes matched exactly. The core cohort remained 22,145 accounts with 954 returns. The core address export had 548 floating USD-field differences within a declared `1e-12` tolerance, which the receipt records rather than hiding.
+
+Open the [session](../data/evidence/reproduction/portfolio-session.json) and [comparison](../data/evidence/reproduction/portfolio-cpu.json) receipts. Notebook execution inspected saved results; the CLI separately rebuilt raw-data metrics and retrained the models. Full training can be demonstrated separately from the timed presentation.
 
 ## Technical follow-up routes
 

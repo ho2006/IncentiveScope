@@ -22,7 +22,7 @@ Use these bullets where they accurately describe your contribution to the projec
 
 - Built IncentiveScope, a reproducible SQL/Python study of 907,107 GMX V2 indexed executions on Arbitrum; fixed a 22,145-account campaign cohort and measured 4.31% R30 opening participation after STIP rebates ended, with independent count reconciliation and selected on-chain receipt checks.
 - Implemented a PyTorch MLP and four reference methods using 17 pre-cutoff behavioral features and a strict temporal holdout; the primary MLP achieved test Average Precision of 0.3387 and captured 565 of 954 returns in its top 10% ranking, while reporting stronger traditional baselines and probability overprediction.
-- Published interactive research dashboards, executed notebooks, frozen input hashes, predictions and saved weights; separated event-time prediction from incentive causality and documented data-quality, fee-semantics and reward-attribution limits.
+- Published research dashboards, notebooks, predictions and saved weights; validated an independent-clone CPU replay with 39 passing checks and exact feature, prediction and checkpoint hashes, while documenting data-quality and attribution limits.
 
 **One-line version:** Built IncentiveScope, an open-source SQL/Python/PyTorch analysis of 907,107 GMX V2 executions, combining independently reconciled incentive-participation metrics with temporal prediction benchmarks and publicly inspectable research artifacts.
 

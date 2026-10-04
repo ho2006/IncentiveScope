@@ -1,0 +1,46 @@
+{
+  "powershell": "7.6.5",
+  "finished_at": "2026-10-04T10:11:07.9547862Z",
+  "scope": "Independent clone, new Python environment, release download, installed wheel, CPU retraining, saved notebook execution, analytical comparison; pip cache may be reused.",
+  "tested_commit": "a7c87dec0c18d36ef19e5b001a3c0bcddd8753cc",
+  "passed": true,
+  "schema_version": 1,
+  "started_at": "2026-10-04T10:09:29.9372026Z",
+  "steps": [
+    {
+      "name": "python-environment",
+      "passed": true,
+      "seconds": 5.059
+    },
+    {
+      "name": "frozen-release-download",
+      "passed": true,
+      "seconds": 9.411
+    },
+    {
+      "name": "checks",
+      "passed": true,
+      "seconds": 11.426
+    },
+    {
+      "name": "core-rebuild",
+      "passed": true,
+      "seconds": 13.611
+    },
+    {
+      "name": "cpu-ml-retrain",
+      "passed": true,
+      "seconds": 51.375
+    },
+    {
+      "name": "saved-notebook-inspection",
+      "passed": true,
+      "seconds": 3.859
+    },
+    {
+      "name": "analytical-comparison",
+      "passed": true,
+      "seconds": 3.258
+    }
+  ]
+}
