@@ -9,16 +9,22 @@ $PSNativeCommandUseErrorActionPreference = $true
 $Root = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $Root
 $OutputPath = [IO.Path]::GetFullPath($Output, $Root)
-if (-not $OutputPath.StartsWith($Root + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
-    throw 'Rehearsal output must stay inside this clone.'
+$LiveRoot = [IO.Path]::GetFullPath('reports/live', $Root)
+if (-not $OutputPath.StartsWith($LiveRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) {
+    throw 'Rehearsal output must stay inside ignored reports/live, preserving the reference artifacts.'
 }
 New-Item -ItemType Directory -Force -Path $OutputPath | Out-Null
 $Started = [DateTime]::UtcNow
 $Steps = [Collections.Generic.List[object]]::new()
 function Step([string]$Name, [scriptblock]$Action) {
     $Timer = [Diagnostics.Stopwatch]::StartNew()
-    & $Action
-    $Steps.Add(@{ name = $Name; passed = $true; seconds = [Math]::Round($Timer.Elapsed.TotalSeconds, 3) })
+    try {
+        & $Action
+        $Steps.Add(@{ name = $Name; passed = $true; seconds = [Math]::Round($Timer.Elapsed.TotalSeconds, 3) })
+    } catch {
+        $Steps.Add(@{ name = $Name; passed = $false; seconds = [Math]::Round($Timer.Elapsed.TotalSeconds, 3); error = $_.Exception.Message })
+        throw
+    }
 }
 $Python = Join-Path $Root '.venv-rehearsal/Scripts/python.exe'
 $env:MPLCONFIGDIR = Join-Path $OutputPath 'matplotlib'
