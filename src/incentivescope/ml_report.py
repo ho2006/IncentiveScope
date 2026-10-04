@@ -121,9 +121,10 @@ def figures_ml(results: dict, output_dir: Path) -> dict[str, Path]:
         for row in models:
             curve = row["test"]["pr_curve"]
             if curve["recall"]:
-                ax.plot(curve["recall"], curve["precision"], color=COLORS.get(row["name"], "#65747b"),
-                        linestyle="--" if row["name"] in {"constant", "recency"} else "-", linewidth=1.8,
-                        label=f"{label(row['name'])} · AP {row['test']['average_precision']:.3f}")
+                lines = ax.step(curve["recall"], curve["precision"], where="post", color=COLORS.get(row["name"], "#65747b"),
+                                linestyle="--" if row["name"] in {"constant", "recency"} else "-", linewidth=1.8,
+                                label=f"{label(row['name'])} · AP {row['test']['average_precision']:.3f}")
+                lines[0].set_gid(f"pr-{row['name']}")
         ax.axhline(primary["test"]["prevalence"], color="#172e39", linestyle=":", linewidth=1,
                    label=f"Test prevalence {percent(primary['test']['prevalence'])}")
         ax.set(xlim=(0, 1), ylim=(0, 1), xlabel="Recall · share of all R30 returns", ylabel="Precision · share of ranked addresses returning")
@@ -134,28 +135,43 @@ def figures_ml(results: dict, output_dir: Path) -> dict[str, Path]:
         ax.legend(loc="upper right", fontsize=9, frameon=False)
         save("precision-recall", fig)
 
-        fig, ax = plt.subplots(figsize=(9.2, 5.4), layout="constrained")
+        fig, (ax, evidence) = plt.subplots(1, 2, figsize=(12.8, 6.7), width_ratios=(1.2, 1), layout="constrained")
         # A validation-selected comparator avoids choosing a baseline on final-test scores.
         probability_baseline = max((row for row in models if row["name"] != "pytorch_mlp" and row["test"]["reliability"]),
                                    key=lambda row: row["validation"]["average_precision"] or 0)
-        for row in [probability_baseline, primary]:
+        compared = [probability_baseline, primary]
+        limit = min(1.0, max(.1, max(max(cell["mean_probability"], cell["observed_rate"])
+                                    for row in compared for cell in row["test"]["reliability"]) * 1.15))
+        for row in compared:
             bins = row["test"]["reliability"]
             if bins:
                 ax.plot([cell["mean_probability"] for cell in bins], [cell["observed_rate"] for cell in bins],
                         "o-", color=COLORS.get(row["name"], "#65747b"), linewidth=1.8,
                         markerfacecolor="white" if row["name"] != "pytorch_mlp" else COLORS["pytorch_mlp"],
                         label=label(row["name"]))
-                for index, cell in enumerate(bins):
-                    ax.annotate(f"n={cell['count']:,}", (cell["mean_probability"], cell["observed_rate"]),
-                                xytext=(4, 7 if index % 2 == 0 else -15), textcoords="offset points", fontsize=8,
-                                color=COLORS.get(row["name"], "#65747b"))
-        ax.plot([0, 1], [0, 1], color="#172e39", linestyle=":", linewidth=1, label="Perfect calibration reference")
-        ax.set(xlim=(0, 1), ylim=(0, 1), xlabel="Mean predicted probability in bin", ylabel="Observed R30 return share in bin")
-        ax.set_title("Final-test reliability · counts on each occupied bin\n" + test_window, loc="left", pad=15)
+        ax.plot([0, limit], [0, limit], color="#172e39", linestyle=":", linewidth=1, label="Perfect calibration reference")
+        ax.set(xlim=(0, limit), ylim=(0, limit), xlabel="Mean predicted probability in bin", ylabel="Observed R30 return share in bin")
+        ax.set_title(f"Final-test reliability · focused 0–{limit:.0%} axes\n" + test_window, loc="left", pad=15)
         ax.xaxis.set_major_formatter(PercentFormatter(1))
         ax.yaxis.set_major_formatter(PercentFormatter(1))
         ax.grid(color="#e8efed", linewidth=.7)
         ax.legend(loc="upper left", fontsize=9, frameon=False)
+        evidence.set_axis_off()
+        for row, top in zip(compared, (1.0, .49)):
+            evidence.text(0, top, label(row["name"]), transform=evidence.transAxes,
+                          color=COLORS[row["name"]], weight="bold", fontsize=10, va="top")
+            cells = [[index + 1, f"{cell['mean_probability']:.2%}", f"{cell['observed_rate']:.2%}", f"{cell['count']:,}"]
+                     for index, cell in enumerate(row["test"]["reliability"])]
+            bin_table = evidence.table(cellText=cells, colLabels=["Bin", "Mean score", "Observed", "N"],
+                                       colWidths=[.12, .29, .29, .22], bbox=[0, top - .47, 1, .42], cellLoc="right")
+            bin_table.auto_set_font_size(False)
+            bin_table.set_fontsize(9)
+            for (index, _), cell in bin_table.get_celld().items():
+                cell.set_edgecolor("#d8e2df")
+                cell.set_linewidth(.4)
+                if index == 0:
+                    cell.set_facecolor("#edf2ee")
+                    cell.set_text_props(weight="bold")
         save("reliability", fig)
 
         fig, axes = plt.subplots(1, 2, figsize=(11.2, 4.2), layout="constrained")

@@ -1,4 +1,5 @@
 import importlib.util
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -29,6 +30,7 @@ class MLReportCheck(unittest.TestCase):
                          for prefix in ("opening_count", "active_days", "opening_size_usd", "opening_fee_usd")]
         feature_names += ["days_since_first_observed_opening", "days_since_last_opening", "pre_campaign_opening",
                           "market_count_30d", "top_market_share_30d"]
+        models[0]["test"]["pr_curve"] = {"precision": [.2, 1], "recall": [1, 0], "thresholds": [.2]}
         result = {
             "dataset": {"is_synthetic": True, "sha256": "a" * 64, "coverage_start": "2023-09-20T00:00:00Z",
                         "coverage_end": "2024-05-29T00:00:00Z", "source_url": "javascript:alert(1)"},
@@ -69,6 +71,13 @@ class MLReportCheck(unittest.TestCase):
             for path in svgs:
                 ElementTree.parse(path)
                 self.assertGreater(path.with_suffix(".png").stat().st_size, 1000)
+            tree = ElementTree.parse(output / "figures/precision-recall.svg")
+            curve = tree.find(".//{http://www.w3.org/2000/svg}g[@id='pr-constant']/{http://www.w3.org/2000/svg}path")
+            points = [float(value) for value in re.findall(r"[-+]?(?:\d*\.\d+|\d+)(?:[eE][-+]?\d+)?", curve.attrib["d"])]
+            vertices = list(zip(points[::2], points[1::2]))
+            self.assertGreaterEqual(len(vertices), 3)
+            for (x1, y1), (x2, y2) in zip(vertices, vertices[1:]):
+                self.assertTrue(x1 == x2 or y1 == y2, "Constant PR segments must never imply diagonal discrimination")
 
 
 if __name__ == "__main__":

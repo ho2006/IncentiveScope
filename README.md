@@ -14,6 +14,8 @@ A reproducible SQL/Python study of GMX V2 perpetual trading on Arbitrum after th
 
 **v0.3 extension — retention prediction:** [ML research page](https://ho2006.github.io/IncentiveScope/ml/) · [Method and reproduction](docs/ml.md) · [Saved PyTorch notebook](notebooks/retention-ml.ipynb). Seventeen pre-cutoff features, five model families, three MLP seeds and a strict final time holdout test whether earlier trading predicts later opening return. Neural-network superiority is not an acceptance condition.
 
+The primary MLP's test AP is **0.3387**, versus **0.3412** for logistic regression and **0.3403** for gradient boosting. Its top 2,215 addresses capture **565 of 954 returns (59.22%)**, with **5.92× lift**. Validation selected the MLP, but this final test does not demonstrate a neural-network advantage. Mean MLP probability is 6.48% against 4.31% observed returns; the reliability chart exposes this bias without a calibration refit.
+
 **Status: v0.2 real historical case.** The frozen indexed extract contains 907,107 executions across 36 contiguous partitions, from September 20, 2023 through May 29, 2024 (UTC, exclusive end). Local checks and an independent standard-library recount passed. Five March receipts validate selected account/type/size/fee fields; upstream completeness is not independently proven. Dune SQL is source-reviewed but **not executed**. Voluntary30 and trader-level reward unit costs are withheld.
 
 ## Inspect without credentials

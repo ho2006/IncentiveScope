@@ -59,6 +59,7 @@ def build_samples(config: dict, input_path: Path, manifest_path: Path) -> dict:
     quality = validate(input_path, manifest, int(config["chain_id"]))
     with duckdb.connect() as db:
         db.execute("SET TimeZone='UTC'")
+        db.execute("SET threads=1")
         db.execute("CREATE TABLE raw AS SELECT * FROM read_csv(?, all_varchar=true)", [str(input_path)])
         db.execute("""CREATE TABLE openings AS SELECT lower(account) AS account,
             lower(market) AS market, timestamp::TIMESTAMPTZ::TIMESTAMP AS timestamp,
@@ -142,6 +143,7 @@ def build_samples(config: dict, input_path: Path, manifest_path: Path) -> dict:
     return {
         "schema_version": 1, "rows": rows,
         "feature_names": list(FEATURE_NAMES), "log_features": list(LOG_FEATURES),
+        "feature_sql_threads": 1,
         "split_summary": summaries,
         "training_unique_accounts": len({row["account"] for row in rows if row["split"] == "train"}),
         "campaign": {"start": iso(start), "end": iso(end)},
