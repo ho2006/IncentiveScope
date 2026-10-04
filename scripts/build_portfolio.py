@@ -127,7 +127,10 @@ def render_pdf(content, destination):
             cells = [[Paragraph(inline(cell, pdf=True), styles["ScopeCell"]) for cell in row] for row in value]
             table = Table(cells, colWidths=[doc.width / len(cells[0])] * len(cells[0]), repeatRows=1, hAlign="LEFT")
             table.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#edf3ee")), ("VALIGN", (0, 0), (-1, -1), "TOP"), ("BOTTOMPADDING", (0, 0), (-1, -1), 8), ("TOPPADDING", (0, 0), (-1, -1), 8), ("LINEBELOW", (0, 0), (-1, -1), 0.4, colors.HexColor("#d8e2df"))]))
-            story.extend([KeepTogether([table]), Spacer(1, 12)])
+            prefix = []
+            if story and isinstance(story[-1], Paragraph) and story[-1].style.name == "ScopeH2":
+                prefix.append(story.pop())
+            story.extend([KeepTogether([*prefix, table]), Spacer(1, 12)])
         elif kind == "image":
             alt, url = value
             path = image_path(url)

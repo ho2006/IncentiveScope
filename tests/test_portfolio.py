@@ -37,7 +37,7 @@ class PortfolioCheck(unittest.TestCase):
         self.assertEqual(builder.target("data-quality.md"), builder.REPO + "docs/data-quality.md")
         receipt = json.loads((builder.OUTPUT / "manifest.json").read_text(encoding="utf-8"))
         for path, digest in receipt["source_sha256"].items():
-            self.assertEqual(hashlib.sha256((ROOT / path).read_bytes()).hexdigest(), digest)
+            self.assertEqual(hashlib.sha256((ROOT / path).read_bytes()).hexdigest(), digest, path)
         for row in receipt["files"]:
             path = builder.OUTPUT / row["file"]
             self.assertEqual(path.stat().st_size, row["bytes"])

@@ -4,3 +4,4 @@ reports/gmx-stip/portfolio/** -text
 reports/gmx-stip/results.json -text
 docs/portfolio-report.md -text
 src/incentivescope/ml*.py -text
+*.pdf binary
