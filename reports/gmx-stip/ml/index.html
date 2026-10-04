@@ -1,0 +1,319 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IncentiveScope · Predicting R30 participation</title><style>
+:root{--ink:#172e39;--muted:#56717a;--teal:#147d80;--line:#d8e2df;--paper:#f7f8f3}*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.6 system-ui,sans-serif}a{color:var(--teal)}
+header,main,footer{max-width:1160px;margin:auto;padding:28px}header{padding-top:45px}.brand{font-weight:750;letter-spacing:.1em;font-size:13px}
+h1{font-size:clamp(30px,5vw,50px);line-height:1.12;letter-spacing:-.04em}h2{font-size:23px;line-height:1.3}.sub{color:var(--muted);max-width:900px}
+.badge{padding:12px 16px;background:#fff5dc;border:1px solid #d8ae64;border-radius:8px;font-weight:700}.panel{background:white;border:1px solid var(--line);border-radius:12px;padding:24px;margin-bottom:20px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}.stat{background:white;border:1px solid var(--line);border-radius:12px;padding:20px}.stat strong{display:block;font-size:34px;letter-spacing:-.03em}.stat small{color:var(--muted)}
+.figure{overflow:auto}.figure img{display:block;width:100%;height:auto;min-width:600px}.scroll{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}td,th{padding:10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}caption{text-align:left;margin-bottom:12px;color:var(--muted)}
+code{overflow-wrap:anywhere}pre{white-space:pre-wrap;font-size:12px;background:#edf2ee;padding:16px;border-radius:8px;overflow-wrap:anywhere}.downloads,nav{display:flex;gap:18px;flex-wrap:wrap}details summary{cursor:pointer;font-weight:700}:focus-visible{outline:3px solid #b78331;outline-offset:4px}
+footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line)}@media(max-width:760px){header,main,footer{padding:20px}.stats{grid-template-columns:1fr}.panel{padding:18px}}
+</style></head><body><header><div class="brand">INCENTIVESCOPE / ML RESEARCH NOTE 002</div>
+<h1>Can past trading predict<br>who comes back?</h1><p class="sub">Small PyTorch MLP, traditional baselines and strict time-held-out evaluation of R30 opening participation.</p><div class="badge">HISTORICAL TIME-HOLDOUT RESEARCH · ONE CAMPAIGN</div><p>GMX V2 Arbitrum STIP</p><nav><a href="../index.html">Campaign research</a><a href="#comparison">Model comparison</a><a href="#methods">Methods and features</a><a href="#evidence">Provenance</a></nav></header>
+<main><section class="stats" aria-label="Primary MLP final-test results"><article class="stat">Final-test returns<strong>954 / 22,145</strong><small>4.3% prevalence · fixed denominator</small></article><article class="stat">Primary MLP AP<strong>0.3387</strong><small>Seed 42 · full prediction set</small></article><article class="stat">Top 10% lift<strong>5.921×</strong><small>59.2% of R30 returns captured</small></article></section>
+<section class="panel"><h2>What the held-out data shows</h2><ul><li>The final test contains 22,145 addresses and 954 R30 returns (4.3%).</li><li>Primary MLP test AP is 0.3387; Histogram gradient boosting, the strongest baseline by validation AP, has test AP 0.3403.</li><li>The MLP top 10% ranking captures 59.2% of returns, with precision 25.5% and lift 5.921× over test prevalence.</li><li>Model selection used validation AP and selected PyTorch MLP · seed 42. MLP seed 42 was designated before final test evaluation; all three seeds are reported.</li></ul><p>Training conditions and final-test conditions differ. These predictive associations do not establish the effect of rebates.</p></section>
+<section class="panel" id="comparison"><h2>Does the neural network improve prediction?</h2><p class="sub">Same final-test addresses and labels for every method. Ordering uses test AP for display; model selection uses validation AP.</p><div class="figure"><img src="figures/model-comparison.svg" alt="Does the neural network improve prediction?"></div><p class="downloads"><a href="figures/model-comparison.svg">SVG</a><a href="figures/model-comparison.png">PNG</a></p></section><section class="panel" id="ranking"><h2>Precision and recall</h2><p class="sub">AP uses the full prediction set. Exported curves may contain bounded display points; this does not change AP.</p><div class="figure"><img src="figures/precision-recall.svg" alt="Precision and recall"></div><p class="downloads"><a href="figures/precision-recall.svg">SVG</a><a href="figures/precision-recall.png">PNG</a></p></section><section class="panel" id="probabilities"><h2>How reliable are the probabilities?</h2><p class="sub">Counts accompany every occupied plotted bin. The strongest probability baseline by validation AP is compared with the primary MLP; all probability-model bins are available below.</p><div class="figure"><img src="figures/reliability.svg" alt="How reliable are the probabilities?"></div><p class="downloads"><a href="figures/reliability.svg">SVG</a><a href="figures/reliability.png">PNG</a></p></section><section class="panel" id="optimisation"><h2>Training and early stopping</h2><p class="sub">Solid curves show the primary seed. Dotted vertical lines mark each restored best epoch; final-test metrics never drive early stopping.</p><div class="figure"><img src="figures/training.svg" alt="Training and early stopping"></div><p class="downloads"><a href="figures/training.svg">SVG</a><a href="figures/training.png">PNG</a></p></section><section class="panel" id="explanation"><h2>What does the MLP depend on?</h2><p class="sub">Ten validation-set shuffles per feature. Repeat SD describes shuffle variation, not sampling uncertainty or a causal effect.</p><div class="figure"><img src="figures/importance.svg" alt="What does the MLP depend on?"></div><p class="downloads"><a href="figures/importance.svg">SVG</a><a href="figures/importance.png">PNG</a></p></section><section class="panel"><h2>Exact model scores</h2><div class="scroll"><table><caption>Top 10% uses ceiling rounding; tied scores use account order, never labels. AP, ROC-AUC and lift: higher is better. Brier and log loss: lower is better. Recency has ranking scores only.</caption><thead><tr><th scope="col">Model</th><th scope="col">Validation AP</th><th scope="col">Test positive / N</th><th scope="col">Top 10% ranked N</th><th scope="col">AP</th><th scope="col">ROC-AUC</th><th scope="col">Top 10% precision</th><th scope="col">Top 10% recall</th><th scope="col">Top 10% lift</th><th scope="col">Brier</th><th scope="col">Log loss</th></tr></thead><tbody><tr><td>Training prevalence</td><td>0.09607</td><td>954/22,145</td><td>2,215</td><td>0.04308</td><td>0.5</td><td>0.04605</td><td>0.1069</td><td>1.069</td><td>0.05052</td><td>0.2286</td></tr><tr><td>Recent activity ranking</td><td>0.272</td><td>954/22,145</td><td>2,215</td><td>0.2177</td><td>0.8156</td><td>0.2054</td><td>0.4769</td><td>4.768</td><td>N/A</td><td>N/A</td></tr><tr><td>Logistic regression</td><td>0.3874</td><td>954/22,145</td><td>2,215</td><td>0.3412</td><td>0.8503</td><td>0.256</td><td>0.5943</td><td>5.942</td><td>0.03435</td><td>0.136</td></tr><tr><td>Histogram gradient boosting</td><td>0.3877</td><td>954/22,145</td><td>2,215</td><td>0.3403</td><td>0.8543</td><td>0.2528</td><td>0.587</td><td>5.869</td><td>0.03508</td><td>0.1395</td></tr><tr><td>PyTorch MLP · seed 42</td><td>0.3951</td><td>954/22,145</td><td>2,215</td><td>0.3387</td><td>0.8538</td><td>0.2551</td><td>0.5922</td><td>5.921</td><td>0.03476</td><td>0.137</td></tr></tbody></table></div></section><section class="panel"><h2>Addresses seen during parameter training</h2><div class="scroll"><table><caption>Seen = participated in at least one parameter-training cutoff. New = absent from parameter training; validation may include these addresses.</caption><thead><tr><th scope="col">Model</th><th scope="col">Training membership</th><th scope="col">R30 returns / N</th><th scope="col">AP</th><th scope="col">ROC-AUC</th><th scope="col">Top 10% lift</th></tr></thead><tbody><tr><td>Training prevalence</td><td>seen in training</td><td>551/11,363</td><td>0.04849</td><td>0.5</td><td>1.034</td></tr><tr><td>Training prevalence</td><td>new to training</td><td>403/10,782</td><td>0.03738</td><td>0.5</td><td>1.116</td></tr><tr><td>Recent activity ranking</td><td>seen in training</td><td>551/11,363</td><td>0.3203</td><td>0.8538</td><td>5.858</td></tr><tr><td>Recent activity ranking</td><td>new to training</td><td>403/10,782</td><td>0.1776</td><td>0.812</td><td>4.736</td></tr><tr><td>Logistic regression</td><td>seen in training</td><td>551/11,363</td><td>0.3909</td><td>0.8665</td><td>6.257</td></tr><tr><td>Logistic regression</td><td>new to training</td><td>403/10,782</td><td>0.2779</td><td>0.8573</td><td>5.604</td></tr><tr><td>Histogram gradient boosting</td><td>seen in training</td><td>551/11,363</td><td>0.3845</td><td>0.8551</td><td>6.112</td></tr><tr><td>Histogram gradient boosting</td><td>new to training</td><td>403/10,782</td><td>0.2769</td><td>0.8565</td><td>5.43</td></tr><tr><td>PyTorch MLP · seed 42</td><td>seen in training</td><td>551/11,363</td><td>0.3881</td><td>0.8666</td><td>6.131</td></tr><tr><td>PyTorch MLP · seed 42</td><td>new to training</td><td>403/10,782</td><td>0.2715</td><td>0.8592</td><td>5.505</td></tr></tbody></table></div></section><section class="panel"><h2>All fixed MLP seeds</h2><div class="scroll"><table><caption>Primary seed is fixed at 42. This spread is optimisation variation, not a confidence interval.</caption><thead><tr><th scope="col">MLP seed</th><th scope="col">Best epoch</th><th scope="col">Validation AP</th><th scope="col">Test AP</th><th scope="col">Test top 10% lift</th><th scope="col">Test Brier</th></tr></thead><tbody><tr><td>17</td><td>40</td><td>0.3925</td><td>0.3386</td><td>5.795</td><td>0.03494</td></tr><tr><td>42</td><td>28</td><td>0.3951</td><td>0.3387</td><td>5.921</td><td>0.03476</td></tr><tr><td>73</td><td>25</td><td>0.3953</td><td>0.3433</td><td>5.879</td><td>0.03523</td></tr></tbody></table></div></section>
+<section class="panel"><h2>Training-to-test distribution shift</h2><p>Label prevalence is visible in the time-split table. The table below also shows how inactivity changes before each prediction cutoff.</p><div class="scroll"><table><caption>Observed cohort composition at each cutoff. All eligible inactive addresses stay in the experiment.</caption><thead><tr><th scope="col">Use</th><th scope="col">Cutoff UTC</th><th scope="col">No opening in last 30 days / N</th><th scope="col">Share</th><th scope="col">Later returns in inactive group</th><th scope="col">Median days since latest opening</th></tr></thead><tbody><tr><td>train</td><td>2023-11-22T00:00:00Z</td><td>0/2,197</td><td>0.0%</td><td>0</td><td>2.569</td></tr><tr><td>train</td><td>2023-12-06T00:00:00Z</td><td>0/4,457</td><td>0.0%</td><td>0</td><td>4.88</td></tr><tr><td>train</td><td>2023-12-20T00:00:00Z</td><td>605/6,255</td><td>9.7%</td><td>40</td><td>11.84</td></tr><tr><td>train</td><td>2024-01-03T00:00:00Z</td><td>1,926/8,095</td><td>23.8%</td><td>50</td><td>17.52</td></tr><tr><td>train</td><td>2024-01-17T00:00:00Z</td><td>3,674/11,363</td><td>32.3%</td><td>147</td><td>14.89</td></tr><tr><td>validation</td><td>2024-02-21T00:00:00Z</td><td>9,230/16,634</td><td>55.5%</td><td>432</td><td>36.42</td></tr><tr><td>test</td><td>2024-03-27T00:00:00Z</td><td>13,561/22,145</td><td>61.2%</td><td>148</td><td>47.43</td></tr></tbody></table></div></section>
+<section class="panel" id="methods"><h2>Time split and leakage controls</h2><div class="scroll"><table><caption>One address × prediction cutoff. Earlier labels finish before the next evaluation cutoff.</caption><thead><tr><th scope="col">Use</th><th scope="col">Prediction cutoff T (UTC)</th><th scope="col">Label start (inclusive)</th><th scope="col">Label end (exclusive)</th><th scope="col">Samples</th><th scope="col">R30 returns</th></tr></thead><tbody><tr><td>train</td><td>2023-11-22T00:00:00Z</td><td>2023-12-15T00:00:00Z</td><td>2023-12-22T00:00:00Z</td><td>2,197</td><td>560</td></tr><tr><td>train</td><td>2023-12-06T00:00:00Z</td><td>2023-12-29T00:00:00Z</td><td>2024-01-05T00:00:00Z</td><td>4,457</td><td>907</td></tr><tr><td>train</td><td>2023-12-20T00:00:00Z</td><td>2024-01-12T00:00:00Z</td><td>2024-01-19T00:00:00Z</td><td>6,255</td><td>997</td></tr><tr><td>train</td><td>2024-01-03T00:00:00Z</td><td>2024-01-26T00:00:00Z</td><td>2024-02-02T00:00:00Z</td><td>8,095</td><td>830</td></tr><tr><td>train</td><td>2024-01-17T00:00:00Z</td><td>2024-02-09T00:00:00Z</td><td>2024-02-16T00:00:00Z</td><td>11,363</td><td>1,221</td></tr><tr><td>validation</td><td>2024-02-21T00:00:00Z</td><td>2024-03-15T00:00:00Z</td><td>2024-03-22T00:00:00Z</td><td>16,634</td><td>1,598</td></tr><tr><td>test</td><td>2024-03-27T00:00:00Z</td><td>2024-04-19T00:00:00Z</td><td>2024-04-26T00:00:00Z</td><td>22,145</td><td>954</td></tr></tbody></table></div><p>11,363 unique addresses contribute training examples. Cutoff dates, addresses and hashes are tracking fields, not predictors. Scalers fit on training examples only; the validation set selects settings and best epochs and is not added back to training.</p><p>MLP architecture: <code>17 → 32 → 16 → 1</code>, ReLU, dropout 0.1, unweighted BCEWithLogitsLoss and AdamW. Learning rate 0.001, weight decay 0.001, batch size 256, maximum 100 epochs and validation-AP patience 10.</p><details><summary>Feature dictionary and transforms</summary><div class="scroll"><table><caption>All 17 features use only events with timestamp &lt; T. Zero-activity addresses remain eligible.</caption><thead><tr><th scope="col">Exported feature</th><th scope="col">Definition</th><th scope="col">Transform</th></tr></thead><tbody><tr><td>opening_count_7d</td><td>Opening/increase execution count, preceding 7 days; zero if no activity.</td><td>log1p + training-only standardisation</td></tr><tr><td>active_days_7d</td><td>Distinct active UTC days, preceding 7 days; zero if no activity.</td><td>log1p + training-only standardisation</td></tr><tr><td>opening_size_usd_7d</td><td>Sum of opening/increase size, USD, preceding 7 days; zero if no activity.</td><td>log1p + training-only standardisation</td></tr><tr><td>opening_fee_usd_7d</td><td>Net opening position fees after trader discount, USD, preceding 7 days; zero if no activity.</td><td>log1p + training-only standardisation</td></tr><tr><td>opening_count_30d</td><td>Opening/increase execution count, preceding 30 days; zero if no activity.</td><td>log1p + training-only standardisation</td></tr><tr><td>active_days_30d</td><td>Distinct active UTC days, preceding 30 days; zero if no activity.</td><td>log1p + training-only standardisation</td></tr><tr><td>opening_size_usd_30d</td><td>Sum of opening/increase size, USD, preceding 30 days; zero if no activity.</td><td>log1p + training-only standardisation</td></tr><tr><td>opening_fee_usd_30d</td><td>Net opening position fees after trader discount, USD, preceding 30 days; zero if no activity.</td><td>log1p + training-only standardisation</td></tr><tr><td>opening_count_60d</td><td>Opening/increase execution count, preceding 60 days; zero if no activity.</td><td>log1p + training-only standardisation</td></tr><tr><td>active_days_60d</td><td>Distinct active UTC days, preceding 60 days; zero if no activity.</td><td>log1p + training-only standardisation</td></tr><tr><td>opening_size_usd_60d</td><td>Sum of opening/increase size, USD, preceding 60 days; zero if no activity.</td><td>log1p + training-only standardisation</td></tr><tr><td>opening_fee_usd_60d</td><td>Net opening position fees after trader discount, USD, preceding 60 days; zero if no activity.</td><td>log1p + training-only standardisation</td></tr><tr><td>days_since_first_observed_opening</td><td>Days from first observed opening to cutoff; extract-bounded history.</td><td>log1p + training-only standardisation</td></tr><tr><td>days_since_last_opening</td><td>Days from latest observed opening to cutoff.</td><td>log1p + training-only standardisation</td></tr><tr><td>pre_campaign_opening</td><td>1 if an opening was observed before the earning window, else 0.</td><td>Binary / unscaled</td></tr><tr><td>market_count_30d</td><td>Distinct markets with openings in the preceding 30 days.</td><td>log1p + training-only standardisation</td></tr><tr><td>top_market_share_30d</td><td>Largest market&#x27;s share of opening USD size in the preceding 30 days; zero without openings.</td><td>Training-only standardisation</td></tr></tbody></table></div></details></section>
+<section class="panel"><h2>Probability-bin evidence</h2><details><summary>Show all probability models and occupied bins</summary><div class="scroll"><table><caption>All occupied bins are retained. Recency is excluded because its scores are not probabilities.</caption><thead><tr><th scope="col">Model</th><th scope="col">Mean prediction</th><th scope="col">Observed share</th><th scope="col">Bin N</th></tr></thead><tbody><tr><td>Training prevalence</td><td>0.1395</td><td>0.04308</td><td>22,145</td></tr><tr><td>Logistic regression</td><td>0.009212</td><td>0.006772</td><td>2,215</td></tr><tr><td>Logistic regression</td><td>0.01001</td><td>0.009033</td><td>2,214</td></tr><tr><td>Logistic regression</td><td>0.01058</td><td>0.009029</td><td>2,215</td></tr><tr><td>Logistic regression</td><td>0.01209</td><td>0.01626</td><td>2,214</td></tr><tr><td>Logistic regression</td><td>0.02175</td><td>0.004517</td><td>2,214</td></tr><tr><td>Logistic regression</td><td>0.0298</td><td>0.006321</td><td>2,215</td></tr><tr><td>Logistic regression</td><td>0.04027</td><td>0.02033</td><td>2,214</td></tr><tr><td>Logistic regression</td><td>0.05849</td><td>0.03476</td><td>2,215</td></tr><tr><td>Logistic regression</td><td>0.103</td><td>0.06775</td><td>2,214</td></tr><tr><td>Logistic regression</td><td>0.3162</td><td>0.256</td><td>2,215</td></tr><tr><td>Histogram gradient boosting</td><td>0.01803</td><td>0.001515</td><td>1,320</td></tr><tr><td>Histogram gradient boosting</td><td>0.01907</td><td>0.01176</td><td>3,061</td></tr><tr><td>Histogram gradient boosting</td><td>0.02007</td><td>0.006624</td><td>4,378</td></tr><tr><td>Histogram gradient boosting</td><td>0.02524</td><td>0.004619</td><td>1,732</td></tr><tr><td>Histogram gradient boosting</td><td>0.02871</td><td>0.01578</td><td>2,789</td></tr><tr><td>Histogram gradient boosting</td><td>0.04019</td><td>0.01666</td><td>2,221</td></tr><tr><td>Histogram gradient boosting</td><td>0.06548</td><td>0.03761</td><td>2,207</td></tr><tr><td>Histogram gradient boosting</td><td>0.1218</td><td>0.06976</td><td>2,222</td></tr><tr><td>Histogram gradient boosting</td><td>0.3424</td><td>0.2528</td><td>2,215</td></tr><tr><td>PyTorch MLP · seed 42</td><td>0.009016</td><td>0.006772</td><td>2,215</td></tr><tr><td>PyTorch MLP · seed 42</td><td>0.01068</td><td>0.007678</td><td>2,214</td></tr><tr><td>PyTorch MLP · seed 42</td><td>0.01199</td><td>0.009029</td><td>2,215</td></tr><tr><td>PyTorch MLP · seed 42</td><td>0.01762</td><td>0.0131</td><td>2,214</td></tr><tr><td>PyTorch MLP · seed 42</td><td>0.02296</td><td>0.003613</td><td>2,214</td></tr><tr><td>PyTorch MLP · seed 42</td><td>0.02753</td><td>0.009481</td><td>2,215</td></tr><tr><td>PyTorch MLP · seed 42</td><td>0.03972</td><td>0.01807</td><td>2,214</td></tr><tr><td>PyTorch MLP · seed 42</td><td>0.06508</td><td>0.03521</td><td>2,215</td></tr><tr><td>PyTorch MLP · seed 42</td><td>0.1169</td><td>0.07272</td><td>2,214</td></tr><tr><td>PyTorch MLP · seed 42</td><td>0.3269</td><td>0.2551</td><td>2,215</td></tr></tbody></table></div></details></section>
+<section class="panel" id="evidence"><h2>Source and reproducibility</h2><p><a href="https://gmx.squids.live/gmx-synthetics-arbitrum:prod/api/graphql" target="_blank" rel="noopener noreferrer">Indexed execution source</a> · coverage <code>2023-09-20T00:00:00Z → 2024-05-29T00:00:00Z</code></p><p>Frozen input SHA-256: <code>76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3</code></p><details><summary>Recorded versions, code state, transforms and model settings</summary><pre>{
+  &quot;input&quot;: {
+    &quot;label&quot;: &quot;GMX V2 indexed perpetual execution events&quot;,
+    &quot;is_synthetic&quot;: false,
+    &quot;source_url&quot;: &quot;https://gmx.squids.live/gmx-synthetics-arbitrum:prod/api/graphql&quot;,
+    &quot;sha256&quot;: &quot;76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3&quot;,
+    &quot;manifest_sha256&quot;: &quot;a0ee998e84798554d53ec8e0f3253d87a11b224dc04dfac3eb45bf4ded9513c7&quot;,
+    &quot;coverage_start&quot;: &quot;2023-09-20T00:00:00Z&quot;,
+    &quot;coverage_end&quot;: &quot;2024-05-29T00:00:00Z&quot;,
+    &quot;history_complete&quot;: false,
+    &quot;boundary_status&quot;: &quot;verified&quot;,
+    &quot;row_count&quot;: 907107,
+    &quot;notes&quot;: [
+      &quot;Indexed data, not an independent replay of historical deployed contracts.&quot;,
+      &quot;Order types 2–7 only; type 7 liquidations are excluded from opening/increase. ADL may appear as type 4; this surface has no secondaryOrderType, so voluntary-decrease classification is unverified.&quot;,
+      &quot;USD sizeDeltaUsd is scaled by 10^30.&quot;,
+      &quot;Net position fee USD=(positionFeeAmount-traderDiscountAmount)*collateralTokenPriceMin/10^30; missing fields stay unknown. Excludes external rebates, borrowing, funding, UI fees and gas.&quot;,
+      &quot;Missing OrderCreated records remain unknown, never treated as post-campaign creations.&quot;,
+      &quot;Raw response caches are immutable snapshots for this request; use a new directory to refresh.&quot;,
+      &quot;First-observed opening age and pre-campaign activity use the extraction window, not complete protocol history.&quot;,
+      &quot;Features use successful positive-size increases strictly before each cutoff; labels use [cutoff+23 days, cutoff+30 days).&quot;
+    ]
+  },
+  &quot;executed_at&quot;: &quot;2026-10-04T07:00:46.322975Z&quot;,
+  &quot;input_sha256&quot;: &quot;76e4992debf0bf2e60328221c94c840aa97c2c7545550085bcd3e83d09fe61a3&quot;,
+  &quot;manifest_sha256&quot;: &quot;a0ee998e84798554d53ec8e0f3253d87a11b224dc04dfac3eb45bf4ded9513c7&quot;,
+  &quot;config_sha256&quot;: &quot;497b7920111b8e0f735ac46f451563124274682b44a3b40bf33ef6b2f4fb8ad5&quot;,
+  &quot;config&quot;: {
+    &quot;schema_version&quot;: 1,
+    &quot;name&quot;: &quot;GMX STIP: opening-return prediction across the earning cutoff&quot;,
+    &quot;chain_id&quot;: 42161,
+    &quot;is_synthetic&quot;: false,
+    &quot;boundary_status&quot;: &quot;verified&quot;,
+    &quot;campaign_start&quot;: &quot;2023-11-15T00:00:01Z&quot;,
+    &quot;campaign_end&quot;: &quot;2024-03-27T00:00:00Z&quot;,
+    &quot;train_as_of&quot;: [
+      &quot;2023-11-22T00:00:00Z&quot;,
+      &quot;2023-12-06T00:00:00Z&quot;,
+      &quot;2023-12-20T00:00:00Z&quot;,
+      &quot;2024-01-03T00:00:00Z&quot;,
+      &quot;2024-01-17T00:00:00Z&quot;
+    ],
+    &quot;validation_as_of&quot;: &quot;2024-02-21T00:00:00Z&quot;,
+    &quot;test_as_of&quot;: &quot;2024-03-27T00:00:00Z&quot;,
+    &quot;expected_counts&quot;: [
+      {
+        &quot;as_of&quot;: &quot;2023-11-22T00:00:00Z&quot;,
+        &quot;n&quot;: 2197,
+        &quot;positive&quot;: 560
+      },
+      {
+        &quot;as_of&quot;: &quot;2023-12-06T00:00:00Z&quot;,
+        &quot;n&quot;: 4457,
+        &quot;positive&quot;: 907
+      },
+      {
+        &quot;as_of&quot;: &quot;2023-12-20T00:00:00Z&quot;,
+        &quot;n&quot;: 6255,
+        &quot;positive&quot;: 997
+      },
+      {
+        &quot;as_of&quot;: &quot;2024-01-03T00:00:00Z&quot;,
+        &quot;n&quot;: 8095,
+        &quot;positive&quot;: 830
+      },
+      {
+        &quot;as_of&quot;: &quot;2024-01-17T00:00:00Z&quot;,
+        &quot;n&quot;: 11363,
+        &quot;positive&quot;: 1221
+      },
+      {
+        &quot;as_of&quot;: &quot;2024-02-21T00:00:00Z&quot;,
+        &quot;n&quot;: 16634,
+        &quot;positive&quot;: 1598
+      },
+      {
+        &quot;as_of&quot;: &quot;2024-03-27T00:00:00Z&quot;,
+        &quot;n&quot;: 22145,
+        &quot;positive&quot;: 954
+      }
+    ]
+  },
+  &quot;code_commit&quot;: &quot;6a75f1f358ed16d3b81b3c2090aeabc735646c09&quot;,
+  &quot;tracked_worktree_dirty&quot;: false,
+  &quot;source_sha256&quot;: {
+    &quot;ml.py&quot;: &quot;770a589ea5097be75d92ec762484ac7c019d5f8dec1018e53d99ce1d0ba90c4e&quot;,
+    &quot;ml_data.py&quot;: &quot;cf93965266ef04f46cde9a613de065a9494f7bbeeabd2b02b90e1a016f231bfd&quot;,
+    &quot;ml_models.py&quot;: &quot;9aa9a6dacc9e475bf87d7d88106bbce1e78df9ffa1d9bee617be48c1a79654aa&quot;,
+    &quot;ml_report.py&quot;: &quot;6de6fed7cc782b3f04b262769b1da2c664dd43f131a9b3ff6f478d690fb764a6&quot;
+  },
+  &quot;python&quot;: &quot;3.14.4&quot;,
+  &quot;platform&quot;: &quot;Windows-11-10.0.26200-SP0&quot;,
+  &quot;versions&quot;: {
+    &quot;incentivescope&quot;: &quot;0.3.0&quot;,
+    &quot;duckdb&quot;: &quot;1.5.6&quot;,
+    &quot;torch&quot;: &quot;2.14.1+cpu&quot;,
+    &quot;numpy&quot;: &quot;2.5.3&quot;,
+    &quot;scikit-learn&quot;: &quot;1.9.1&quot;,
+    &quot;matplotlib&quot;: &quot;3.11.2&quot;
+  },
+  &quot;device&quot;: &quot;cpu&quot;,
+  &quot;reproduction_scope&quot;: &quot;Same frozen input, code, CPU environment and seeds; cross-platform or CPU/GPU bitwise equivalence is not promised.&quot;,
+  &quot;feature_order&quot;: [
+    &quot;opening_count_7d&quot;,
+    &quot;active_days_7d&quot;,
+    &quot;opening_size_usd_7d&quot;,
+    &quot;opening_fee_usd_7d&quot;,
+    &quot;opening_count_30d&quot;,
+    &quot;active_days_30d&quot;,
+    &quot;opening_size_usd_30d&quot;,
+    &quot;opening_fee_usd_30d&quot;,
+    &quot;opening_count_60d&quot;,
+    &quot;active_days_60d&quot;,
+    &quot;opening_size_usd_60d&quot;,
+    &quot;opening_fee_usd_60d&quot;,
+    &quot;days_since_first_observed_opening&quot;,
+    &quot;days_since_last_opening&quot;,
+    &quot;pre_campaign_opening&quot;,
+    &quot;market_count_30d&quot;,
+    &quot;top_market_share_30d&quot;
+  ],
+  &quot;preprocessing&quot;: {
+    &quot;feature_names&quot;: [
+      &quot;opening_count_7d&quot;,
+      &quot;active_days_7d&quot;,
+      &quot;opening_size_usd_7d&quot;,
+      &quot;opening_fee_usd_7d&quot;,
+      &quot;opening_count_30d&quot;,
+      &quot;active_days_30d&quot;,
+      &quot;opening_size_usd_30d&quot;,
+      &quot;opening_fee_usd_30d&quot;,
+      &quot;opening_count_60d&quot;,
+      &quot;active_days_60d&quot;,
+      &quot;opening_size_usd_60d&quot;,
+      &quot;opening_fee_usd_60d&quot;,
+      &quot;days_since_first_observed_opening&quot;,
+      &quot;days_since_last_opening&quot;,
+      &quot;pre_campaign_opening&quot;,
+      &quot;market_count_30d&quot;,
+      &quot;top_market_share_30d&quot;
+    ],
+    &quot;log_features&quot;: [
+      &quot;opening_count_7d&quot;,
+      &quot;active_days_7d&quot;,
+      &quot;opening_size_usd_7d&quot;,
+      &quot;opening_fee_usd_7d&quot;,
+      &quot;opening_count_30d&quot;,
+      &quot;active_days_30d&quot;,
+      &quot;opening_size_usd_30d&quot;,
+      &quot;opening_fee_usd_30d&quot;,
+      &quot;opening_count_60d&quot;,
+      &quot;active_days_60d&quot;,
+      &quot;opening_size_usd_60d&quot;,
+      &quot;opening_fee_usd_60d&quot;,
+      &quot;days_since_first_observed_opening&quot;,
+      &quot;days_since_last_opening&quot;,
+      &quot;market_count_30d&quot;
+    ],
+    &quot;standardized_features&quot;: [
+      &quot;opening_count_7d&quot;,
+      &quot;active_days_7d&quot;,
+      &quot;opening_size_usd_7d&quot;,
+      &quot;opening_fee_usd_7d&quot;,
+      &quot;opening_count_30d&quot;,
+      &quot;active_days_30d&quot;,
+      &quot;opening_size_usd_30d&quot;,
+      &quot;opening_fee_usd_30d&quot;,
+      &quot;opening_count_60d&quot;,
+      &quot;active_days_60d&quot;,
+      &quot;opening_size_usd_60d&quot;,
+      &quot;opening_fee_usd_60d&quot;,
+      &quot;days_since_first_observed_opening&quot;,
+      &quot;days_since_last_opening&quot;,
+      &quot;market_count_30d&quot;,
+      &quot;top_market_share_30d&quot;
+    ],
+    &quot;mean&quot;: [
+      0.4814281239849265,
+      0.37200732554668103,
+      3.371437561299028,
+      0.7935762668086923,
+      1.1979307516415503,
+      0.9801207368238108,
+      7.07307773557527,
+      1.7501192548488411,
+      1.6038855555660683,
+      1.330711305047056,
+      8.755651980635493,
+      2.2448158856741856,
+      3.3086981047425654,
+      2.357749140880188,
+      0.753975000455954,
+      0.7036456532482114
+    ],
+    &quot;scale&quot;: [
+      0.7557011091018994,
+      0.5234509465028863,
+      4.572580467122647,
+      1.5290363101982751,
+      1.0334410956147335,
+      0.7495056435811397,
+      4.371770686536677,
+      2.005080667341101,
+      1.0630132718249188,
+      0.7705375479068297,
+      3.215513254767298,
+      2.097738020833287,
+      1.02156663233441,
+      1.107372474826354,
+      0.49034407841746586,
+      0.3876558901839774
+    ],
+    &quot;variance&quot;: [
+      0.5710841662978409,
+      0.2740008933947675,
+      20.908492128311565,
+      2.337952037904756,
+      1.0680004981053806,
+      0.5617587097599783,
+      19.112378935661365,
+      4.020348482545035,
+      1.1299972160759186,
+      0.59372811273427,
+      10.339525491584183,
+      4.400504804049557,
+      1.0435983842990673,
+      1.2262737980030443,
+      0.24043731523907388,
+      0.15027708919433194
+    ],
+    &quot;fit_split&quot;: &quot;train&quot;,
+    &quot;fit_row_count&quot;: 32367,
+    &quot;output_dtype&quot;: &quot;float32&quot;
+  },
+  &quot;primary_seed&quot;: 42,
+  &quot;model_configs&quot;: {
+    &quot;constant&quot;: {
+      &quot;train_prevalence&quot;: 0.13949392900176105
+    },
+    &quot;recency&quot;: {
+      &quot;score&quot;: &quot;negative days_since_last_opening&quot;,
+      &quot;ranking_only&quot;: true
+    },
+    &quot;logistic_regression&quot;: {
+      &quot;C&quot;: 10.0,
+      &quot;penalty&quot;: &quot;l2&quot;,
+      &quot;max_iter&quot;: 1000,
+      &quot;validation_candidates&quot;: [
+        {
+          &quot;C&quot;: 0.1,
+          &quot;average_precision&quot;: 0.3869753809162243
+        },
+        {
+          &quot;C&quot;: 1.0,
+          &quot;average_precision&quot;: 0.38735101570154873
+        },
+        {
+          &quot;C&quot;: 10.0,
+          &quot;average_precision&quot;: 0.38742525568512826
+        }
+      ]
+    },
+    &quot;hist_gradient_boosting&quot;: {
+      &quot;max_leaf_nodes&quot;: 7,
+      &quot;learning_rate&quot;: 0.05,
+      &quot;max_iter&quot;: 100,
+      &quot;early_stopping&quot;: false,
+      &quot;random_state&quot;: 42,
+      &quot;validation_candidates&quot;: [
+        {
+          &quot;max_iter&quot;: 100,
+          &quot;average_precision&quot;: 0.387712282963082
+        },
+        {
+          &quot;max_iter&quot;: 200,
+          &quot;average_precision&quot;: 0.3858040407458917
+        }
+      ]
+    },
+    &quot;pytorch_mlp&quot;: {
+      &quot;architecture&quot;: [
+        17,
+        32,
+        16,
+        1
+      ],
+      &quot;activation&quot;: &quot;ReLU&quot;,
+      &quot;dropout&quot;: 0.1,
+      &quot;optimizer&quot;: &quot;AdamW&quot;,
+      &quot;learning_rate&quot;: 0.001,
+      &quot;weight_decay&quot;: 0.001,
+      &quot;loss&quot;: &quot;unweighted BCEWithLogitsLoss&quot;,
+      &quot;batch_size&quot;: 256,
+      &quot;max_epochs&quot;: 100,
+      &quot;patience&quot;: 10
+    }
+  }
+}</pre></details><p class="downloads"><a href="results.json">Results JSON</a><a href="research.md">Research note</a><a href="features.csv.gz">Cutoff feature data</a><a href="predictions.csv.gz">Final-test predictions</a><a href="mlp-seed-42.pt">Primary PyTorch checkpoint</a><a href="artifact-manifest.json">Artifact hashes</a><a href="https://github.com/ho2006/IncentiveScope/blob/main/notebooks/retention-ml.ipynb">Editable notebook</a></p></section>
+<section class="panel"><h2>Interpretation limits</h2><ul><li>This is one historical campaign and one final time holdout; it is not evidence of generalisation across protocols or campaigns.</li><li>Training and validation labels occur while rebates are active. The final test label occurs after rebates end; prevalence and behaviour can shift.</li><li>Repeated addresses occur at different training cutoffs. The final test separately reports addresses present and absent from parameter training.</li><li>Addresses are not people. Keeper senders are not trader accounts; several addresses may belong to one entity.</li><li>The label is a positive-size successful opening or increase in [T + 23 days, T + 30 days), not any return within 30 days.</li><li>Predictions and permutation importance describe associations. They do not estimate the causal effect of incentives or justify targeting interventions.</li><li>Scores are not additionally calibrated. Reliability plots show any probability bias; recency provides ranking scores only.</li><li>Indexed coverage starts on 2023-09-20. First observed opening and pre-campaign history are bounded by this extract, not lifetime history.</li><li>This event-time backtest uses a later frozen indexer snapshot. Historical point-in-time index availability and subsequent corrections were not audited.</li><li>Dune execution and independent cross-source agreement have not been established by this ML study.</li></ul><details><summary>Run notes</summary><ul><li>No validation refit, class reweighting, oversampling or probability calibration.</li><li>All three MLP seeds are reported; seed 42 was fixed as primary before test evaluation.</li><li>Top 10% uses ceil(n * 0.1), with descending score and ascending account for ties.</li><li>AP uses all scores; PR charts retain at most 500 points per curve.</li><li>Permutation importance measures validation predictive association, not causal effects.</li><li>Exact reproducibility applies to the same CPU software environment, not across devices/versions.</li></ul></details></section>
+</main><footer>IncentiveScope · historical observational prediction · cpu reference run; reproducibility is scoped to recorded versions and device.</footer></body></html>
