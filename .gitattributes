@@ -1,2 +1,6 @@
 # Publication receipts hash the exact frozen artifact bytes.
 reports/gmx-stip/ml/** -text
+reports/gmx-stip/portfolio/** -text
+reports/gmx-stip/results.json -text
+docs/portfolio-report.md -text
+src/incentivescope/ml*.py -text

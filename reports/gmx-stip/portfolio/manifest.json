@@ -1,0 +1,24 @@
+{
+  "source_sha256": {
+    "docs/portfolio-report.md": "22751d683dcd3434a044f7f9d90cad16005ee691dec23a2dbabfb48b2c14452e",
+    "reports/gmx-stip/results.json": "51be33a7687859d42e404d8924a28ef39b8a66fc770a32c156ed4d8a518eb7c6",
+    "reports/gmx-stip/ml/results.json": "55c9724a35e30c159b4e8cbbf965ced4f8666d3117a662ec05f6497c80cbf592"
+  },
+  "files": [
+    {
+      "file": "index.html",
+      "sha256": "8eb021dfbaf9a1f4eb2f901fd4efd3e017efadac5348c91de9fa3c510b4462ab",
+      "bytes": 22568
+    },
+    {
+      "file": "research.md",
+      "sha256": "22751d683dcd3434a044f7f9d90cad16005ee691dec23a2dbabfb48b2c14452e",
+      "bytes": 15976
+    },
+    {
+      "file": "research.pdf",
+      "sha256": "18d8e8f49db7a25bced8be2fae5a60c5030f7398fa7c73d615261a319d94d1be",
+      "bytes": 429134
+    }
+  ]
+}

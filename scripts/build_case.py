@@ -1,5 +1,6 @@
 """Recompute the GMX case, attach audited program allocations and render findings."""
 
+import argparse
 import csv
 import hashlib
 import json
@@ -13,7 +14,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
-    output = ROOT / "reports/gmx-stip"
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, default=ROOT / "reports/gmx-stip",
+                        help="Report directory; defaults to the published GMX case")
+    output = parser.parse_args().output
     result = analyze(json.loads((ROOT / "configs/gmx-stip.json").read_text(encoding="utf-8")),
                      ROOT / "data/raw/gmx-stip/trades.csv", ROOT / "data/raw/gmx-stip/manifest.json", output)
     ledger = ROOT / "data/evidence/reward-allocations"

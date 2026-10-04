@@ -129,6 +129,9 @@ def render(results: dict, output_dir: Path) -> None:
                 '<p>Explore the PyTorch retention study: 17 pre-cutoff features, chronological validation, '
                 'traditional baselines and one test after rebates ended.</p>'
                 '<a href="ml/index.html">Open the ML research page →</a></section>') if (output_dir / "ml/index.html").exists() else ""
+    portfolio_entry = ('<p class="downloads"><a href="portfolio/index.html">Read the complete English report</a>'
+                       '<a href="portfolio/research.pdf">Download the PDF</a>'
+                       '<a href="https://github.com/ho2006/IncentiveScope/blob/main/docs/interview.md">Follow the demo</a></p>') if (output_dir / "portfolio/index.html").exists() else ""
     rewards = results.get("reward_allocations")
     comparison_note = results.get("cross_source", {}).get("message", "Independent source agreement has not been established for this result.")
     reward_note = (f"{rewards['epoch_count']} official epochs: {escaped(rewards['total_amount_arb'])} ARB allocated to "
@@ -155,7 +158,7 @@ footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line)}detail
 </style></head><body><header><div class="brand">INCENTIVESCOPE / RESEARCH NOTE 001</div>
 <h1>After the rebates.<br>Who keeps trading?</h1><p class="sub">Fixed-cohort repeat participation with explicit denominators, transparent boundaries and reproducible SQL.</p>
 <div class="badge">$STATUS$</div><p>$CAMPAIGN$</p><div class="meta"><span>$COHORT$ cohort addresses</span><span>UTC coverage: $COVERAGE$</span><span>$SOURCE$</span></div>
-</header><main><section class="stats" aria-label="Fixed-cohort metrics">$CARDS$</section>
+$PORTFOLIOENTRY$</header><main><section class="stats" aria-label="Fixed-cohort metrics">$CARDS$</section>
 <section class="panel" style="margin-top:20px"><h2>What the evidence says</h2><ul>$FINDINGS$</ul><p>$REWARDS$</p></section>
 $MLENTRY$
 <div class="grid"><section class="panel wide"><h2>One timeline, overlapping incentives</h2><p class="sub">Earning windows and reward payment dates are different. Configured boundaries are labelled above.</p><div class="figure">$TIMELINE$</div></section>
@@ -185,7 +188,7 @@ const select=document.getElementById('cohort-filter');select.addEventListener('c
                     "CONCENTRATION": concentration, "MATURE": str(activity["eligibleN"]), "INTENSITY": intensity,
                     "ACTIVITYRATIO": number(activity["activity_ratio"]), "FEERATIO": number(activity["fee_ratio"]),
                     "FINDINGS": findings or "<li>This labelled example demonstrates metric definitions and data checks.</li>",
-                    "REWARDS": reward_note, "EVIDENCE": evidence, "COMPARISON": escaped(comparison_note), "MLENTRY": ml_entry,
+                    "REWARDS": reward_note, "EVIDENCE": evidence, "COMPARISON": escaped(comparison_note), "MLENTRY": ml_entry, "PORTFOLIOENTRY": portfolio_entry,
                     "NOTES": limitations, "CHECKSUM": escaped(data["sha256"]), "DATA": payload}
     import re
     page = re.sub(r"\$([A-Z0-9]+)\$", lambda match: replacements[match.group(1)], page)
