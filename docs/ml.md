@@ -73,6 +73,16 @@ $env:MPLCONFIGDIR = Join-Path $env:TEMP 'incentivescope-matplotlib'
 
 The notebook reads saved results by default. Set `$env:INCENTIVESCOPE_RERUN_ML = '1'` to explicitly retrain through the same CLI, then remove that environment variable. Training is never triggered simply by opening the saved notebook. To use a CUDA environment, install a compatible official CUDA wheel into a separate `.venv-ml-cuda` and explicitly pass `--device cuda`. The installed CPU wheel cannot run CUDA; an unavailable device causes an error. The local RTX 5060 Ti is not used for the published CPU benchmark.
 
+The optional GPU path was also tested on the local RTX 5060 Ti (compute capability 12.0) with Python 3.14.4 and the [official PyTorch 2.14.1+cu130 wheel](https://download.pytorch.org/whl/cu130/torch/). A [recorded synthetic probe](../data/evidence/ml/cuda-smoke.json) ran all three seeds for two epochs on CUDA and reloaded the primary checkpoint on both CPU and GPU. Maximum prediction difference was approximately `5.96e-8`, within the `1e-6` check tolerance. This validates local compatibility; it is separate from the GMX CPU benchmark.
+
+```powershell
+py -3.14 -m venv .venv-ml-cuda
+& .\.venv-ml-cuda\Scripts\python.exe -m pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cu130
+& .\.venv-ml-cuda\Scripts\python.exe -m pip install -e '.[ml]'
+& .\.venv-ml-cuda\Scripts\python.exe scripts/check_cuda.py
+& .\.venv-ml-cuda\Scripts\python.exe -m incentivescope ml --config configs/gmx-stip-ml.json --input data/raw/gmx-stip/trades.csv --manifest data/raw/gmx-stip/manifest.json --output reports/live/ml-cuda --device cuda
+```
+
 Artifacts include raw feature rows, final test predictions for seven runs, split counts/labels, all model metrics and subgroup metrics, preprocessing parameters, candidate validation scores, three training histories and tensor-only PyTorch checkpoints, a feature dictionary, five SVG/PNG figures and the HTML/Markdown report. `results.json` records input/config/source hashes, source commit, device, dependency versions and seeds. `artifact-manifest.json` lists checksums and sizes for completed outputs. Checkpoints load with `weights_only=True` and replay saved predictions.
 
 Single-thread DuckDB feature aggregation and CPU model libraries, deterministic PyTorch algorithms, seeded shuffling and frozen inputs constrain reproduction. Cross-version, cross-platform and CPU/GPU bitwise equality is not promised. Saved predictions support independent metric recount without training. Tests cover temporal boundaries, future-event invariance, missing fees, zero activity, label maturity, forbidden features, training-only scaling, test-isolated fitting and checkpoint replay. A separate standard-library publication audit checks output hashes and independently recounts AP, top-decile and probability metrics from all seven prediction runs. GitHub CI runs the core environment separately from a Python 3.14 CPU ML environment; both gate Pages deployment.
