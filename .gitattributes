@@ -1,2 +1,2 @@
-* text=auto eol=lf
-*.csv -text whitespace=cr-at-eol
+# Publication receipts hash the exact frozen artifact bytes.
+reports/gmx-stip/ml/** -text
