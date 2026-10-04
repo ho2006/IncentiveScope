@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "incentivescope"
-version = "0.2.0"
+version = "0.3.0"
 description = "Reproducible on-chain incentive and repeat-trading research"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -13,6 +13,7 @@ dependencies = ["duckdb==1.5.6"]
 
 [project.optional-dependencies]
 notebook = ["nbformat>=5.10,<6", "nbclient>=0.10,<1", "ipykernel>=6,<8"]
+ml = ["torch==2.14.1", "numpy==2.5.3", "scikit-learn==1.9.1", "matplotlib==3.11.2"]
 
 [project.scripts]
 incentivescope = "incentivescope.__main__:main"

@@ -125,6 +125,10 @@ def render(results: dict, output_dir: Path) -> None:
     source_link = link(data["source_url"], "Open data source")
     findings = "".join(f"<li>{escaped(text)}</li>" for text in results.get("findings", []))
     evidence = "".join(f"<li>{link(row['url'], row['label'])}</li>" for row in results.get("evidence_links", []))
+    ml_entry = ('<section class="panel"><h2>Can past trading predict later return?</h2>'
+                '<p>Explore the PyTorch retention study: 17 pre-cutoff features, chronological validation, '
+                'traditional baselines and one test after rebates ended.</p>'
+                '<a href="ml/index.html">Open the ML research page →</a></section>') if (output_dir / "ml/index.html").exists() else ""
     rewards = results.get("reward_allocations")
     comparison_note = results.get("cross_source", {}).get("message", "Independent source agreement has not been established for this result.")
     reward_note = (f"{rewards['epoch_count']} official epochs: {escaped(rewards['total_amount_arb'])} ARB allocated to "
@@ -153,6 +157,7 @@ footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line)}detail
 <div class="badge">$STATUS$</div><p>$CAMPAIGN$</p><div class="meta"><span>$COHORT$ cohort addresses</span><span>UTC coverage: $COVERAGE$</span><span>$SOURCE$</span></div>
 </header><main><section class="stats" aria-label="Fixed-cohort metrics">$CARDS$</section>
 <section class="panel" style="margin-top:20px"><h2>What the evidence says</h2><ul>$FINDINGS$</ul><p>$REWARDS$</p></section>
+$MLENTRY$
 <div class="grid"><section class="panel wide"><h2>One timeline, overlapping incentives</h2><p class="sub">Earning windows and reward payment dates are different. Configured boundaries are labelled above.</p><div class="figure">$TIMELINE$</div></section>
 <section class="panel wide"><h2>Weekly repeat participation</h2><p class="sub">Same campaign addresses in every denominator; execution dates define activity.</p><div class="figure">$WEEKLY$</div></section>
 <section class="panel wide"><h2>History changes the interpretation</h2><p class="sub">First observed in this window does not imply a newly acquired person.</p><div class="figure">$HISTORY$</div></section>
@@ -180,7 +185,7 @@ const select=document.getElementById('cohort-filter');select.addEventListener('c
                     "CONCENTRATION": concentration, "MATURE": str(activity["eligibleN"]), "INTENSITY": intensity,
                     "ACTIVITYRATIO": number(activity["activity_ratio"]), "FEERATIO": number(activity["fee_ratio"]),
                     "FINDINGS": findings or "<li>This labelled example demonstrates metric definitions and data checks.</li>",
-                    "REWARDS": reward_note, "EVIDENCE": evidence, "COMPARISON": escaped(comparison_note),
+                    "REWARDS": reward_note, "EVIDENCE": evidence, "COMPARISON": escaped(comparison_note), "MLENTRY": ml_entry,
                     "NOTES": limitations, "CHECKSUM": escaped(data["sha256"]), "DATA": payload}
     import re
     page = re.sub(r"\$([A-Z0-9]+)\$", lambda match: replacements[match.group(1)], page)

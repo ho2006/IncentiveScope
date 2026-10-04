@@ -25,6 +25,12 @@ def main() -> int:
     compute.add_argument("--manifest", type=Path, required=True)
     compute.add_argument("--output", type=Path, required=True)
     compute.add_argument("--exploratory", action="store_true", help="Explicitly label unverified real campaign boundaries")
+    learning = subparsers.add_parser("ml", help="Run optional event-time retention modeling and report")
+    learning.add_argument("--config", type=Path, required=True)
+    learning.add_argument("--input", type=Path, required=True)
+    learning.add_argument("--manifest", type=Path, required=True)
+    learning.add_argument("--output", type=Path, required=True)
+    learning.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
     args = parser.parse_args()
     try:
         config = json.loads(args.config.read_text(encoding="utf-8"))
@@ -35,6 +41,9 @@ def main() -> int:
                 config["coverage_end"] = args.end
             manifest = fetch(config, args.output, args.max_pages)
             print(json.dumps({key: manifest[key] for key in ("row_count", "complete", "sha256")}, indent=2))
+        elif args.command == "ml":
+            from .ml import run
+            run(config, args.input, args.manifest, args.output, args.device)
         else:
             results = analyze(config, args.input, args.manifest, args.output, args.exploratory)
             render(results, args.output)

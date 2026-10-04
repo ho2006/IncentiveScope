@@ -33,3 +33,9 @@ Built IncentiveScope, a reproducible SQL/Python study of 22,145 GMX V2 trading a
 - Why do published reward recipients differ from the opening cohort?
 - What would be needed to estimate a causal effect or acquisition cost?
 - What source omissions can local pagination and uniqueness checks fail to detect?
+
+## Optional ML demonstration
+
+Open [the retention-prediction study](https://ho2006.github.io/IncentiveScope/ml/) and compare the primary PyTorch MLP with logistic regression, gradient boosting and recent activity. Show validation-selected configurations before discussing test performance. Explain why all inactive eligible addresses remain, why the scaler only fits training rows, and why seed 42 was fixed before looking at test results. Then show the reliability plot: ranking quality and probability accuracy answer different questions when the positive rate changes after rebates end. Use the published metrics directly, including a baseline win if that is what occurred.
+
+Prepare to explain repeated training addresses, feature leakage from full-campaign aggregates, AP versus trapezoidal PR-AUC, unseen-to-training subgroup meaning, checkpoint replay, correlated-feature permutation importance, and why this event-time experiment is not an incentive causal analysis or audited historical real-time deployment.

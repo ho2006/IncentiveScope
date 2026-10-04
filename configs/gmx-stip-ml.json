@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "name": "GMX STIP: opening-return prediction across the earning cutoff",
+  "chain_id": 42161,
+  "is_synthetic": false,
+  "boundary_status": "verified",
+  "campaign_start": "2023-11-15T00:00:01Z",
+  "campaign_end": "2024-03-27T00:00:00Z",
+  "train_as_of": [
+    "2023-11-22T00:00:00Z",
+    "2023-12-06T00:00:00Z",
+    "2023-12-20T00:00:00Z",
+    "2024-01-03T00:00:00Z",
+    "2024-01-17T00:00:00Z"
+  ],
+  "validation_as_of": "2024-02-21T00:00:00Z",
+  "test_as_of": "2024-03-27T00:00:00Z",
+  "expected_counts": [
+    {"as_of": "2023-11-22T00:00:00Z", "n": 2197, "positive": 560},
+    {"as_of": "2023-12-06T00:00:00Z", "n": 4457, "positive": 907},
+    {"as_of": "2023-12-20T00:00:00Z", "n": 6255, "positive": 997},
+    {"as_of": "2024-01-03T00:00:00Z", "n": 8095, "positive": 830},
+    {"as_of": "2024-01-17T00:00:00Z", "n": 11363, "positive": 1221},
+    {"as_of": "2024-02-21T00:00:00Z", "n": 16634, "positive": 1598},
+    {"as_of": "2024-03-27T00:00:00Z", "n": 22145, "positive": 954}
+  ]
+}

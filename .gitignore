@@ -1,4 +1,6 @@
 .venv/
+.venv-ml/
+.venv-ml-cuda/
 __pycache__/
 *.py[cod]
 *.egg-info/

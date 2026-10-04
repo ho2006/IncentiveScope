@@ -12,6 +12,8 @@ A reproducible SQL/Python study of GMX V2 perpetual trading on Arbitrum after th
 
 [Interactive research dashboard](https://ho2006.github.io/IncentiveScope/) · [English research report](reports/gmx-stip/research.md) · [Saved real-data notebook](notebooks/gmx-stip.ipynb) · [Metric JSON](reports/gmx-stip/results.json) · [Frozen input release](https://github.com/ho2006/IncentiveScope/releases/tag/v0.2.0)
 
+**v0.3 extension — retention prediction:** [ML research page](https://ho2006.github.io/IncentiveScope/ml/) · [Method and reproduction](docs/ml.md) · [Saved PyTorch notebook](notebooks/retention-ml.ipynb). Seventeen pre-cutoff features, five model families, three MLP seeds and a strict final time holdout test whether earlier trading predicts later opening return. Neural-network superiority is not an acceptance condition.
+
 **Status: v0.2 real historical case.** The frozen indexed extract contains 907,107 executions across 36 contiguous partitions, from September 20, 2023 through May 29, 2024 (UTC, exclusive end). Local checks and an independent standard-library recount passed. Five March receipts validate selected account/type/size/fee fields; upstream completeness is not independently proven. Dune SQL is source-reviewed but **not executed**. Voluntary30 and trader-level reward unit costs are withheld.
 
 ## Inspect without credentials
@@ -32,7 +34,23 @@ python -m venv .venv
 & .\.venv\Scripts\python.exe checks.py
 ```
 
-The only core dependency is DuckDB, pinned in `pyproject.toml`. GitHub Actions runs on Windows with `pwsh` and Python 3.11. The 24 checks cover fixed denominators, window edges, liquidations, old orders, incomplete input, duplicate events, exact fees/rewards, partition publication, missing ADL classification, Dune SQL fixtures/export validation and published-artifact reconciliation.
+The only core dependency is DuckDB, pinned in `pyproject.toml`. GitHub Actions runs on Windows with `pwsh` and Python 3.11 for the core workflow, plus a separate Python 3.14 CPU ML job. The original 24 checks cover fixed denominators, window edges, liquidations, old orders, incomplete input, duplicate events, exact fees/rewards, partition publication, missing ADL classification, Dune SQL fixtures/export validation and published-artifact reconciliation. Additional ML checks cover historical features, train-only preprocessing and saved inference. Optional model/report tests skip when ML dependencies are absent.
+
+## Optional PyTorch experiment
+
+After downloading the same frozen input, create an independent Python 3.14 environment:
+
+```powershell
+py -3.14 -m venv .venv-ml
+& .\.venv-ml\Scripts\python.exe -m pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+& .\.venv-ml\Scripts\python.exe -m pip install -e '.[ml,notebook]'
+$env:MPLCONFIGDIR = Join-Path $env:TEMP 'incentivescope-matplotlib'
+& .\.venv-ml\Scripts\python.exe checks.py
+& .\.venv-ml\Scripts\python.exe -m incentivescope ml --config configs/gmx-stip-ml.json --input data/raw/gmx-stip/trades.csv --manifest data/raw/gmx-stip/manifest.json --output reports/gmx-stip/ml --device cpu
+& .\.venv-ml\Scripts\python.exe scripts/execute_notebook.py notebooks/retention-ml.ipynb
+```
+
+The default notebook only reads committed results. Explicitly set `INCENTIVESCOPE_RERUN_ML=1` to retrain. The [method](docs/ml.md) defines each feature, label, split, baseline and interpretation limit. [The full CPU environment lock](requirements-ml-cpu.txt) supports the published run. Training uses 32,367 address-cutoff rows from 11,363 unique addresses; the final test contains 22,145 addresses and 954 positives. Train/validation occur during rebates, test after rebates: performance is predictive association under a period shift, not incentive causal impact.
 
 ## Exactly recompute the frozen real case
 
