@@ -16,6 +16,17 @@ spec.loader.exec_module(builder)
 
 
 class PortfolioCheck(unittest.TestCase):
+    def test_frozen_input_and_reward_receipts_survive_checkout(self):
+        ledger = ROOT / "data/evidence/reward-allocations"
+        row = next(row for row in json.loads((ledger / "manifest.json").read_text(encoding="utf-8"))["files"] if row["file"] == "epoch_summary.csv")
+        self.assertEqual(hashlib.sha256((ledger / row["file"]).read_bytes()).hexdigest(), row["sha256"], row["file"])
+        sample = ROOT / "data/sample"
+        self.assertEqual(hashlib.sha256((sample / "trades.csv").read_bytes()).hexdigest(), json.loads((sample / "manifest.json").read_text(encoding="utf-8"))["sha256"])
+        cuda = json.loads((ROOT / "data/evidence/ml/cuda-smoke.json").read_text(encoding="utf-8"))
+        self.assertEqual(hashlib.sha256((ROOT / "scripts/check_cuda.py").read_bytes()).hexdigest(), cuda["probe_sha256"])
+        dune = json.loads((ROOT / "data/evidence/dune/execution-status.json").read_text(encoding="utf-8"))
+        self.assertEqual(hashlib.sha256((ROOT / dune["probe_sql_path"]).read_bytes()).hexdigest(), dune["probe_sql_sha256"])
+
     def test_authored_links_rendering_and_published_receipt(self):
         for name in ("README.md", "docs/portfolio-report.md", "docs/reproduction.md", "docs/application.md", "docs/interview.md"):
             source = ROOT / name

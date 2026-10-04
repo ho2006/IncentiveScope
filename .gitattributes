@@ -5,4 +5,7 @@ reports/gmx-stip/results.json -text
 docs/portfolio-report.md -text
 src/incentivescope/ml*.py -text
 data/evidence/** -text
+data/sample/** -text
+sql/** -text
+scripts/check_cuda.py -text
 *.pdf binary
